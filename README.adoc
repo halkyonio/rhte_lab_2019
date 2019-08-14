@@ -12,4 +12,7 @@ The Emergency Response demo shows the power of the integrated Red Hat middleware
 . *Lab Setup*
 . *Application Overview*
 
-Link: https://github.com/redhat-gpte-devopsautomation/rhte2019_multi_cloud/blob/master/labguide/A0007%20Multi-Cloud%20OpenShift.adoc#prerequisites
+Links:
+
+- https://github.com/redhat-gpe/rhte2019_Emergency_Response_Quarkus
+- https://github.com/redhat-gpte-devopsautomation/rhte2019_multi_cloud/blob/master/labguide/A0007%20Multi-Cloud%20OpenShift.adoc#prerequisites
