@@ -1,0 +1,15 @@
+= Red Hat Tech Exchange 2019: CND-RUN
+
+*Session Title:*  Simplify ...
+
+*Description:*
+The Emergency Response demo shows the power of the integrated Red Hat middleware portfolio running on OpenShift.  In this technical lab, you will obtain hands-on with this demo and modernize it by migrating an existing Spring Boot service to Quarkus so as to dramatically reduce its runtime footprint and start-up time.  The Emergency Response demo is inspired by the Cajun Navy activities during Hurricane Harvey where the barriers to volunteer community action were dramatically reduced during this crisis.
+
+:numbered:
+
+== Agenda
+
+. *Lab Setup*
+. *Application Overview*
+
+Link: https://github.com/redhat-gpte-devopsautomation/rhte2019_multi_cloud/blob/master/labguide/A0007%20Multi-Cloud%20OpenShift.adoc#prerequisites
