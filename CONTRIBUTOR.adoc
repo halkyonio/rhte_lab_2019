@@ -7,10 +7,10 @@ to git clone the `agnosticd` project and next start the `it.sh` script
 
 Review with the RHTE team, what should be the values to be used for the following parameters:
 
-OCP_CONSOLE:  console-openshift-console.apps.shared-dev.dev.openshift.opentlc.com
-OCP_API:      https://api.shared-dev.dev.openshift.opentlc.com:6443
-TARGET_HOST:  bastion.dev.openshift.opentlc.com
-OCP_USERNAME: ec2-user
+- OCP_CONSOLE:  console-openshift-console.apps.shared-dev.dev.openshift.opentlc.com
+- OCP_API:      https://api.shared-dev.dev.openshift.opentlc.com:6443
+- TARGET_HOST:  bastion.dev.openshift.opentlc.com
+- OCP_USERNAME: ec2-user
 
 Open a terminal and execute the following commands to clone the agnosticd project and
 next to apply the workshop playbook
