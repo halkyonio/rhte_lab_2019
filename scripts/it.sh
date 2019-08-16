@@ -13,21 +13,33 @@ OCP_WORKLOAD="ocp-workload-dekorate-component-operator"
 # HOST_GUID="namur-dfb4"
 # GUID=$HOST_GUID
 # TARGET_HOST="bastion.$HOST_GUID.openshiftworkshop.com"
+prod () {
+  echo "=== PROD env ===="
+  OCP_USERNAME="cmoulliard-redhat.com"
+  HOST_GUID="namur-dfb4"
+  GUID=$HOST_GUID
+  TARGET_HOST="bastion.$HOST_GUID.openshiftworkshop.com"
+}
 
 # Development environment
 #
 # ocp console : console-openshift-console.apps.shared-dev.dev.openshift.opentlc.com
 # ocp api :     https://api.shared-dev.dev.openshift.opentlc.com:6443
 # user: cmoulliard-redhat.com
-TARGET_HOST=bastion.dev.openshift.opentlc.com
-# sudo user
-OCP_USERNAME="ec2-user"
-# OCP_USERNAME="opentlc-mgr"
-
-GUID="snowdroptest"
+dev () {
+  echo "=== DEV env ===="
+  # sudo user
+  OCP_USERNAME="ec2-user"
+  # OCP_USERNAME="opentlc-mgr"
+  GUID="snowdroptest"
+  TARGET_HOST=bastion.dev.openshift.opentlc.com
+}
 
 SSH_USER=$OCP_USERNAME
 SSH_PRIVATE_KEY="id_rsa"
+
+echo "Environment to call"
+prod
 
 ansible-playbook -i $TARGET_HOST, ./scripts/ocp-workload.yml \
     -e "ansible_roles_path=$ANSIBLE_DIR" \
