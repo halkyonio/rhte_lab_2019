@@ -20,7 +20,7 @@ next to apply the workshop playbook
 git clone https://github.com/redhat-cop/agnosticd && cd agnosticd
 git checkout development
 cd ..
-./it.sh agnosticd/ansible/roles
+./scripts/it.sh agnosticd/ansible/roles
 ```
 
 You can ssh to the vm's cluster using the information shared by the RHTE team if your ssh public key has been shared and imported

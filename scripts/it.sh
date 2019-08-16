@@ -29,7 +29,7 @@ GUID="snowdroptest"
 SSH_USER=$OCP_USERNAME
 SSH_PRIVATE_KEY="id_rsa"
 
-ansible-playbook -i $TARGET_HOST, ./ocp-workload.yml \
+ansible-playbook -i $TARGET_HOST, ./scripts/ocp-workload.yml \
     -e "ansible_roles_path=$ANSIBLE_DIR" \
     -e "ansible_ssh_private_key_file=~/.ssh/${SSH_PRIVATE_KEY}" \
     -e "ansible_user=${SSH_USER}" \
