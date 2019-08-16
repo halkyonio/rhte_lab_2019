@@ -1,0 +1,8 @@
+---
+- name: Deploy a workload role on a master host
+  hosts: all
+  become: false
+  gather_facts: False
+  roles:
+    - role: "{{ ansible_roles_path }}/{{ ocp_workload }}"
+      when: ocp_workload is defined

@@ -1,0 +1,27 @@
+= Maintainer
+
+To test the workshop/playbook against an existing OCP Cluster which has been created for this lab, run the following command
+to git clone the `agnosticd` project and next start the `it.sh` script
+
+**Remark**
+Review with the RHTE team, what should be the values to be used for the following parameters:
+OCP_CONSOLE:  console-openshift-console.apps.shared-dev.dev.openshift.opentlc.com
+OCP_API:      https://api.shared-dev.dev.openshift.opentlc.com:6443
+TARGET_HOST:  bastion.dev.openshift.opentlc.com
+OCP_USERNAME: ec2-user
+
+Open a terminal and execute the following commands to clone the agnosticd project and
+next to apply the workshop playbook
+```
+git clone https://github.com/redhat-cop/agnosticd && cd agnosticd
+git checkout development
+cd ..
+./it.sh agnosticd/ansible/roles
+```
+
+You can ssh to the vm's cluster using the information shared by the RHTE team if your ssh public key has been shared and imported
+within the VM
+```
+e.g using the user ec2-user which has sudo password
+ssh ec2-user@bastion.dev.openshift.opentlc.com
+```
