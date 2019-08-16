@@ -33,5 +33,7 @@ ssh ec2-user@bastion.dev.openshift.opentlc.com
 == Useful links
 
 To request the creation of a cluster: https://www.opentlc.com/gg/manager.cgi
+
 To access the cluster created and get the GUID: www.opentlc.com/gg/gg.cgi?profile=generic_tester
+
 To control if creation of the cluster succeeded: https://spp.opentlc.com/miq_request/show_list
