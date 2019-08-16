@@ -1,5 +1,7 @@
 = Maintainer
 
+== How to execute the playbook
+
 To test the workshop/playbook against an existing OCP Cluster which has been created for this lab, run the following command
 to git clone the `agnosticd` project and next start the `it.sh` script
 
@@ -27,3 +29,9 @@ within the VM
 e.g using the user ec2-user which has sudo password
 ssh ec2-user@bastion.dev.openshift.opentlc.com
 ```
+
+== Useful links
+
+To request the creation of a cluster: https://www.opentlc.com/gg/manager.cgi
+To access the cluster created and get the GUID: www.opentlc.com/gg/gg.cgi?profile=generic_tester
+To control if creation of the cluster succeeded: https://spp.opentlc.com/miq_request/show_list
