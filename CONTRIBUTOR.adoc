@@ -6,6 +6,7 @@ to git clone the `agnosticd` project and next start the `it.sh` script
 **Remark**
 
 Review with the RHTE team, what should be the values to be used for the following parameters:
+
 OCP_CONSOLE:  console-openshift-console.apps.shared-dev.dev.openshift.opentlc.com
 OCP_API:      https://api.shared-dev.dev.openshift.opentlc.com:6443
 TARGET_HOST:  bastion.dev.openshift.opentlc.com
