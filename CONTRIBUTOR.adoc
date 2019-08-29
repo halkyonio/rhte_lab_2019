@@ -29,7 +29,7 @@ Example: `./scripts/it.sh agnosticd/ansible/roles create namur-7027 prod`
 
 *WARNING*: Before to execute the ansible playbook, it is needed first to import your public key within the VM using this command:
 ```
-ssh-copy-id -i ~/.ssh/YOUR_SSH_PUBLIC_KEY -n ec2-user@bastion.GUID.openshiftworkshop.com
+ssh-copy-id -i ~/.ssh/YOUR_SSH_PUBLIC_KEY YOUR_USER@bastion.GUID.openshiftworkshop.com
 ```
 
 You can ssh to the vm's cluster using the information shared by the RHTE team if your ssh public key has been shared and imported
