@@ -1,11 +1,14 @@
 #!/bin/sh
 
 #
-#  ./it.sh agnosticd/ansible/roles
+#  ./it.sh agnosticd/ansible/roles ANSIBLE_DIR ACTION GUID ENV
 
 ANSIBLE_DIR=$1
 ACTION=${2:-create}
+GUID=${3:-namur-7027}
+ENV=${4:-prod}
 OCP_WORKLOAD="ocp-workload-dekorate-component-operator"
+SSH_PRIVATE_KEY="id_rsa"
 
 # Prod environment
 # RHPDS
@@ -16,9 +19,9 @@ OCP_WORKLOAD="ocp-workload-dekorate-component-operator"
 prod () {
   echo "=== PROD env ===="
   OCP_USERNAME="cmoulliard-redhat.com"
-  HOST_GUID="namur-dfb4"
+  HOST_GUID=${GUID}
   GUID=$HOST_GUID
-  TARGET_HOST="bastion.$HOST_GUID.openshiftworkshop.com"
+  TARGET_HOST="bastion.$HOST_GUID.open.redhat.com"
 }
 
 # Development environment
@@ -35,20 +38,24 @@ dev () {
   TARGET_HOST=bastion.dev.openshift.opentlc.com
 }
 
+echo "Provision the environment to be used"
+if [ "${ENV}" == "prod" ]; then
+  prod
+else
+  dev
+fi
+
+# Define the user to be used to ssh
 SSH_USER=$OCP_USERNAME
-SSH_PRIVATE_KEY="id_rsa"
 
-echo "Environment to call"
-prod
+# ansible-playbook -i $TARGET_HOST, ./scripts/ocp-workload.yml \
+#     -e "ansible_roles_path=$ANSIBLE_DIR" \
+#     -e "ansible_ssh_private_key_file=~/.ssh/${SSH_PRIVATE_KEY}" \
+#     -e "ansible_user=${OCP_USERNAME}" \
+#     -e "ocp_username=${OCP_USERNAME}" \
+#     -e "ocp_workload=${OCP_WORKLOAD}" \
+#     -e "silent=False" \
+#     -e "guid=${GUID}" \
+#     -e "ACTION=$ACTION" \
+#     -v
 
-ansible-playbook -i $TARGET_HOST, ./scripts/ocp-workload.yml \
-    -e "ansible_roles_path=$ANSIBLE_DIR" \
-    -e "ansible_ssh_private_key_file=~/.ssh/${SSH_PRIVATE_KEY}" \
-    -e "ansible_user=${SSH_USER}" \
-    -e "ocp_username=${OCP_USERNAME}" \
-    -e "ocp_workload=${OCP_WORKLOAD}" \
-    -e "silent=False" \
-    -e "guid=${GUID}" \
-    -e "ACTION=$ACTION" \
-    -e become \
-    -v

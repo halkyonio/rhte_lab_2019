@@ -17,8 +17,9 @@ Review with the RHTE team, what should be the values to be used for the followin
 Open a terminal and execute the following commands to clone the agnosticd project and
 next to apply the workshop playbook
 ```
-git clone https://github.com/redhat-cop/agnosticd && cd agnosticd
+git clone https://github.com/halkyonio/agnosticd.git && cd agnosticd
 git checkout development
+git checkout update-2026
 cd ..
 ./scripts/it.sh agnosticd/ansible/roles
 ```
