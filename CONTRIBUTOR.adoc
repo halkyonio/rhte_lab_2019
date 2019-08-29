@@ -19,7 +19,6 @@ next to apply the workshop playbook
 ```
 git clone https://github.com/halkyonio/agnosticd.git && cd agnosticd
 git checkout development
-git checkout update-2026
 cd ..
 ./scripts/it.sh agnosticd/ansible/roles ACTION GUID ENV
 ```
