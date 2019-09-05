@@ -12,6 +12,8 @@ The Emergency Response demo shows the power of the integrated Red Hat middleware
 . *Lab Setup*
 . *Application Overview*
 
+https://github.com/halrhteus
+
 Links:
 
 - https://docs.google.com/spreadsheets/d/17KgzY9rVragyqsmKg5RIQG_3wgqZ7bd29zEInDk2X_4/edit#gid=153368893
