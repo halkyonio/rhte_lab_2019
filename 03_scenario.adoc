@@ -4,14 +4,17 @@
 
 - Download and install `hal` tool from `https://github.com/halkyonio/hal/releases/tag/v0.1.1`
 - Git clone empty project locally for a lambda user such as `user1` from - https://github.com/halrhteeu/user1
-- Connect to a cluster using your oc client with the RHTE Cluster console URL
-- Create a new namespace
-- Create a new directory and cd to it
+- Connect to a cluster using your oc client with the RHTE Cluster console URL: `oc login <URL>`
+- Create a new namespace: `oc create namespace rhtelab`
+- Create a new directory and cd to it: `mkdir rhtelab && cd rhtelab`
 - Create a new client project using the `client` template in a `fruit-client-sb` directory: `hal component spring-boot fruit-client-sb`
 - Create a new backend project using the `crud` template in a `fruit-backend-sb` directory: `hal component spring-boot fruit-backend-sb`
-- Modify the `application.properties` for the backend and client so that they match the operator demo apps but no need to add link/capability dekorate details (list of what's required here to be defined)
-- Build both projects: `mvn package -f fruit-client-sb,fruit-backend-sb`
-- Push components: `hal component push -t fruit-client-sb,fruit-backend-sb`
+- Build both projects:
+    ```
+    mvn package -f fruit-client-sb
+    mvn package -f fruit-backend-sb -Pkubernetes
+    ```
+- Push components: `hal component push -c fruit-client-sb,fruit-backend-sb`
 - Wait… :(
 - Components should be ready but not working: `kubectl get cp`
 - Create a capability for the `fruit-backend-sb` component: `hal capability` provide the parameters so that it matches the operator demo
