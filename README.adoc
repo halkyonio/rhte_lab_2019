@@ -4,8 +4,25 @@
 
 *Description:*
 
+== Goals
+
+In this lab, you will :
+
+Learn how the deployment of microservices could be simplified on k8s/openshift by adopting Dekorate Tool and delegating to an Operator the responsibility to deal with kubernetes/manifests creation
+Compose & link microservices
+Deploy a capability such as a database and link it to to microservice consuming it
+Code locally and next push/build on k8s/OpenShift
+
+== Agenda
+
+- Dekorate + Operator introduction: 15min (Naina)
+- Instructor message: 5 min (Charles)
+- Play with the Lab: 1h10
+- Debriefing - Q&A (15min)
+
 == Table of Content
 
+. *link:00_prereq.adoc[Pre-requisite]*
 . *link:01_setup.adoc[Lab Setup]*
 . *link:02_application-overview.adoc[Application overview]*
 . *link:03_scenario.adoc[Microservices scenario]*
