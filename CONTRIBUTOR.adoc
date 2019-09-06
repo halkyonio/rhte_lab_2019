@@ -1,5 +1,9 @@
 = Maintainer
 
+== Useful links
+
+- link:https://docs.google.com/spreadsheets/d/17KgzY9rVragyqsmKg5RIQG_3wgqZ7bd29zEInDk2X_4/edit#gid=153368893[RHTE Labs]
+
 == How to execute the playbook
 
 To test the workshop/playbook against an existing OCP Cluster which has been created for this lab, run the following command
