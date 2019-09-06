@@ -6,7 +6,7 @@
 
 == Agenda
 
-. *link:setup[Lab Setup]*
+. *link:setup.adoc[Lab Setup]*
 . *link:application-overview[Application overview]*
 . *link:scenario[Microservices scenario]*
 
