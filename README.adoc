@@ -8,13 +8,11 @@
 
 == Agenda
 
-. *link:./setup.md[Lab Setup]*
-. *Application Overview*
+. *link:setup.md[Lab Setup]*
+. *link:application-overview.md[Application overview]*
 
 https://github.com/halrhteus
 
-Links:
+== Usefull links
 
-- https://docs.google.com/spreadsheets/d/17KgzY9rVragyqsmKg5RIQG_3wgqZ7bd29zEInDk2X_4/edit#gid=153368893
-- https://github.com/redhat-gpe/rhte2019_Emergency_Response_Quarkus
-- https://github.com/redhat-gpte-devopsautomation/rhte2019_multi_cloud/blob/master/labguide/A0007%20Multi-Cloud%20OpenShift.adoc#prerequisites
+- link:https://docs.google.com/spreadsheets/d/17KgzY9rVragyqsmKg5RIQG_3wgqZ7bd29zEInDk2X_4/edit#gid=153368893[RHTE Labs]
