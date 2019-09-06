@@ -19,10 +19,8 @@ In this lab, you will :
 
 - Dekorate + Operator introduction: 15min (Naina)
 - Instructor message: 5 min (Charles)
-- Play with the Lab: 1h10 (You ;-))
-- Debriefing - Q&A: 15min (All)
-
-Try emoji:turtle[1x]! - :heart_eyes:
+- Play with the Lab: 1h10 (You :thinking: )
+- Debriefing - Q&A :heart_eyes: : 15min (All)
 
 == Table of Content
 
