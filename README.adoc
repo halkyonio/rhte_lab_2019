@@ -8,7 +8,7 @@
 
 == Agenda
 
-. *setup.md[Lab Setup]*
+. *link:./setup.md[Lab Setup]*
 . *Application Overview*
 
 https://github.com/halrhteus
