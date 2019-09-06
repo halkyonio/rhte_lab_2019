@@ -1,3 +1,5 @@
+== Microservices Lab scenario
+
 ** To be fleshed out **
 
 - Download and install `hal` tool from `https://github.com/halkyonio/hal/releases/tag/v0.1.1`

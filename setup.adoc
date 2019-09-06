@@ -1,6 +1,6 @@
-# Accessing to the Lab Environment
+= Accessing to the Lab Environment
 
-## Getting your dedicated lab environments using Guid Grabber
+== Getting your dedicated lab environments using Guid Grabber
 
 On your laptop, you **MUST** open a browser tab with [*Lab GUID Assignment page*](https://www.opentlc.com/gg/gg.cgi?profile=generic_tester) before continuing with the lab instructions:
 
@@ -8,7 +8,7 @@ On your laptop, you **MUST** open a browser tab with [*Lab GUID Assignment page*
 
 > **NOTE: You are not required to login anywhere at this point, in this intro lab you will only get the information related to your assigned lab environments.**
 
-### Getting Cluster Environment - **Browser Tab**
+=== Getting Cluster Environment - **Browser Tab**
 
 This will be your lab environment where all of the work will be done. 
 
@@ -31,7 +31,7 @@ You will use this GUID to access your lab's environment and systems.
 Your unique GUID will also be embedded in your lab environment's host names.
 
 
-### Login to Openshift Console
+=== Login to Openshift Console
 
 On the *Lab Information page* you will get the URL *Openshift Master Console*. This is the web console that we want to login and use for most of the lab instuctions. The username and password to access the console will be there below the URLs as well.
 
@@ -46,7 +46,7 @@ Lab Information -
 Login Screen - 
 ![Login to Console](images/login.png)
 
-## Lab Environment Overview
+== Lab Environment Overview
 This lab environment is basically an OCP 4.1 cluster where the KubeDB, Tekton and Halkyon operators have been deployed.
 
 
