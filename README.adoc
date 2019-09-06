@@ -1,14 +1,14 @@
-= Red Hat Tech Exchange 2019: CND-RUN
+= Red Hat Tech Exchange 2019
 
-*Session Title:*  Simplify ...
+*Session Title:* Simplify the deployment of Spring Boot applications using Halkyon Component Operator on Kubernetes
 
 *Description:*
 
-== Agenda
+== Table of Content
 
-. *link:setup.adoc[Lab Setup]*
-. *link:application-overview.adoc[Application overview]*
-. *link:scenario[Microservices scenario]*
+. *link:01_setup.adoc[Lab Setup]*
+. *link:02_application-overview.adoc[Application overview]*
+. *link:03_scenario[Microservices scenario]*
 
 == Useful links
 
