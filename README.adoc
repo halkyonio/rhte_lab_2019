@@ -22,7 +22,7 @@ In this lab, you will :
 - Play with the Lab: 1h10 (You ;-))
 - Debriefing - Q&A: 15min (All)
 
-Try emoji:turtle[1x]!
+Try emoji:turtle[1x]! - :heart_eyes:
 
 == Table of Content
 
