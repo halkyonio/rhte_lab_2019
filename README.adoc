@@ -22,6 +22,8 @@ In this lab, you will :
 - Play with the Lab: 1h10 (You ;-))
 - Debriefing - Q&A: 15min (All)
 
+Try emoji:turtle[1x]!
+
 == Table of Content
 
 . *link:00_prereq.adoc[Pre-requisite]*
