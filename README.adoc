@@ -3,9 +3,6 @@
 == Session Title
 Simplify the deployment of Spring Boot applications using Halkyon Component Operator on Kubernetes
 
-== Description
-TODO
-
 == Goals
 
 In this lab, you will :
