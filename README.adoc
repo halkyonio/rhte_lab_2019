@@ -25,6 +25,6 @@ In this lab, you will :
 == Table of Content
 
 . *link:00_prereq.adoc[Pre-requisite]*
-. *link:01_setup.adoc[Lab Setup]*
-. *link:02_application-overview.adoc[Application overview]*
-. *link:03_scenario.adoc[Microservices scenario]*
+. *link:01_application-overview.adoc[Application overview]*
+. *link:02_setup.adoc[Lab Setup]*
+. *link:03_scenario.adoc[Code your Microservices]*

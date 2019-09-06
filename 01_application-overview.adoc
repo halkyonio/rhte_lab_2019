@@ -1,6 +1,6 @@
 == Application overview
 
-The application to be developed will contain 2 spring Boot runtimes where one is a client
+The application to be developed will contain 2 Spring Boot runtimes where one is a client
 consuming services exposed by a backend application connected to a PostgreSQL database
 
 image::images/component-operator-demo.png[]
