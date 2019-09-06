@@ -2,25 +2,52 @@
 
 *To be fleshed out*
 
-- Download and install `hal` tool from `https://github.com/halkyonio/hal/releases/tag/v0.1.1`
+- Download and install `hal` tool from `https://github.com/halkyonio/hal/releases/tag/v0.1.2`
 - Git clone empty project locally for a lambda user such as `user1` from - https://github.com/halrhteeu/user1
 - Connect to a cluster using your oc client with the RHTE Cluster console URL: `oc login <URL>`
-- Create a new namespace: `oc create namespace rhtelab`
-- Create a new directory and cd to it: `mkdir rhtelab && cd rhtelab`
-- Create a new client project using the `client` template in a `fruit-client-sb` directory: `hal component spring-boot fruit-client-sb`
-- Create a new backend project using the `crud` template in a `fruit-backend-sb` directory: `hal component spring-boot fruit-backend-sb`
-- Build both projects:
-    ```
-    mvn package -f fruit-client-sb
-    mvn package -f fruit-backend-sb -Pkubernetes
-    ```
+- Create a new namespace: `oc new-project rhtelab`
+- Create a new directory and `cd` to it: `mkdir rhtelab && cd rhtelab`
+- Create a new client project using the `client` template in a `fruit-client-sb` directory:
+    * `hal component spring-boot fruit-client-sb` (interactive mode)
+    * TODO: add non-interactive version of the command
+- Create a new backend project using the `crud` template in a `fruit-backend-sb` directory:
+    * `hal component spring-boot fruit-backend-sb` (interactive mode)
+    * TODO: add non-interactive version of the command
+- Build the client project: `mvn package -f fruit-client-sb`. Note that the project's `application.properties` relies on an
+environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property. This is the
+property the app relies on to connect to the backend endpoint. We will therefore need to somehow provide a value for this
+environment variable. This will be accomplished by creating a link.
+- Build the backend project: `mvn package -f fruit-backend-sb -Pkubernetes`. We need to use the `kubernetes` profile because the
+project is set up to work both locally using H2 database for quick testing and "remotely" using a PostgreSQL database. The
+PostgreSQL connection information is provided in the `application-kubernetes.properties` file. Note also that this file contains
+a Dekorate environment variable definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value. This is so that the
+supervisor knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
+booting instead of the default `application.properties`. `application-kubernetes.properties` relies on the existence of
+environment variables for the different components of the database connection. These values will be provided by a database
+capability to which our component will be linked: the capability will generate a secret containing these values and the link will
+inject it our component.
 - Push components: `hal component push -c fruit-client-sb,fruit-backend-sb`
 - Wait… :(
-- Components should be ready but not working: `kubectl get cp`
-- Create a capability for the `fruit-backend-sb` component: `hal capability` provide the parameters so that it matches the operator demo
+- Components should be ready: `kubectl get cp`. Note though that if you access the associated services, they won't be working yet
+because the components haven't been wired together yet. Hence why we need to following steps! :smile:
+- Create a capability to create a PostgreSQL database:
+    * `hal capability` in interactive mode: select version `10`, TODO: provide the detail of all the values to enter
+    * TODO: add non-interactive command
 - Check the capability status: `kubectl get capabilities`
-- Create a link targeting the `fruit-client-sb` component: `hal link` and provide the parameters to match the operator demo
+- We now need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
+    * `hal link`
+    * select `component: fruit-backend-sb` as the target since we want to tell the `fruit-backend-sb` component about the DB
+    * select secret as link type
+    * select `postgres-db-config` as secret
+    * call the link whatever you want
+- Create a link targeting the `fruit-client-sb` component: `hal link` to let `fruit-client-sb` know about the backend:
+    * `hal link`
+    * select `component: fruit-client-sb` as the target
+    * select no when asked whether to use a secret
+    * enter `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits` as the env value
+    * press enter to let `hal` know that you're done entering env variables
 - Check the link status: `kubectl get links`
 - Wait for things to be settled
+- Push the components again (TODO: remove when https://github.com/halkyonio/operator/issues/141 is fixed)
 - Try the backend service to see if it works
 - Try the client service to see if it works
