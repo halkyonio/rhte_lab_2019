@@ -52,7 +52,11 @@ because the components haven't been wired together yet. Hence why we need to fol
 - Wait for things to be settled
 - Push the components again (TODO: remove when https://github.com/halkyonio/operator/issues/141 is fixed)
 - Try the backend service to see if it works
+    - Get the routes `oc get routes`
+    - Get the `HOST/PORT` of the `fruit-backend-sb` and paste it in a browser
+    - Create some fruits
 - Try the client service to see if it works
     - Get the routes `oc get routes`
+    - Get the `HOST/PORT` of the `fruit-client-sb`
     - `export FRONTEND_ROUTE_URL=<host-of-client-route>`
     - `curl http://${FRONTEND_ROUTE_URL}/api/client`
