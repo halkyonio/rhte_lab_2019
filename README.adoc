@@ -4,15 +4,11 @@
 
 *Description:*
 
-:numbered:
-
 == Agenda
 
 . *link:setup.md[Lab Setup]*
 . *link:application-overview.md[Application overview]*
 
-https://github.com/halrhteus
-
-== Usefull links
+== Useful links
 
 - link:https://docs.google.com/spreadsheets/d/17KgzY9rVragyqsmKg5RIQG_3wgqZ7bd29zEInDk2X_4/edit#gid=153368893[RHTE Labs]
