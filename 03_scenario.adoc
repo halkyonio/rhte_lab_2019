@@ -25,20 +25,22 @@ supervisor knows to activate the Spring `kubernetes` profile, i.e. make Spring B
 booting instead of the default `application.properties`. `application-kubernetes.properties` relies on the existence of
 environment variables for the different components of the database connection. These values will be provided by a database
 capability to which our component will be linked: the capability will generate a secret containing these values and the link will
-inject it our component.
+inject it our component. The secret will be named after your capability, adding the `-config` suffix to the name. So if your
+capability is called `my-capability`, its associated secret will be named `my-capability-config`.
 - Push components: `hal component push -c fruit-client-sb,fruit-backend-sb`
 - Wait… :(
 - Components should be ready: `kubectl get cp`. Note though that if you access the associated services, they won't be working yet
 because the components haven't been wired together yet. Hence why we need to following steps! :smile:
 - Create a capability to create a PostgreSQL database:
-    * `hal capability` in interactive mode: select version `10`, TODO: provide the detail of all the values to enter
+    * `hal capability` in interactive mode: select version `10`, TODO: provide the detail of all the values to enter,
+    name the capability: `postges-db`
     * TODO: add non-interactive command
 - Check the capability status: `kubectl get capabilities`
 - We now need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
     * `hal link`
     * select `component: fruit-backend-sb` as the target since we want to tell the `fruit-backend-sb` component about the DB
     * select secret as link type
-    * select `postgres-db-config` as secret
+    * select `<your capability name>-config` as secret (`postgres-db-config` if your capability is called `postgres-db`)
     * call the link whatever you want
 - Create a link targeting the `fruit-client-sb` component: `hal link` to let `fruit-client-sb` know about the backend:
     * `hal link`
