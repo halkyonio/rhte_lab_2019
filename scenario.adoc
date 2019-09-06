@@ -1,6 +1,8 @@
 ** To be fleshed out **
 
-- Connect to a cluster
+- Download and install `hal` tool from `https://github.com/halkyonio/hal/releases/tag/v0.1.1`
+- Git clone empty project locally for a lambda user such as `user1` from - https://github.com/halrhteeu/user1
+- Connect to a cluster using your oc client with the RHTE Cluster console URL
 - Create a new namespace
 - Create a new directory and cd to it
 - Create a new client project using the `client` template in a `fruit-client-sb` directory: `hal component spring-boot fruit-client-sb`

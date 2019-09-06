@@ -6,8 +6,9 @@
 
 == Agenda
 
-. *link:setup.md[Lab Setup]*
-. *link:application-overview.md[Application overview]*
+. *link:setup[Lab Setup]*
+. *link:application-overview[Application overview]*
+. *link:scenario[Microservices scenario]*
 
 == Useful links
 
