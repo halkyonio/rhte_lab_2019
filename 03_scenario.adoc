@@ -20,6 +20,17 @@ Download and install the `hal` tool from the project `https://github.com/halkyon
 
 TODO
 
+===== Docker
+
+If Docker is installed on your laptop and that you can access it, then you can also use the following `Hal` container image to play with it
+
+NOTE: The image already packages the `kubectl` client.
+
+----
+docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:master /bin/sh
+hal version
+----
+
 === Create a Git project
 
 Git clone a project within a terminal from the github org https://github.com/rhte-eu (for the EU Session Lab) or https://github.com/rhte-us (for the US Session Lab)
