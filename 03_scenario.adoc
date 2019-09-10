@@ -37,8 +37,21 @@ If Docker is installed on your laptop and that you can access it, then you can a
 NOTE: The image already packages the `kubectl` client.
 
 ----
-docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:master /bin/sh
+docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:master bash
 hal version
+----
+
+Using this docker container, you can also execute the `oc` commands as presented hereafter
+----
+docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:master bash
+oc login api.cluster-416e.416e.sandbox352.opentlc.com:6443 -u user1 -p r3dh4t1!
+The server uses a certificate signed by an unknown authority.
+You can bypass the certificate check, but any data you send to the server could be intercepted by others.
+Use insecure connections? (y/n): y
+
+Login successful.
+
+You have access to 56 projects, the list has been suppressed. You can list all projects with 'oc projects'
 ----
 
 === Create a Git project
