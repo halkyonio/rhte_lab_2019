@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # This script create a new repo on github.com, then pushes the local repo from the current directory to the new remote.
 
 # It is a fork of https://gist.github.com/robwierzbowski/5430952/.  Some of Rob's lines just didn't work for me, and to fix them I needed to make it more verbose so that a mere electrical engineer could understand it.
