@@ -16,6 +16,8 @@ Download and install the `hal` tool from the project `https://github.com/halkyon
 # curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Linux_x86_64.tar.gz -o /usr/local/bin/ && chmod +x /usr/local/bin/hal
 ----
 
+**Remark**: If the `/usr/local/bin` folder is owned by `root` and that your user don't has the permissions, then prefix the command with `sudo` (e.g sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Linux_x86_64.tar.gz -o /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz && sudo tar -xzf /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal).
+
 ===== Windows
 
 TODO
@@ -70,13 +72,17 @@ oc new-project rhtelab
 
 === Scaffold the Spring Boot applications
 
-Create a new client project using the `client` template in a `fruit-client-sb` directory:
-    * `hal component spring-boot fruit-client-sb` (interactive mode)
-    * TODO: add non-interactive version of the command
+Create a new client project using the `client` template proposed by the scaffolding tool:
+----
+hal project spring-boot fruit-client-sb
+----
+**TODO**: Add non-interactive version of the command
 
 Create a new backend project using the `crud` template in a `fruit-backend-sb` directory:
-    * `hal component spring-boot fruit-backend-sb` (interactive mode)
-    * TODO: add non-interactive version of the command
+----
+hal component spring-boot fruit-backend-sb
+----
+**TODO**: Add non-interactive version of the command
 
 === Build the project
 
