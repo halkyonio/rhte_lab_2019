@@ -57,13 +57,13 @@ mv user1 rhtelab && cd rhtelab
 
 === Log on to the Openshift cluster
 
-Log on tothe RHTE OCP4 cluster using the `oc` client
+Log on to the RHTE OCP4 cluster using the `oc` client
 ----
 oc login <SERVER_ADDRESS> -u user1 -p r3d4t1!
 ----
 
 **Remarks**:
-- The `<SERVER_ADDRESS>` corresponds to the Openshift API Server address (e.g: `api.cluster-416e.416e.sandbox352.opentlc.com:6443`)
+- The `<SERVER_ADDRESS>` corresponds to the Openshift API Server address (e.g: `api.cluster-416e.416e.sandbox352.opentlc.com:6443`) as reported within the lab setup part.
 - As every student has a dedicated OCP cluster, then always use the user --> `user1`
 
 Grant the `admin` role to your user `user1`
@@ -80,17 +80,32 @@ oc new-project rhtelab
 
 === Scaffold the Spring Boot applications
 
-Create a new client project using the `client` template proposed by the scaffolding tool:
+Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool:
 ----
-hal project spring-boot fruit-client-sb
-----
-**TODO**: Add non-interactive version of the command
+hal component spring-boot \
+   -i fruit-client-sb \
+   -g io.cool \
+   -p io.cool.demo \
+   -s 2.1.6.RELEASE \
+   -t client \
+   -v 1.0.0-SNAPSHOT \
+   --supported=false  \
+  fruit-client-sb
 
-Create a new backend project using the `crud` template in a `fruit-backend-sb` directory:
 ----
-hal component spring-boot fruit-backend-sb
+
+Repeat the operation and use as template the `crud` type and `fruit-backend-sb` as maven project name:
 ----
-**TODO**: Add non-interactive version of the command
+hal component spring-boot \
+   -i fruit-backend-sb \
+   -g io.cool \
+   -p io.cool.demo \
+   -s 2.1.6.RELEASE \
+   -t crud \
+   -v 1.0.0-SNAPSHOT \
+   --supported=false  \
+  fruit-backend-sb
+----
 
 === Build the project
 
