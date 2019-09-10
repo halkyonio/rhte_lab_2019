@@ -202,12 +202,26 @@ because the components haven't been wired together yet. Hence why we need to fol
 
 ==== Create a PostgreSQL DB
 
-Create a capability to create a PostgreSQL database:
-    * `hal capability` in interactive mode: select version `10`, TODO: provide the detail of all the values to enter,
-    name the capability: `postges-db`
-    * TODO: add non-interactive command
+Create a capability to install a PostgreSQL database using the interactive mode of the `hal` tool.
+Select as category: `database`, Type: `postgres` and version : `10`
+----
+hal capability
+? Category database
+? Type postgres
+? Version 10
+? Change default name (postgres-capability-1568134805423273000)
+? Enter a value for string property DB_NAME: sample-db
+? Enter a value for string property DB_PASSWORD: admin
+? Enter a value for string property DB_USER: admin
+ ✓  Created capability postgres-capability-1568134805423273000
+----
 
-Check the capability status: `kubectl get capabilities`/`oc get capabilities`
+Check the capability status:
+----
+oc get capabilities
+NAME                                      CATEGORY   KIND      AGE       STATUS    MESSAGE                                                                                                      REVISION
+postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'rhtelab'
+----
 
 ==== Link the microservices
 
@@ -217,20 +231,27 @@ This is the property the app relies on to connect to the backend endpoint.
 We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
 
 We now need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
-    * `hal link`
-    * select `component: fruit-backend-sb` as the target since we want to tell the `fruit-backend-sb` component about the DB
-    * select secret as link type
-    * select `<your capability name>-config` as secret (`postgres-db-config` if your capability is called `postgres-db`)
-    * call the link whatever you want
+----
+hal link
+select `component: fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information
+about the paraneters of the Database created previously
+select secret as link type
+select `<your capability name>-config` as secret (`postgres-db-config` if your capability is called `postgres-db`)
+call the link whatever you want
+----
 
 Create a link targeting the `fruit-client-sb` component: `hal link` to let `fruit-client-sb` know about the backend:
-    * `hal link`
-    * select `component: fruit-client-sb` as the target
-    * select no when asked whether to use a secret
-    * enter `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits` as the env value
-    * press enter to let `hal` know that you're done entering env variables
-
-Check the link status: `kubectl get links`/`oc get links`
+----
+hal link
+select `component: fruit-client-sb` as the target
+select no when asked whether to use a secret
+enter `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits` as the env value
+press enter to let `hal` know that you're done entering env variables
+----
+Check the link status:
+----
+oc get links
+----
 
 Wait for things to be settled
 
