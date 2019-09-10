@@ -64,9 +64,11 @@ using as repo name `user**1**`, ....., `user**N**`
 ----
 curl -L https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh --output git-create.sh && chmod +x git-create.sh
 ./git-create.sh
-user: rhte-user
-pwd: !demo12345
-git clone https://github.com/rhte-eu/user1.git
+Repo name (hit enter to use 'rhte_lab_2019')?
+<YOUR_GIT_REPO>
+Creating Github repository 'rhte_lab_2019' under 'rhte-eu' ...
+curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
+ done.
 ----
 
 Rename the name of the cloned project to `rhtelab` and move under this folder
@@ -137,7 +139,8 @@ Add the code scaffolded to your git project and push it to your git remote repos
 git init
 git add .gitignore fruit-backend-sb/ fruit-client-sb/
 git commit -m "Initial project" -a
-git push
+git remote add origin https://github.com/rhte-eu/rhte_lab_2019.git
+git push -u origin master
 ----
 
 === Build the project
