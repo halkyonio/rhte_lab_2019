@@ -107,35 +107,55 @@ hal component spring-boot \
   fruit-backend-sb
 ----
 
+Add the code scaffolded to your git project and push it to your git remore repositiry
+----
+git add fruit-backend-sb/ fruit-client-sb/
+git commit -m "Initial project" -a
+git push
+----
+
 === Build the project
 
 ==== Client
 
-Build the client project: `mvn package -f fruit-client-sb`.
-
-NOTE: The project's `application.properties` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
-This is the property the app relies on to connect to the backend endpoint.
-
-We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
+Compile and generate the `uber jar` file of the Spring Boot application using the following command
+----
+mvn package -f fruit-client-sb`
+----
 
 ==== Backend
 
-Build the backend project: `mvn package -f fruit-backend-sb -Pkubernetes`.
-We need to use the `kubernetes` profile because the
-project is set up to work both locally using H2 database for quick testing and "remotely" using a PostgreSQL database. The
-PostgreSQL connection information is provided in the `application-kubernetes.properties` file. Note also that this file contains
-a Dekorate environment variable definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value. This is so that the
-supervisor knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
+Repeat the command executed previously for the CRUD o backand microsaervice
+----
+mvn package -f fruit-backend-sb -Pkubernetes`
+----
+
+**Remark**: We need to use the `kubernetes` profile because the project is set up to work both locally using H2 database for quick testing and "remotely" using a PostgreSQL database.
+
+The  PostgreSQL connection information is provided in the `application-kubernetes.properties` file.
+
+Note also that this file contains a Dekorate environment variable definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
+This is so that the supervisor knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
 booting instead of the default `application.properties`. `application-kubernetes.properties` relies on the existence of
 environment variables for the different components of the database connection. These values will be provided by a database
 capability to which our component will be linked: the capability will generate a secret containing these values and the link will
 inject it our component. The secret will be named after your capability, adding the `-config` suffix to the name. So if your
 capability is called `my-capability`, its associated secret will be named `my-capability-config`.
 
-Push components: `hal component push -c fruit-client-sb,fruit-backend-sb`
-Wait… :(
+==== Push the Components
 
-Components should be ready: `kubectl get cp`/`oc get cp`.
+TODO: Explain a little what is a component and what will happen when we will do the push
+
+----
+hal component push -c fruit-client-sb,fruit-backend-sb
+----
+
+Check if the components have been correctly installed
+----
+kubectl get cp
+or
+oc get cp
+----
 
 NOTE:  though that if you access the associated services, they won't be working yet
 because the components haven't been wired together yet. Hence why we need to following steps! :smile:
@@ -150,6 +170,11 @@ Create a capability to create a PostgreSQL database:
 Check the capability status: `kubectl get capabilities`/`oc get capabilities`
 
 ==== Link the microservices
+
+NOTE: The project's `application.properties` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
+This is the property the app relies on to connect to the backend endpoint.
+
+We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
 
 We now need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
     * `hal link`
