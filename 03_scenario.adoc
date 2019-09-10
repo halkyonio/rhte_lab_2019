@@ -137,7 +137,7 @@ Add the code scaffolded to your git project and push it to your git remote repos
 git init
 git add .gitignore fruit-backend-sb/ fruit-client-sb/
 git commit -m "Initial project" -a
-git remote add origin https://github.com/rhte-eu/rhte_lab_2019.git
+git remote add origin https://github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
 git push -u origin master
 ----
 
@@ -173,18 +173,31 @@ capability is called `my-capability`, its associated secret will be named `my-ca
 
 TODO: Explain a little what is a component and what will happen when we will do the push
 
+Before to push the project and to deploy the applications as components, check if you are using your project
+----
+oc project
+Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
+----
+
+Next deploy the components
 ----
 hal component push -c fruit-client-sb,fruit-backend-sb
+'fruit-client-sb' component was not found, initializing it
+ ◐  Waiting for component fruit-client-sb to be ready…
+ ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb/target/fruit-client-sb-1.0.0-SNAPSHOT.jar
+'fruit-backend-sb' component was not found, initializing it
+...
 ----
 
-Check if the components have been correctly installed
+Check if the components have been correctly installed within another terminal
 ----
-kubectl get cp
-or
 oc get cp
+NAME               RUNTIME       VERSION         AGE       MODE      STATUS    MESSAGE                                                                    REVISION
+fruit-backend-sb   spring-boot   2.1.6.RELEASE   11s       dev       Pending   pod is not ready for Component 'fruit-backend-sb' in namespace 'rhtelab'
+fruit-client-sb    spring-boot   2.1.6.RELEASE   103s      dev       Ready     Ready
 ----
 
-NOTE:  though that if you access the associated services, they won't be working yet
+NOTE: though that if you access the associated services, they won't be working yet
 because the components haven't been wired together yet. Hence why we need to following steps! :smile:
 
 ==== Create a PostgreSQL DB
