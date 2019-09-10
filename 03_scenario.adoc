@@ -7,13 +7,13 @@ Download and install the `hal` tool from the project `https://github.com/halkyon
 ===== Binary installation for Mac OS
 
 ----
-# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Darwin_i386.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
+# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.3/hal_0.1.3_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
 ----
 
 ===== Binary installation for Linux
 
 ----
-# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Linux_x86_64.tar.gz -o /usr/local/bin/ && chmod +x /usr/local/bin/hal
+# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.3/hal_0.1.3_Linux_x86_64.tar.gz -o /usr/local/bin/ && chmod +x /usr/local/bin/hal
 ----
 
 **Remark**:
@@ -45,7 +45,7 @@ hal version
 
 Using this docker container, you can also execute the `oc` commands as presented hereafter
 ----
-docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:master bash
+docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.3 bash
 oc login api.cluster-416e.416e.sandbox352.opentlc.com:6443 -u user1 -p r3dh4t1!
 The server uses a certificate signed by an unknown authority.
 You can bypass the certificate check, but any data you send to the server could be intercepted by others.
@@ -70,7 +70,7 @@ Rename the name of the cloned project to `rhtelab` and move under this folder
 mv user1 rhtelab && cd rhtelab
 ----
 
-=== Log on to the Openshift cluster
+=== Log on to the OpenShift cluster
 
 Log on to the RHTE OCP4 cluster using the `oc` client
 ----
@@ -99,22 +99,21 @@ Create a new client project using the REST HTTP `client` template proposed by th
 ----
 hal component spring-boot \
    -i fruit-client-sb \
-   -g io.cool \
-   -p io.cool.demo \
+   -g me.fruitsand \
+   -p me.fruitsand.demo \
    -s 2.1.6.RELEASE \
    -t client \
    -v 1.0.0-SNAPSHOT \
    --supported=false  \
   fruit-client-sb
-
 ----
 
 Repeat the operation and use as template the `crud` type and `fruit-backend-sb` as maven project name:
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
-   -g io.cool \
-   -p io.cool.demo \
+   -g me.fruitsand \
+   -p me.fruitsand.demo \
    -s 2.1.6.RELEASE \
    -t crud \
    -v 1.0.0-SNAPSHOT \
@@ -122,9 +121,17 @@ hal component spring-boot \
   fruit-backend-sb
 ----
 
-Add the code scaffolded to your git project and push it to your git remore repositiry
+Create a `.gitignore` file ignore the files populated by your IDE or what maven will populate under `/target` directory
 ----
-git add fruit-backend-sb/ fruit-client-sb/
+touch .gitignore
+echo "*/target" >> .gitignore
+echo ".idea/" >> .gitignore
+----
+
+Add the code scaffolded to your git project and push it to your git remote repository
+----
+git init
+git add .gitignore fruit-backend-sb/ fruit-client-sb/
 git commit -m "Initial project" -a
 git push
 ----
@@ -135,14 +142,14 @@ git push
 
 Compile and generate the `uber jar` file of the Spring Boot application using the following command
 ----
-mvn package -f fruit-client-sb`
+mvn package -f fruit-client-sb
 ----
 
 ==== Backend
 
-Repeat the command executed previously for the CRUD o backand microsaervice
+Repeat the command executed previously for the CRUD - backend microservice
 ----
-mvn package -f fruit-backend-sb -Pkubernetes`
+mvn package -f fruit-backend-sb -Pkubernetes
 ----
 
 **Remark**: We need to use the `kubernetes` profile because the project is set up to work both locally using H2 database for quick testing and "remotely" using a PostgreSQL database.
