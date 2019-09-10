@@ -62,6 +62,10 @@ Git clone a project within a terminal from the github org https://github.com/rht
 using as repo name `user**1**`, ....., `user**N**`
 
 ----
+curl -L https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh --output git-create.sh && chmod +x git-create.sh
+./git-create.sh
+user: rhte-user
+pwd: !demo12345
 git clone https://github.com/rhte-eu/user1.git
 ----
 
