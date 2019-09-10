@@ -20,7 +20,10 @@ Download and install the `hal` tool from the project `https://github.com/halkyon
 
 If the `/usr/local/bin` folder is owned by `root` and that your user don't has the permissions, then prefix the command with `sudo`.
 ----
-sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Linux_x86_64.tar.gz -o /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz && sudo tar -xzf /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
+sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Linux_x86_64.tar.gz \
+  -o /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz && \
+  sudo tar -xzf /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz \
+  -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
 ----
 
 ===== Windows
