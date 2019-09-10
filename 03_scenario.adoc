@@ -69,11 +69,6 @@ curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_na
 done.
 ----
 
-Rename the name of the cloned project to `rhtelab` and move under this folder
-----
-mv user1 rhtelab && cd rhtelab
-----
-
 === Log on to the OpenShift cluster
 
 Log on to the RHTE OCP4 cluster using the `oc` client
@@ -98,6 +93,11 @@ oc new-project rhtelab
 ----
 
 === Scaffold the Spring Boot applications
+
+Create on your laptop under your development folder the `rhtelab` folder and move it there
+----
+mkdir rhtelab && cd rhtelab
+----
 
 Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool:
 ----
