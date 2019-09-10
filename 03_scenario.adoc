@@ -20,12 +20,16 @@ Download and install the `hal` tool from the project `https://github.com/halkyon
 
 TODO
 
-- Git clone a project locally from the github org - https://github.com/rhte-eu or rhte-us
-  using as repo name `user1`, ....., `usern`
-+
+=== Create a Git project
+
+Git clone a project locally from the github org - https://github.com/rhte-eu or rhte-us
+using as repo name `user1`, ....., `usern`
+
 ----
 git clone https://github.com/rhte-eu/user1.git
 ----
+
+=== Openshift
 
 - Connect to a cluster using your oc client with the RHTE Cluster console URL: `oc login <URL>`
 - Create a new namespace: `oc new-project rhtelab`
