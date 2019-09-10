@@ -58,17 +58,15 @@ You have access to 56 projects, the list has been suppressed. You can list all p
 
 === Create a Git project
 
-Git clone a project within a terminal from the github org https://github.com/rhte-eu (for the EU Session Lab) or https://github.com/rhte-us (for the US Session Lab)
-using as repo name `user**1**`, ....., `user**N**`
-
+Create for your lab a `git repo` within the `org` https://github.com/rhte-eu for the EU Session Lab or https://github.com/rhte-us for the US Session Lab
+using as repo name your first and last name concatenated and cut after 8 chars (E.g : Charles Moulliard -> cmoullia)
 ----
-curl -L https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh --output git-create.sh && chmod +x git-create.sh
-./git-create.sh
-Repo name (hit enter to use 'rhte_lab_2019')?
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh)
+Repo name (hit enter to use 'cmoullia')?
 <YOUR_GIT_REPO>
-Creating Github repository 'rhte_lab_2019' under 'rhte-eu' ...
+Creating Github repository 'rcmoullia' under 'rhte-eu' ...
 curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
- done.
+done.
 ----
 
 Rename the name of the cloned project to `rhtelab` and move under this folder
