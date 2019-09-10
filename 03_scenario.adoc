@@ -238,6 +238,17 @@ about the paraneters of the Database created previously
 select secret as link type
 select `<your capability name>-config` as secret (`postgres-db-config` if your capability is called `postgres-db`)
 call the link whatever you want
+
+hal link
+? Target component: fruit-backend-sb
+? Use Secret Yes
+? Secret  [Use arrows to move, space to select, type to filter]
+  deployer-token-8jg7f
+  deployer-token-g2nh2
+  postgres-capability-156813480542327300-bba890eb-dockercfg-zljff
+> postgres-capability-1568134805423273000-config
+? Change default name fruit-backend-sb-link-1568136120947947000
+ ✓  Created link fruit-backend-sb-link-1568136120947947000
 ----
 
 Create a link targeting the `fruit-client-sb` component: `hal link` to let `fruit-client-sb` know about the backend:
@@ -247,25 +258,39 @@ select `component: fruit-client-sb` as the target
 select no when asked whether to use a secret
 enter `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits` as the env value
 press enter to let `hal` know that you're done entering env variables
+
+hal link
+? Target component: fruit-client-sb
+? Use Secret No
+? Env variable in the 'name=value' format, press enter when done KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits
+Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits
+? Env variable in the 'name=value' format, press enter when done
+? Change default name fruit-client-sb-link-1568136198776371000
+ ✓  Created link fruit-client-sb-link-1568136198776371000
 ----
 Check the link status:
 ----
 oc get links
+NAME                                        AGE       STATUS    MESSAGE
+fruit-backend-sb-link-1568136120947947000   93s       Ready     Ready
+fruit-client-sb-link-1568136198776371000    14s       Ready     Ready
 ----
 
-Wait for things to be settled
-
-Push the components again (TODO: remove when https://github.com/halkyonio/operator/issues/141 is fixed)
+TODO: Add command to check if the component has been modified and is well started
 
 ==== Connect to the Endpoints/Routes
 
 Try the backend service to see if it works
-    - Get the routes `oc get routes`
-    - Get the `HOST/PORT` of the `fruit-backend-sb` and paste it in a browser
-    - Create some fruits
+----
+Get the routes `oc get routes`
+Get the `HOST/PORT` of the `fruit-backend-sb` and paste it in a browser
+Create some fruits
+----
 
 Try the client service to see if it works
-    - Get the routes `oc get routes`
-    - Get the `HOST/PORT` of the `fruit-client-sb`
-    - `export FRONTEND_ROUTE_URL=<host-of-client-route>`
-    - `curl http://${FRONTEND_ROUTE_URL}/api/client`
+----
+Get the routes `oc get routes`
+Get the `HOST/PORT` of the `fruit-client-sb`
+`export FRONTEND_ROUTE_URL=<host-of-client-route>`
+`curl http://${FRONTEND_ROUTE_URL}/api/client`
+----
