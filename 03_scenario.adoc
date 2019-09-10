@@ -49,13 +49,17 @@ mv user1 rhtelab && cd rhtelab
 
 Log on tothe RHTE OCP4 cluster using the `oc` client
 ----
-oc login <URL> -u user1 -p r3d4t1!
+oc login <SERVER_ADDRESS> -u user1 -p r3d4t1!
 ----
+
+**Remarks**:
+- The `<SERVER_ADDRESS>` corresponds to the Openshift API Server address (e.g: `api.cluster-416e.416e.sandbox352.opentlc.com:6443`)
+- As every student has a dedicated OCP cluster, then always use the user --> `user1`
+
 Grant the `admin` role to your user `user1`
 ----
-oc adm policy add-cluster-role-to admin user1 --as=system:admin
+oc adm policy add-cluster-role-to-user admin user1 --as=system:admin
 ----
-IMPORTANT: As every student has a dedicated OCP cluster, then always use the user : `user1`
 
 === Create a new namespace
 
