@@ -13,16 +13,19 @@ Download and install the `hal` tool from the project `https://github.com/halkyon
 ===== Binary installation for Linux
 
 ----
-# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.5/hal_0.1.5_Linux_x86_64.tar.gz -o /usr/local/bin/ && chmod +x /usr/local/bin/hal
+# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.5/hal_0.1.5_Linux_x86_64.tar.gz \
+    -o /usr/local/bin/hal_0.1.5_Linux_x86_64.tar.gz && \
+    tar -xzf /usr/local/bin/hal_0.1.5_Linux_x86_64.tar.gz && \
+    chmod +x /usr/local/bin/hal
 ----
 
 **Remark**:
 
 If the `/usr/local/bin` folder is owned by `root` and that your user don't has the permissions, then prefix the command with `sudo`.
 ----
-sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.1_Linux_x86_64.tar.gz \
-  -o /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz && \
-  sudo tar -xzf /usr/local/bin/hal_0.1.1_Linux_x86_64.tar.gz \
+sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.5_Linux_x86_64.tar.gz \
+  -o /usr/local/bin/hal_0.1.5_Linux_x86_64.tar.gz && \
+  sudo tar -xzf /usr/local/bin/hal_0.1.5_Linux_x86_64.tar.gz \
   -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
 ----
 
@@ -99,12 +102,48 @@ Create on your laptop under your development folder the `rhtelab` folder and mov
 mkdir rhtelab && cd rhtelab
 ----
 
+Create a `pom.xml` file and add the following content:
+
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2016-2017 Red Hat, Inc, and individual contributors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.fruitsand</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Spring Boot - Demo</name>
+    <description>Spring Boot - Demo</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>fruit-backend-sb</module>
+        <module>fruit-client-sb</module>
+    </modules>
+</project>
+
+---- 
+
 Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool:
 ----
 hal component spring-boot \
    -i fruit-client-sb \
-   -g me.fruitsand \
-   -p me.fruitsand.demo \
+   -g me.fruitstand \
+   -p me.fruitstand.demo \
    -s 2.1.6.RELEASE \
    -t client \
    -v 1.0.0-SNAPSHOT \
@@ -116,8 +155,8 @@ Repeat the operation and use as template the `crud` type and `fruit-backend-sb` 
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
-   -g me.fruitsand \
-   -p me.fruitsand.demo \
+   -g me.fruitstand \
+   -p me.fruitstand.demo \
    -s 2.1.6.RELEASE \
    -t crud \
    -v 1.0.0-SNAPSHOT \
@@ -140,6 +179,7 @@ git commit -m "Initial project" -a
 git remote add origin https://github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
 git push -u origin master
 ----
+Note that the user and password to push to the repo are `username="rhte-user" password="!demo12345"`
 
 === Build the project
 
@@ -225,12 +265,12 @@ postgres-capability-1568134805423273000   Database             25s       Pending
 
 ==== Link the microservices
 
-NOTE: The project's `application.properties` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
+NOTE: The fruit-client-sb's `application.properties` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
 This is the property the app relies on to connect to the backend endpoint.
 
 We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
 
-We now need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
+We also need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
 ----
 hal link
 select `component: fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information
@@ -288,7 +328,7 @@ image::images/fruits-backend.png[]
 
 Try the client microservice to see if it works too.
 So, get also its route address using this command `oc get routes/fruit-client-sb --template={{.spec.host}}`
-and curl the service within your terminal
+and curl the service within your terminal, you should get the fruits created in the previous step.
 ----
 FRONTEND_URL=<host-of-client-route>
 curl http://${FRONTEND_URL}/api/client
