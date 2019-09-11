@@ -334,3 +334,36 @@ FRONTEND_URL=<host-of-client-route>
 curl http://${FRONTEND_URL}/api/client
 [{"id":4,"name":"orange"},{"id":5,"name":"apple"},{"id":6,"name":"strawberry"}]
 ----
+
+==== Switch to build mode
+
+When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. Again, this process
+is greatly simplified using the `hal` tool as it will allow to change the property `deploymentMode` of the `Component` to use `build`. This
+parameter will be used by the operator and Tekton to perform a s2i Build.
+
+Prior to do that, change the default profile of pom.xml of the project `fruit-backend-sb` to make the `Kubernetes` the default one.
+Commit the code.
+----
+<profile>
+ <id>kubernetes</id>
+ <activation>
+   <activeByDefault>true</activeByDefault>
+   </activation>
+----
+
+Next, you can use the `hal` command to perform this switch
+----
+hal component switch -m build -c fruit-client-sb
+hal component switch -m build -c fruit-backend-sb
+----
+
+TODO: Add text here to tell to the students what is happening, what they could do
+
+Test again the service
+----
+open "http://$(oc get routes/fruit-backend-sb --template={{.spec.host}})"
+FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
+curl "http://${FRONTEND_URL}/api/client"
+----
+
+The Halkyon Team ;-)
