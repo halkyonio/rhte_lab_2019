@@ -34,7 +34,7 @@ image:images/lab.png[Lab Information]
 Click on the *OpenShift Master Console* link within the page to open the console within your browser.
 
 . Fill respectively the `username` and `password` fields
-. Click on `Log in` buton
+. Click on `Log in` button
 
 image:images/login.png[Login to Console]
 
