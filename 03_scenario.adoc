@@ -1,5 +1,7 @@
 == 4. Microservices Lab scenario
 
+:toc:
+
 === Installing Hal tool
 
 Download and install the `hal` tool from the project `https://github.com/halkyonio/hal/releases/tag/v0.1.2`
