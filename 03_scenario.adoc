@@ -20,7 +20,9 @@
 
 === Installing Hal tool
 
-Download and install the `hal` tool from the project `https://github.com/halkyonio/hal/releases/tag/v0.1.2`
+Download and install the `hal` developer tool from the project `https://github.com/halkyonio/hal/releases/tag/v0.1.5`. This tool will help you
+to scaffold your spring applications, to deploy it on the cluster and to perform the `Link/Binding` manipulations like also to
+create the PostgreSQL database.
 
 ==== Binary installation for Mac OS
 
