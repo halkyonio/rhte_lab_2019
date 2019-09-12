@@ -1,16 +1,14 @@
 = Accessing to the Lab Environment
 
-== Getting your dedicated lab environments using Guid Grabber
+== Getting your dedicated lab environment
 
 On your laptop, you **MUST** open a browser tab pointing to the following link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Open TLC Page*] before to continue with the lab instructions:
 
-* From this page, you will be assigned your unique GUID, which you will use to access your unique ocp cluster environment and system.
+* From this page, you will be assigned your unique `GUID`, which you will use to access your `ocp4 cluster` environment and system.
 
 > **NOTE: You are not required to login anywhere at this point, in this intro lab you will only get the information related to your assigned lab environments.**
 
 === Getting Cluster Environment - **Browser Tab**
-
-This will be your lab environment where all of the work will be done. 
 
 From the drop down list:
 
@@ -43,6 +41,6 @@ image:images/login.png[Login to Console]
 == Lab Environment Overview
 This lab environment is basically an OCP 4.1 cluster where the KubeDB, Tekton and Halkyon operators have been deployed.
 
-Next Lab: link:03_scenario.adoc[3. Play with the lab to compose your microservices]
+Next: link:03_scenario.adoc[3. Play with the lab to compose your microservices]
 
 **link:README.adoc[Home]**
