@@ -30,20 +30,25 @@ Take note of your assigned `GUID`.
 You will use this `GUID` to access your lab's environment and systems.
 Your unique `GUID` will also be embedded in your lab environment's host name.
 
+=== Lab information page
+
+On the *Lab Information page* displayed by https://opentlc.com/gg/gg.cgi?profile=generic-tester` you will get different information such as :
+
+. URL of the OpenShift Console
+. URL of the API to access to Openshift using the `oc` client tool
+. Hostname of the VM to ssh
+
+e.g : Lab Information - image:images/lab.png[Lab Information]
+
 === Login to OpenShift Console
 
-On the *Lab Information page* you will get the URL *Openshift Master Console*. This is the web console that we want to login and use for most of the lab instructions. The username and password to access the console will be there below the URLs as well.
+Click on the *OpenShift Master Console* link within the page to open the console within your browser.
+This is the web console that we want to login and use for most of the lab instructions. The username and password to access the console will be there below the URLs as well.
 
 1. Click on the URL and open the link in another tab.
 2. Use the credentials to login to the console on login screen.
 
-e.g
-
-Lab Information -
-image:images/lab.png[Lab Information]
-
-Login Screen - 
-image:images/login.png[Login to Console]
+Login Screen - image:images/login.png[Login to Console]
 
 == Lab Environment Overview
 This lab environment is basically an OCP 4.1 cluster where the KubeDB, Tekton and Halkyon operators have been deployed.
