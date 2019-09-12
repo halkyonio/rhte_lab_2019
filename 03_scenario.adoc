@@ -18,13 +18,13 @@
 
 Download and install the `hal` tool from the project `https://github.com/halkyonio/hal/releases/tag/v0.1.2`
 
-===== Binary installation for Mac OS
+==== Binary installation for Mac OS
 
 ----
 # curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.5/hal_0.1.5_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
 ----
 
-===== Binary installation for Linux
+==== Binary installation for Linux
 
 ----
 # curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.5/hal_0.1.5_Linux_x86_64.tar.gz \
@@ -43,7 +43,7 @@ sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.
   -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
 ----
 
-===== Windows
+==== Windows
 
 In order to use `hal` you must download it and add it to your `PATH` environment variable:
 
@@ -51,7 +51,7 @@ In order to use `hal` you must download it and add it to your `PATH` environment
 . Extract the `hal.exec` file from the compressed archive.
 . Add the location of the extracted binary to your `PATH` environment under by example `c:\tools`.
 
-===== Docker
+==== Docker
 
 If Docker is installed on your laptop and that you can access it, then you can also use the following `Hal` container image to play with it
 
@@ -153,7 +153,6 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
         <module>fruit-client-sb</module>
     </modules>
 </project>
-
 ---- 
 
 Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool:
@@ -353,7 +352,7 @@ curl http://${FRONTEND_URL}/api/client
 [{"id":4,"name":"orange"},{"id":5,"name":"apple"},{"id":6,"name":"strawberry"}]
 ----
 
-==== Switch to build mode
+=== Switch to build mode
 
 When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. Again, this process
 is greatly simplified using the `hal` tool as it will allow to change the property `deploymentMode` of the `Component` to use `build`. This
