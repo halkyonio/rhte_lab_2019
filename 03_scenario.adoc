@@ -88,7 +88,7 @@ You have access to 56 projects, the list has been suppressed. You can list all p
 Create a `git repo` within the `org` https://github.com/rhte-eu for the EU Session Lab or https://github.com/rhte-us for the US Session Lab
 using your first and last name concatenated and cut after 8 chars as a repo name  (E.g : Charles Moulliard -> cmoullia)
 ----
-bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh)
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
 Repo name (hit enter to use 'cmoullia')?
 <YOUR_GIT_REPO>
 Creating Github repository 'cmoullia' under 'rhte-eu' ...
