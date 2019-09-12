@@ -1,6 +1,8 @@
 == 4. Microservices Lab scenario
 
-:toc:
+=== Table Of Content
+
+link:03_scenario.adoc#installing-hal-tool[]
 
 === Installing Hal tool
 
