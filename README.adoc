@@ -7,14 +7,15 @@ Simplify the deployment of Spring Boot applications using Halkyon Component Oper
 
 In this lab, you will :
 
-- Learn how the deployment of microservices could be simplified on k8s/openshift by adopting Dekorate Tool and delegating to an Operator the responsibility to deal with kubernetes/manifests creation
+- Learn how the deployment of microservices could be simplified on k8s/OpenShift by adopting our `Dekorate` Tool and by delegating to an Operator the responsibility to deal with kubernetes/manifests creation
+- Play with a `Developer` tool called `Hal` to communicate with the cluster
 - Compose & link microservices
-- Deploy a capability such as a database and link it to to microservice consuming it
-- Code locally and next push/build on k8s/OpenShift
+- Deploy a `capability` such as a database and link it to to microservice consuming it
+- Code locally and next `push/build` on k8s/OpenShift
 
 == Agenda
 
-- Dekorate + Operator introduction: 15min (Naina)
+- Dekorate + Halkyon Operator introduction: 15min (Naina)
 - Instructor message: 5 min (Charles)
 - Play with the Lab: 1h10 (You :thinking:)
 - Debriefing - Q&A : 15min (All)
