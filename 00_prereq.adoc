@@ -2,7 +2,4 @@
 
 - JDK8
 - Apache Maven 3.5
-- `hal` tool
-- Java IDE such as IntelliJ, Eclipse
-
-Get RHTE Lab email OR have access to ocp cluster provisioned with tekton, kubedb, halkyon operator
+- Java IDE such as IntelliJ, Eclipse, VScode
