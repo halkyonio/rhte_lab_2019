@@ -371,3 +371,5 @@ curl "http://${FRONTEND_URL}/api/client"
 ----
 
 The Halkyon Team ;-)
+
+**link:README.adoc[Home]**

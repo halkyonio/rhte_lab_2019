@@ -12,3 +12,5 @@ Legend:
 - Green: A capability such as a Database
 
 image::images/halkyon-operator-demo.png[]
+
+**link:README.adoc[Home]**

@@ -38,11 +38,11 @@ Click on the *OpenShift Master Console* link within the page to open the console
 . Fill respectively the `username` and `password` fields
 . Click on `Log in` buton
 
-Login Screen - image:images/login.png[Login to Console]
+image:images/login.png[Login to Console]
 
 == Lab Environment Overview
 This lab environment is basically an OCP 4.1 cluster where the KubeDB, Tekton and Halkyon operators have been deployed.
 
-Next Lab: link:03_scenario.adoc[2 - Overview and Intro to Developer Perspective]
+Next Lab: link:03_scenario.adoc[3. Play with the lab to compose your microservices]
 
-link:README.adoc[Home]
+**link:README.adoc[Home]**
