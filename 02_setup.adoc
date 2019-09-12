@@ -15,8 +15,8 @@ This will be your lab environment where all of the work will be done.
 From the drop down list:
 
 1. Choose the lab `A2026 - Simplifying the deployment of your Spring Boot application using our Dev Exp Operator on Kubenetes`
-2. Enter the activation key shared by the instructors
-3. Enter your email address
+2. Enter the activation key shared by the instructors: `component`
+3. Enter the email address:
 4. Click submit
 5. Save the information on screen
 
@@ -24,11 +24,11 @@ e.g:
 
 image::images/request-env-gg.png[Request Env GuidGrabber]
 
-The resulting *Lab Information page* will display your lab's GUID and other useful information about your lab environment.
-Take note of your assigned GUID.
+The resulting *Lab Information page* will display your lab's `GUID` and other useful information about your lab environment.
+Take note of your assigned `GUID`.
 
-You will use this GUID to access your lab's environment and systems.
-Your unique GUID will also be embedded in your lab environment's host names.
+You will use this `GUID` to access your lab's environment and systems.
+Your unique `GUID` will also be embedded in your lab environment's host name.
 
 === Login to OpenShift Console
 
@@ -40,13 +40,14 @@ On the *Lab Information page* you will get the URL *Openshift Master Console*. T
 e.g
 
 Lab Information -
-image::images/lab.png[Lab Information]
+image:images/lab.png[Lab Information]
 
 Login Screen - 
-image::images/login.png[Login to Console]
+image:images/login.png[Login to Console]
 
 == Lab Environment Overview
 This lab environment is basically an OCP 4.1 cluster where the KubeDB, Tekton and Halkyon operators have been deployed.
 
-Next Lab: link:03_scenario.adoc[2 - Overview and Intro to Developer Perspective]<br>
+Next Lab: link:03_scenario.adoc[2 - Overview and Intro to Developer Perspective]
+
 link:README.adoc[Home]
