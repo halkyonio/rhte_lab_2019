@@ -2,7 +2,15 @@
 
 === Table Of Content
 
-link:03_scenario.adoc#installing-hal-tool[]
+link:03_scenario.adoc#installing-hal-tool[Installing Hal Tool]
+link:03_scenario.adoc#create-a-git-project[Create a Git Project]
+link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
+link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
+link:03_scenario.adoc#build-the-project[Compile the project]
+link:03_scenario.adoc#build-the-project[Push the jar]
+link:03_scenario.adoc#create-a-postgresql-db[Create the DB Capability]
+link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
+link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
 
 === Installing Hal tool
 
@@ -217,7 +225,7 @@ capability to which our component will be linked: the capability will generate a
 inject it our component. The secret will be named after your capability, adding the `-config` suffix to the name. So if your
 capability is called `my-capability`, its associated secret will be named `my-capability-config`.
 
-==== Push the Components
+=== Push the Components
 
 TODO: Explain a little what is a component and what will happen when we will do the push
 
@@ -248,7 +256,7 @@ fruit-client-sb    spring-boot   2.1.6.RELEASE   103s      dev       Ready     R
 NOTE: though that if you access the associated services, they won't be working yet
 because the components haven't been wired together yet. Hence why we need to following steps! :smile:
 
-==== Create a PostgreSQL DB
+=== Create a PostgreSQL DB
 
 Create a capability to install a PostgreSQL database using the interactive mode of the `hal` tool.
 Select as category: `database`, Type: `postgres` and version : `10`
@@ -271,7 +279,7 @@ NAME                                      CATEGORY   KIND      AGE       STATUS 
 postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'rhtelab'
 ----
 
-==== Link the microservices
+=== Link the microservices
 
 NOTE: The fruit-client-sb's `application.properties` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
 This is the property the app relies on to connect to the backend endpoint.
@@ -326,7 +334,7 @@ fruit-client-sb-link-1568136198776371000    14s       Ready     Ready
 
 TODO: Add command to check if the component has been modified and is well started
 
-==== Connect to the Client or Backend services
+=== Connect to the Client or Backend services
 
 Try the backend service to see if it works
 So, get the route address of the backend microservice using this command `oc get routes/fruit-backend-sb --template={{.spec.host}}`
