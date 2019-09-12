@@ -41,7 +41,7 @@ create the PostgreSQL database.
 
 **Remark**:
 
-If the `/usr/local/bin` folder is owned by `root` and that your user don't has the permissions, then prefix the command with `sudo`.
+If a `/usr/local/bin` folder is owned by a `root` and your user doesn't have required permissions, then prefix the command with `sudo`.
 ----
 sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.5_Linux_x86_64.tar.gz \
   -o /usr/local/bin/hal_0.1.5_Linux_x86_64.tar.gz && \
@@ -59,7 +59,7 @@ In order to use `hal` you must download it and add it to your `PATH` environment
 
 ==== Docker
 
-If Docker is installed on your laptop and that you can access it, then you can also use the following `Hal` container image to play with it
+If Docker is installed on your laptop and you can access it, then you can also use the following `Hal` container image to play with it
 
 NOTE: The image already packages the `oc` client version 4.x.
 
@@ -68,7 +68,7 @@ docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:
 hal version
 ----
 
-**Remark**: Check with the instructor the latest image to be used for the hal tool !!
+**Remark**: Check with the instructor for the latest image to be used for the hal tool !!
 
 Using this docker container, you can also execute the `oc` commands as presented hereafter
 ----
@@ -85,8 +85,8 @@ You have access to 56 projects, the list has been suppressed. You can list all p
 
 === Create a Git project
 
-Create for your lab a `git repo` within the `org` https://github.com/rhte-eu for the EU Session Lab or https://github.com/rhte-us for the US Session Lab
-using as repo name your first and last name concatenated and cut after 8 chars (E.g : Charles Moulliard -> cmoullia)
+Create a `git repo` within the `org` https://github.com/rhte-eu for the EU Session Lab or https://github.com/rhte-us for the US Session Lab
+using your first and last name concatenated and cut after 8 chars as a repo name  (E.g : Charles Moulliard -> cmoullia)
 ----
 bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh)
 Repo name (hit enter to use 'cmoullia')?
@@ -121,7 +121,7 @@ oc new-project rhtelab
 
 === Scaffold the Spring Boot applications
 
-Create on your laptop under your development folder the `rhtelab` folder and move it there
+Create a `rhtelab` development folder on your laptop
 ----
 mkdir rhtelab && cd rhtelab
 ----
@@ -159,7 +159,7 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
         <module>fruit-client-sb</module>
     </modules>
 </project>
----- 
+----
 
 Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool:
 ----
@@ -187,7 +187,7 @@ hal component spring-boot \
   fruit-backend-sb
 ----
 
-Create a `.gitignore` file ignore the files populated by your IDE or what maven will populate under `/target` directory
+Create a `.gitignore` file to ignore the files populated by your IDE or what maven will populate under `/target` directory
 ----
 touch .gitignore
 echo "*/target" >> .gitignore
@@ -197,9 +197,9 @@ echo ".idea/" >> .gitignore
 Add the code scaffolded to your git project and push it to your git remote repository
 ----
 git init
-git add .gitignore fruit-backend-sb/ fruit-client-sb/
+git add .gitignore pom.xml fruit-backend-sb/ fruit-client-sb/
 git commit -m "Initial project" -a
-git remote add origin https://github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
+git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
 git push -u origin master
 ----
 Note that the user and password to push to the repo are `username="rhte-user" password="!demo12345"`
@@ -260,8 +260,7 @@ fruit-backend-sb   spring-boot   2.1.6.RELEASE   11s       dev       Pending   p
 fruit-client-sb    spring-boot   2.1.6.RELEASE   103s      dev       Ready     Ready
 ----
 
-NOTE: though that if you access the associated services, they won't be working yet
-because the components haven't been wired together yet. Hence why we need to following steps! :smile:
+NOTE: if you will try to access the associated services, they won't work because the components haven't been wired together yet. Hence the need for the following steps! :smile:
 
 === Create a PostgreSQL DB
 
@@ -339,7 +338,7 @@ fruit-backend-sb-link-1568136120947947000   93s       Ready     Ready
 fruit-client-sb-link-1568136198776371000    14s       Ready     Ready
 ----
 
-TODO: Add command to check if the component has been modified and is well started
+TODO: Add command to check if the component has been modified and has started correctly
 
 === Connect to the Client or Backend services
 
@@ -382,7 +381,7 @@ hal component switch -m build -c fruit-backend-sb
 
 TODO: Add text here to tell to the students what is happening, what they could do
 
-Test again the service
+Test the service again
 ----
 open "http://$(oc get routes/fruit-backend-sb --template={{.spec.host}})"
 FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
