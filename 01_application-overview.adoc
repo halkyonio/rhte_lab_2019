@@ -1,6 +1,14 @@
 == Application overview
 
-The application to be developed will contain 2 Spring Boot runtimes where one is a client
-consuming services exposed by a backend application connected to a PostgreSQL database
+The project to be developed will contain 2 Spring Boot runtimes where one is a client
+consuming the service exposed by a backend application connected to a PostgreSQL database.
 
-image::images/component-operator-demo.png[]
+The client will be called `fruit-client-sb` and the backend `fruit-backend-sb` as depicted here after.
+
+Legend:
+
+- Blue: Spring Boot microservice (aka component)
+- Yellow: Link used to inject METADATA
+- Green: A capability such as a Database
+
+image::images/halkyon-operator-demo.png[]
