@@ -3,5 +3,6 @@
 - JDK8
 - Apache Maven 3.5
 - Java IDE such as IntelliJ, Eclipse, VScode
+- link:https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.1/[oc client v4]
 
 **link:README.adoc[Home]**
