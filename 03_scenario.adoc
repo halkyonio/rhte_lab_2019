@@ -37,7 +37,7 @@ TODO
 
 If Docker is installed on your laptop and that you can access it, then you can also use the following `Hal` container image to play with it
 
-NOTE: The image already packages the `kubectl` client.
+NOTE: The image already packages the `oc` client version 4.x.
 
 ----
 docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.5 bash
