@@ -1,6 +1,6 @@
-= Accessing to the Lab Environment
+= Accessing the Lab Environment
 
-== Getting your dedicated Openshift Cluster
+== Getting your dedicated OpenShift Cluster
 
 On your laptop, you **MUST** open a browser tab pointing to the following link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Open TLC Page*] before to continue with the lab instructions:
 
@@ -23,11 +23,11 @@ image::images/request-env-gg.png[Request Env GuidGrabber]
 
 The resulting *Lab Information page* will display your lab's `GUID` and other useful information about your lab environment:
 
-. URL of the OpenShift Master Console
-. URL of the API to access to Openshift using the `oc` client tool
+. URL of the **OpenShift Console**
+. URL of the **API Server** to access OpenShift using the `oc` client tool
 . Hostname of the VM to ssh
 
-e.g : Lab Information - image:images/lab.png[Lab Information]
+image:images/lab.png[Lab Information]
 
 === Login to OpenShift Console
 
