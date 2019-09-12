@@ -2,7 +2,7 @@
 
 == Getting your dedicated lab environments using Guid Grabber
 
-On your laptop, you **MUST** open a browser tab with [*Lab GUID Assignment page*](https://www.opentlc.com/gg/gg.cgi?profile=generic_tester) before continuing with the lab instructions:
+On your laptop, you **MUST** open a browser tab with link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Lab GUID Assignment page*] before continuing with the lab instructions:
 
 * From this page, you will be assigned your unique GUID, which you will use to access your unique lab environment and systems.
 
@@ -33,7 +33,7 @@ Your unique GUID will also be embedded in your lab environment's host names.
 
 === Login to Openshift Console
 
-On the *Lab Information page* you will get the URL *Openshift Master Console*. This is the web console that we want to login and use for most of the lab instuctions. The username and password to access the console will be there below the URLs as well.
+On the *Lab Information page* you will get the URL *Openshift Master Console*. This is the web console that we want to login and use for most of the lab instructions. The username and password to access the console will be there below the URLs as well.
 
 1. Click on the URL and open the link in another tab.
 2. Use the credentials to login to the console on login screen.
