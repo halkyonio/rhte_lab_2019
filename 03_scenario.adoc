@@ -2,15 +2,15 @@
 
 === Table Of Content
 
-link:03_scenario.adoc#installing-hal-tool[Installing Hal Tool]
-link:03_scenario.adoc#create-a-git-project[Create a Git Project]
-link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
-link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
-link:03_scenario.adoc#build-the-project[Compile the project]
-link:03_scenario.adoc#build-the-project[Push the jar]
-link:03_scenario.adoc#create-a-postgresql-db[Create the DB Capability]
-link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
-link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
+- link:03_scenario.adoc#installing-hal-tool[Installing Hal Tool]
+- link:03_scenario.adoc#create-a-git-project[Create a Git Project]
+- link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
+- link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
+- link:03_scenario.adoc#build-the-project[Compile the project]
+- link:03_scenario.adoc#build-the-project[Push the jar]
+- link:03_scenario.adoc#create-a-postgresql-db[Create the DB Capability]
+- link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
+- link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
 
 === Installing Hal tool
 
