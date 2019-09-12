@@ -1,6 +1,6 @@
 = Accessing to the Lab Environment
 
-== Getting your dedicated lab environment
+== Getting your dedicated Openshift Cluster
 
 On your laptop, you **MUST** open a browser tab pointing to the following link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Open TLC Page*] before to continue with the lab instructions:
 
@@ -8,7 +8,7 @@ On your laptop, you **MUST** open a browser tab pointing to the following link:h
 
 > **NOTE: You are not required to login anywhere at this point, in this intro lab you will only get the information related to your assigned lab environments.**
 
-=== Getting Cluster Environment - **Browser Tab**
+=== Getting Cluster Environment
 
 From the drop down list:
 
@@ -39,7 +39,12 @@ Click on the *OpenShift Master Console* link within the page to open the console
 image:images/login.png[Login to Console]
 
 == Lab Environment Overview
-This lab environment is basically an OCP 4.1 cluster where the KubeDB, Tekton and Halkyon operators have been deployed.
+
+This lab environment is basically an OCP 4.1 dedicated cluster which has been provisioned with the following operators:
+
+- http://kubedb.com[KubeDB]
+- https://github.com/tektoncd/pipeline[Tekton] and
+- https://github.com/halkyonio/operator/[Halkyon]
 
 Next: link:03_scenario.adoc[3. Play with the lab to compose your microservices]
 
