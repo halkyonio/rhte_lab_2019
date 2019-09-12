@@ -1,4 +1,4 @@
-== Application overview
+== 2. Application overview
 
 The project to be developed will contain 2 Spring Boot runtimes where one is a client
 consuming the service exposed by a backend application connected to a PostgreSQL database.

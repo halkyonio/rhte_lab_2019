@@ -1,4 +1,4 @@
-== Microservices Lab scenario
+== 4. Microservices Lab scenario
 
 === Installing Hal tool
 

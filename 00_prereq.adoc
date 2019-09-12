@@ -1,4 +1,4 @@
-== Laptop pre-requisite
+== 1. Laptop pre-requisite
 
 - JDK8
 - Apache Maven 3.5
