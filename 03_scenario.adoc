@@ -91,7 +91,7 @@ using your first and last name concatenated and cut after 8 chars as a repo name
 bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/git-create.sh)
 Repo name (hit enter to use 'cmoullia')?
 <YOUR_GIT_REPO>
-Creating Github repository 'rcmoullia' under 'rhte-eu' ...
+Creating Github repository 'cmoullia' under 'rhte-eu' ...
 curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
 done.
 ----
