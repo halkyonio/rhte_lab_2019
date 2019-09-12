@@ -12,6 +12,8 @@
 - link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
 - link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
 
+---
+
 === Installing Hal tool
 
 Download and install the `hal` tool from the project `https://github.com/halkyonio/hal/releases/tag/v0.1.2`
