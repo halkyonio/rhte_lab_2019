@@ -44,13 +44,16 @@ ssh cmoulliard-redhat.com@bastion.GUID.open.redhat.com
 == How to create the cluster
 
 To request the creation of a cluster using one of the Ansible Playbooks part of the project agnosticd, log on on this web site `https://www.opentlc.com/gg/manager.cgi` using as user `generic_tester` and password `TeST123!Go`
-as documented link:https://mojo.redhat.com/docs/DOC-1165930-testing-your-red-hat-summit-lab-deployment[here]. See section `Log Into The GuidGrabber Manager`
+as documented link:https://mojo.redhat.com/docs/DOC-1165930-testing-your-red-hat-summit-lab-deployment[here]. See section `Log Into The GuidGrabber Manager`. Once login succeded choose `Deploy Lab Instances`
 
 image::images/create-cluster-playbook.png[]
 
 **Remark**: To control if creation of the cluster succeeded, use this URL: https://spp.opentlc.com/miq_request/show_list
 
 To access the cluster created and get the GUID, use this link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[URL - www.opentlc.com/gg/gg.cgi?profile=generic_tester]
+Tape `component` as Key Activation and a valid e-mail address.
+image::images/request-lab-guid.png
+
 Log into `spp.opentlc.com` (using same user and password generic_tester) then go to `services -> my services`
 
 During the event the link will be https://www.opentlc.com/gg/gg.cgi?profile=generic_rhte
@@ -80,3 +83,8 @@ USER=user1
 PASSWORD=r3dh4t1!
 oc login -u $USER -p $PASSWORD --server=https://api.cluster-bffb.bffb.sandbox171.opentlc.com:6443
 ```
+
+Grant the `admin` role to your user `user1`
+----
+oc adm policy add-cluster-role-to-user admin user1 --as=system:admin
+----
