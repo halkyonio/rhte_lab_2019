@@ -41,45 +41,34 @@ within the VM
 ssh cmoulliard-redhat.com@bastion.GUID.open.redhat.com
 ```
 
-== Useful links
+== How to create the cluster
 
-To request the creation of a cluster: https://www.opentlc.com/gg/manager.cgi
+To request the creation of a cluster using one of the Ansible Playbooks part of the project agnosticd, log on on this web site `https://www.opentlc.com/gg/manager.cgi` using as user `generic_tester` and password `TeST123!Go`
+as documented link:https://mojo.redhat.com/docs/DOC-1165930-testing-your-red-hat-summit-lab-deployment[here]. See section `Log Into The GuidGrabber Manager`
 
-To access the cluster created and get the GUID: www.opentlc.com/gg/gg.cgi?profile=generic_tester
+image::images/create-cluster-playbook.png[]
 
-To control if creation of the cluster succeeded: https://spp.opentlc.com/miq_request/show_list
+**Remark**: To control if creation of the cluster succeeded, use this URL: https://spp.opentlc.com/miq_request/show_list
 
-== How to create the cluster on Dev
-
-GUIDGrabber tool: https://www.opentlc.com/gg/manager.cgi?operation=deploy_lab
-
-Remember to follow the process here: https://mojo.redhat.com/docs/DOC-1165930-testing-your-red-hat-summit-lab-deployment
-
-Log into spp.opentlc.com (using same user and password generic_tester) then go to services -> my services
-
-so the cluster info you will get by going to : https://www.opentlc.com/gg/gg.cgi?profile=generic_tester
-as documented in the mojo guide
+To access the cluster created and get the GUID, use this link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[URL - www.opentlc.com/gg/gg.cgi?profile=generic_tester]
+Log into `spp.opentlc.com` (using same user and password generic_tester) then go to `services -> my services`
 
 During the event the link will be https://www.opentlc.com/gg/gg.cgi?profile=generic_rhte
 
-Next you can do ssh lab-user@bastion.GUID.sandboxXXX.opentlc.com with password `r3dh4t1!`
+== How to ssh
 
+According to the info collected from the screen `https://www.opentlc.com/gg/gg.cgi?profile=generic_rhte`, get the GUID and bastion in order to ssh to the VM using this command
 ```
-ssh lab-user@bastion.bffb.sandbox171.opentlc.com
+ssh lab-user@bastion.GUID.sandboxXXX.opentlc.com
 ```
+using as password `r3dh4t1!`
 
-and then do sudo -i and you will be automatically logged in as cluster admin as root 🙂
-Add that in your instructions
-you have htpasswd users 1..200 and the admin of the cluster is opentlc-mgr
-all passwords are r3dh4t1!
-
-your bastion machine is t2.large, master is m4.xlarge and worker nodes are m4.4xlarge, all AWS instances
+**Remark** : Do sudo -i and you will be automatically logged in as cluster admin as root 🙂
 
 === Some checks
 ```
 oc get nodes --as=system:admin
 ```
-
 === How to log
 
 ```

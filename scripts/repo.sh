@@ -52,22 +52,24 @@ function do_delete() {
 # Print a usage message.
 function usage() {
     echo "Batch create github repositories on Github.
-Usage: 
+Usage:
+
+hub tool is a pre-requisite (brew install hub).
 
 repos.sh create|delete [options].
 
 --num           The number of repositories to create, defaults to 3.
 --prefix        The prefix of the repository to create, defaults to 'user'.
---github-org    The name of the orginization that will host the repositories, defaults to current user.
+--github-org    The name of the organization that will host the repositories, defaults to current user.
 
 
 Examples:
 
-./repo.sh create --github-org rhte-us --num 100
-./repo.sh delete --github-org rhte-us --num 100
+./scripts/repo.sh create --github-org rhte-us --num 100
+./scripts/repo.sh delete --github-org rhte-us --num 100
 
-./repo.sh create --github-org rhte-en --num 100
-./repo.sh delete --github-org rhte-en --num 100
+./scripts/repo.sh create --github-org rhte-eu --num 100
+./scripts/repo.sh delete --github-org rhte-eu --num 100
 "
 }
 
