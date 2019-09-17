@@ -51,7 +51,7 @@ image::images/create-cluster-playbook.png[]
 **Remark**: To control if creation of the cluster succeeded, use this URL: https://spp.opentlc.com/miq_request/show_list
 
 To access the cluster created and get the GUID, use this link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[URL - www.opentlc.com/gg/gg.cgi?profile=generic_tester]
-Tape `component` as Key Activation and a valid e-mail address.
+Enter `component` as Key Activation and a valid e-mail address.
 image::images/request-lab-guid.png
 
 Log into `spp.opentlc.com` (using same user and password generic_tester) then go to `services -> my services`
