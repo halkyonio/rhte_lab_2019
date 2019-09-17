@@ -100,7 +100,7 @@ done.
 
 Log on to the RHTE OCP4 cluster using the `oc` client
 ----
-oc login <SERVER_ADDRESS> -u user1 -p r3d4t1!
+oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 ----
 
 **Remarks**:
