@@ -244,23 +244,15 @@ oc project
 Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
 ----
 
-Next create the components
-----
-hal component create -c fruit-client-sb,fruit-backend-sb
-'fruit-client-sb' component was not found, initializing it
- ✓  Waiting for component fruit-client-sb to be ready…
- ✓  Successfully created 'fruit-client-sb' component
-'fruit-backend-sb' component was not found, initializing it
- ✓  Waiting for component fruit-backend-sb to be ready…
- ✓  Successfully created 'fruit-backend-sb' component
-...
-----
-Push the uber jar
+Next deploy the components
 ----
 hal component push -c fruit-client-sb,fruit-backend-sb
- ✓  Uploading /home/amunozhe/git/rhtelab/fruit-client-sb/target/fruit-client-sb-1.0.0-SNAPSHOT.jar
- ✓  Uploading /home/amunozhe/git/rhtelab/fruit-backend-sb/target/fruit-backend-sb-1.0.0-SNAPSHOT.jar
-
+'fruit-client-sb' component was not found, initializing it
+ ✓  Waiting for component fruit-client-sb to be ready…
+ ✓  Uploading /home/amunozhe/git/hal/fruit-client-sb/target/fruit-client-sb-1.0.0-SNAPSHOT.jar
+'fruit-backend-sb' component was not found, initializing it
+ ✓  Waiting for component fruit-backend-sb to be ready…
+ ✓  Uploading /home/amunozhe/git/hal/fruit-backend-sb/target/fruit-backend-sb-1.0.0-SNAPSHOT.jar
 ----
 
 Check if the components have been correctly installed within another terminal
