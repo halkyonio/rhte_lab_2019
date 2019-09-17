@@ -10,7 +10,7 @@
 * link:03_scenario.adoc#create-a-git-project[Create a Git Project]
 * link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
 * link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
-* link:03_scenario.adoc#build-the-project[Compile the project]
+* link:03_scenario.adoc#build-the-project[Build the project]
 * link:03_scenario.adoc#push-the-components[Push the jar]
 * link:03_scenario.adoc#create-a-postgresql-db[Create the DB Capability]
 * link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
