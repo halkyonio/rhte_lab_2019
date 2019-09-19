@@ -284,17 +284,28 @@ NOTE: if you will try to access the associated services, they won't work because
 === Create a PostgreSQL DB
 
 Create a capability to install a PostgreSQL database using the interactive mode of the `hal` tool.
-Select as category: `database`, Type: `postgres` and version : `10`
+Select as :
+- Category: `database`
+- Type: `postgres`
+- version : `10`
+- Default-name: `postgres-db`
+
+For the database parameters which are needed to configure the instance of the Database but also the parameters of the Java Datasource
+used by the Spring JPA component, use the following ket, value pairs:
+- DB_NAME: `sample-db`
+- DB_PASSWORD: `admin`
+- DB_USER: `admin`
+
 ----
 hal capability create
 ? Category database
 ? Type postgres
 ? Version 10
-? Change default name (postgres-capability-1568134805423273000)
+? Change default name (postgres-db)
 ? Enter a value for string property DB_NAME: sample-db
 ? Enter a value for string property DB_PASSWORD: admin
 ? Enter a value for string property DB_USER: admin
- ✓  Created capability postgres-capability-1568134805423273000
+ ✓  Created capability postgres-db
 ----
 
 Check the capability status:
@@ -302,6 +313,13 @@ Check the capability status:
 oc get capabilities
 NAME                                      CATEGORY   KIND      AGE       STATUS    MESSAGE                                                                                                      REVISION
 postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'rhtelab'
+----
+
+If the status is not ready, wait a few moment till the `KubeDB` operator create the database within your namespace and repeat the command again
+----
+oc get capability
+NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE   REVISION
+postgres-db   Database             4m        Ready     Ready
 ----
 
 === Link the microservices
