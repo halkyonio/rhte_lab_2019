@@ -11,9 +11,10 @@
 * link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
 * link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
 * link:03_scenario.adoc#build-the-project[Build the project]
-* link:03_scenario.adoc#push-the-components[Push the jar]
+* link:03_scenario.adoc#create-the-components[Create the components]
 * link:03_scenario.adoc#create-a-postgresql-db[Create the DB Capability]
 * link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
+* link:03_scenario.adoc#push-the-code[Push the code source]
 * link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
 
 ---
@@ -245,7 +246,7 @@ capability and will be linked to the component: the capability will generate a s
 inject it in our component. The secret will be named after your capability, adding the `-config` suffix to the name. So if your
 capability is called `my-capability`, its associated secret will be named `my-capability-config`.
 
-=== Push the Components
+=== Create the Components
 
 A component represents a micro-service to be deployed. The Component custom resource provides the descriptor that allows Kubernetes/OpenShift
 to deploy the micro-service and, optionally, expose it outside of the cluster.
@@ -328,54 +329,62 @@ NOTE: The fruit-client-sb's `application.properties` relies on an environment va
 This is the property the app relies on to connect to the backend endpoint.
 
 We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
+We also need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both.
 
-We also need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both:
+So, execute the command `hal link create` to use the interactive mode and next select:
+- Target: component: `fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information about the parameters of the Database created previously
+- Use secret: `Y` as the information created during the encoding of the parameters of the capability are stored in a secret
+- Secret (only potential matches shown) : `postgres-db-config`
+- Change default name (fruit-backend-sb-link-1568907618694167000): `fruit-backend-sb-link`
+
 ----
-hal link create
-select `component: fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information
-about the parameters of the Database created previously
-select secret as link type
-select `<your capability name>-config` as secret (`postgres-db-config` if your capability is called `postgres-db`)
-call the link whatever you want
-
 hal link create
 ? Target component: fruit-backend-sb
 ? Use Secret Yes
-? Secret  [Use arrows to move, space to select, type to filter]
-  deployer-token-8jg7f
-  deployer-token-g2nh2
-  postgres-capability-156813480542327300-bba890eb-dockercfg-zljff
-> postgres-capability-1568134805423273000-config
-? Change default name fruit-backend-sb-link-1568136120947947000
- ✓  Created link fruit-backend-sb-link-1568136120947947000
+Selected link type: Secret
+? Secret (only potential matches shown) postgres-db-config
+? Change default name fruit-backend-sb-link
+ ✓  Created link fruit-backend-sb-link
 ----
 
-Create a link targeting the `fruit-client-sb` component: `hal link` to let `fruit-client-sb` know about the backend:
+Create a link targeting the `fruit-client-sb` component using again the command `hal link` to let `fruit-client-sb` know about the backend.
+- Target: `component: fruit-client-sb`
+- Use Secret: `No`
+- Env variable in the 'name=value': `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits`
+- Change default name: `fruit-client-sb-link`
 ----
-hal link create
-select `component: fruit-client-sb` as the target
-select no when asked whether to use a secret
-enter `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits` as the env value
-press enter to let `hal` know that you're done entering env variables
-
 hal link create
 ? Target component: fruit-client-sb
 ? Use Secret No
+Selected link type: Env
 ? Env variable in the 'name=value' format, press enter when done KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits
 Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits
 ? Env variable in the 'name=value' format, press enter when done
-? Change default name fruit-client-sb-link-1568136198776371000
- ✓  Created link fruit-client-sb-link-1568136198776371000
+? Change default name fruit-client-sb-link
+ ✓  Created link fruit-client-sb-link
 ----
 Check the link status:
 ----
 oc get links
-NAME                                        AGE       STATUS    MESSAGE
-fruit-backend-sb-link-1568136120947947000   93s       Ready     Ready
-fruit-client-sb-link-1568136198776371000    14s       Ready     Ready
+NAME                    AGE       STATUS    MESSAGE
+fruit-backend-sb-link   4m        Ready     Ready
+fruit-client-sb-link    2m        Ready     Ready
 ----
 
 TODO: Add command to check if the component has been modified and has started correctly
+
+=== Push the code
+
+Now that we have created the different entities able to design the architecture of the microservices, their relations
+and backend service, we will push the code (to compile it on the platform) and to verify if we can access the HTTP endpoints
+exposed as route
+
+----
+hal component push -c fruit-client-sb -s
+ ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb.tar
+hal component push -c fruit-backend-sb -s
+ ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
+----
 
 === Connect to the Client or Backend services
 
