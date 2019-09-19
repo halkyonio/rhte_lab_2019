@@ -229,12 +229,13 @@ mvn package -f fruit-client-sb
 
 Repeat the command executed previously for the CRUD - backend microservice
 ----
-mvn package -f fruit-backend-sb -Pkubernetes
+mvn package -f fruit-backend-sb -Plocal
 ----
 
-**Remark**: We need to use the `kubernetes` profile because the project is set up to work both locally using H2 database for quick testing and "remotely" using a PostgreSQL database.
+**Remark**: We need to use the `local` profile because the project is set up to work both locally using `H2` database for quick testing and "remotely" using a `PostgreSQL` database
+using the `kubernetes` profile which is enable by default.
 
-The PostgreSQL connection information is provided in the `application-kubernetes.properties` file.
+The `PostgreSQL` connection information is provided in the `application-kubernetes.properties` file.
 
 Note also that this file contains a Dekorate environment variable definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
 This is so that the supervisor knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
