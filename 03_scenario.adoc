@@ -409,20 +409,12 @@ When we have finished to test/push the project on the cloud machine, then we can
 is greatly simplified using the `hal` tool as it will allow to change the property `deploymentMode` of the `Component` to use `build`. This
 parameter will be used by the operator and Tekton to perform a s2i Build.
 
-Prior to do that, change the default profile of pom.xml of the project `fruit-backend-sb` to make the `Kubernetes` the default one.
-Commit the code.
-----
-<profile>
- <id>kubernetes</id>
- <activation>
-   <activeByDefault>true</activeByDefault>
-   </activation>
-----
-
-Next, you can use the `hal` command to perform this switch
+Use the `hal component switch` command to perform this switch
 ----
 hal component switch -m build -c fruit-client-sb
+INFO[0000] Component fruit-client-sb switched to build
 hal component switch -m build -c fruit-backend-sb
+INFO[0000] Component fruit-backend-sb switched to build
 ----
 
 TODO: Add text here to tell to the students what is happening, what they could do
