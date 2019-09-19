@@ -257,15 +257,18 @@ oc project
 Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
 ----
 
-Next deploy the components
+Next create the different microservices as `component` using the command `hal component create`. During this process, the tool
+will communicate with the platform to deploy the `Component CRD` resource. Next the halkyon operator will process the content
+and will create different kubernetes resources that you don't have to take care yourself anymore such as: Deployment, Service, ...
 ----
-hal component push -c fruit-client-sb,fruit-backend-sb
+hal component create -c fruit-client-sb
 'fruit-client-sb' component was not found, initializing it
  ✓  Waiting for component fruit-client-sb to be ready…
- ✓  Uploading /home/amunozhe/git/hal/fruit-client-sb/target/fruit-client-sb-1.0.0-SNAPSHOT.jar
+ ✓  Successfully created 'fruit-client-sb' component
+hal component create -c fruit-backend-sb
 'fruit-backend-sb' component was not found, initializing it
  ✓  Waiting for component fruit-backend-sb to be ready…
- ✓  Uploading /home/amunozhe/git/hal/fruit-backend-sb/target/fruit-backend-sb-1.0.0-SNAPSHOT.jar
+ ✓  Successfully created 'fruit-backend-sb' component
 ----
 
 Check if the components have been correctly installed within another terminal
