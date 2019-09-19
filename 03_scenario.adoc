@@ -161,25 +161,37 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 </project>
 ----
 
-Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool:
+Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool with the interactive mode.
+So, execute the following command where you will answer to the question:
+
+Spring Boot version: `2.1.6.RELEASE`
+Supported version: `No`
+Create from template: `Yes`
+Available templates: `client`
+Group Id: `me.fruitsand`
+Artifact Id: `fruit-client-sb`
+Version: `1.0.0-SNAPSHOT`
+Package name: `me.fruitsand.demo`
+
+Verify that a project has been locally created, contains `src/main/java` directory like a pom.xml file with the information provided.
 ----
-hal component spring-boot \
-   -i fruit-client-sb \
-   -g me.fruitstand \
-   -p me.fruitstand.demo \
-   -s 2.1.6.RELEASE \
-   -t client \
-   -v 1.0.0-SNAPSHOT \
-   --supported=false  \
-  fruit-client-sb
+hal component spring-boot fruit-client-sb
+? Spring Boot version 2.1.6.RELEASE
+? Use 2.1.6.RELEASE supported version No
+? Create from template Yes
+? Available templates client
+? Group Id me.fruitsand
+? Artifact Id fruit-client-sb
+? Version 1.0.0-SNAPSHOT
+? Package name me.fruitsand.demo
 ----
 
-Repeat the operation and use as template the `crud` type and `fruit-backend-sb` as maven project name:
+Repeat the operation and use as template the `crud` type and `fruit-backend-sb` as maven project name but without now the interactive mode:
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
-   -g me.fruitstand \
-   -p me.fruitstand.demo \
+   -g me.fruitsand \
+   -p me.fruitsand.demo \
    -s 2.1.6.RELEASE \
    -t crud \
    -v 1.0.0-SNAPSHOT \
