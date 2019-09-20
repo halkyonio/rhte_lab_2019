@@ -282,7 +282,7 @@ dekorate.component.envs[0].name=SPRING_PROFILES_ACTIVE
 dekorate.component.envs[0].value=kubernetes
 ----
 +
-- Finally, you can also see that the database connection parameters `${DB_xxxxx}`reference environment variables. These values will be injected
+- Finally, you can also see that the database connection parameters `${DB_xxxxx}` reference environment variables. These values will be injected
 into your microservice application when you create a link between it and the appropriate database capability.
 
 === Create the Components
