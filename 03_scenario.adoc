@@ -29,15 +29,15 @@ create the PostgreSQL database.
 ==== Binary installation for Mac OS
 
 ----
-# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.6/hal_0.1.6_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
+# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.8/hal_0.1.8_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
 ----
 
 ==== Binary installation for Linux
 
 ----
-# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.6/hal_0.1.6_Linux_x86_64.tar.gz \
-    -o /usr/local/bin/hal_0.1.6_Linux_x86_64.tar.gz && \
-    tar -xzf /usr/local/bin/hal_0.1.6_Linux_x86_64.tar.gz && \
+# curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.8/hal_0.1.8_Linux_x86_64.tar.gz \
+    -o /usr/local/bin/hal_0.1.8_Linux_x86_64.tar.gz && \
+    tar -xzf /usr/local/bin/hal_0.1.8_Linux_x86_64.tar.gz && \
     chmod +x /usr/local/bin/hal
 ----
 
@@ -45,9 +45,9 @@ create the PostgreSQL database.
 
 If a `/usr/local/bin` folder is owned by a `root` and your user doesn't have required permissions, then prefix the command with `sudo`.
 ----
-sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.6_Linux_x86_64.tar.gz \
-  -o /usr/local/bin/hal_0.1.6_Linux_x86_64.tar.gz && \
-  sudo tar -xzf /usr/local/bin/hal_0.1.6_Linux_x86_64.tar.gz \
+sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.8_Linux_x86_64.tar.gz \
+  -o /usr/local/bin/hal_0.1.8_Linux_x86_64.tar.gz && \
+  sudo tar -xzf /usr/local/bin/hal_0.1.8_Linux_x86_64.tar.gz \
   -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
 ----
 
@@ -55,7 +55,7 @@ sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.
 
 In order to use `hal` you must download it and add it to your `PATH` environment variable:
 
-. Download the `hal_0.1.6_Windows_x86_64.tar.gz` file from the link:https://github.com/halkyonio/hal/releases[GitHub releases page].
+. Download the `hal_0.1.8_Windows_x86_64.tar.gz` file from the link:https://github.com/halkyonio/hal/releases[GitHub releases page].
 . Extract the `hal.exec` file from the compressed archive.
 . Add the location of the extracted binary to your `PATH` environment under by example `c:\tools`.
 
@@ -66,7 +66,7 @@ If Docker is installed on your laptop and you can access it, then you can also u
 NOTE: The image already packages the `oc` client version 4.x.
 
 ----
-docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.6 bash
+docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 bash
 ----
 
 Now you are inside a container. `hal` needs an active connexion to an OpenShift cluster so before anything, please, log on to the RHTE OCP4 cluster using the `oc` client.
@@ -86,7 +86,7 @@ hal version
 
 Using this docker container, you can also execute the `oc` commands as presented hereafter
 ----
-docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.6 bash
+docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 bash
 oc login api.cluster-416e.416e.sandbox352.opentlc.com:6443 -u user1 -p r3dh4t1!
 The server uses a certificate signed by an unknown authority.
 You can bypass the certificate check, but any data you send to the server could be intercepted by others.
