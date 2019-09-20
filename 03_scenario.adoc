@@ -368,16 +368,17 @@ So, create a capability using the interactive mode of the `hal` tool and this co
 
 Select as :
 
-- Category: `database`
-- Type: `postgres`
-- version : `10`
-- Default-name: `postgres-db`
+    Category: `database`
+    Type: `postgres`
+    version : `10`
+    Default-name: `postgres-db`
 
 For the parameters which are needed to configure not only the database's instance but also the parameters of the Java Datasource
 used by the Spring JPA component, use the following key-value pairs:
-- DB_NAME: `sample-db`
-- DB_PASSWORD: `admin`
-- DB_USER: `admin`
+
+    DB_NAME: `sample-db`
+    DB_PASSWORD: `admin`
+    DB_USER: `admin`
 
 ----
 hal capability create
