@@ -411,18 +411,22 @@ TIP: You can for all the resources created check the content generated using the
 
 === Link the microservices
 
-NOTE: `fruit-client-sb` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
-This is the property the app relies on to connect to the backend endpoint.
+Creating the `components` and the `capability` is not enough as we must pass different information to the `components` in order to let them
+to know how to access the endpoint of the REST service exposed by the `fruit-backend` by example or to fill the parameters of the datasource to access the database.
 
-We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
-We also need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both.
+This is what we will perform within this section of the lab using the `hal link create` command where we will inject (or bind/wired) the information
+within the component deployed
+
+To wire the `fruit-backend-sb` component with the `postgres-db` capability, we will then create a link.
 
 So, execute the command `hal link create` to use the interactive mode and next select:
-- Target: `component: fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information about the parameters of the Database created previously
-- Use secret: `Y` as the information created during the encoding of the parameters of the capability are stored in a secret
-- Secret (only potential matches shown) : `postgres-db-config`
-- Change default name (fruit-backend-sb-link-1568907618694167000): `fruit-backend-sb-link`
 
+    Target: `component: fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information about the parameters of the Database created previously
+    Use secret: `Y` as the information created during the encoding of the parameters of the capability are stored in a secret
+    Secret (only potential matches shown) : `postgres-db-config`
+    Change default name (fruit-backend-sb-link-1568907618694167000): `fruit-backend-sb-link`
+
+The resulting outcome of the execution of the command is :
 ----
 hal link create
 ? Target component: fruit-backend-sb
@@ -433,11 +437,20 @@ Selected link type: Secret
  ✓  Created link fruit-backend-sb-link
 ----
 
-Create a link targeting the `fruit-client-sb` component using again the command `hal link` to let `fruit-client-sb` know about the backend.
-- Target: `component: fruit-client-sb`
-- Use Secret: `No`
-- Env variable in the 'name=value': `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits`
-- Change default name: `fruit-client-sb-link`
+**IMORTANT**: The current releases used for this lab about `Hal` and `Halkyon` operator rely on the assumption that you know the type of the information to be injected (e.g : secret, env variable, ...).
+While this approach is fine/perfect for a lab, that should be definitively improved and that will become part of future iterations of the `halkyon` technology using a contract definition.
+
+To configure the Rest Client of the Spring Boot `fruit-client-sb`, we have defined a variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
+This is the property the Spring Boot application relies on to connect to the backend endpoint.
+
+Create a link targeting the `fruit-client-sb` component using again the command `hal link create` to let `fruit-client-sb` know about the backend.
+
+    Target: `component: fruit-client-sb`
+    Use Secret: `No`
+    Env variable in the 'name=value': `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits`
+    Change default name: `fruit-client-sb-link`
+
+The resulting outcome of the execution of the command is :
 ----
 hal link create
 ? Target component: fruit-client-sb
