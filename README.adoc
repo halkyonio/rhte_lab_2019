@@ -29,7 +29,7 @@ In this lab, you will :
 
 == References
 
-. *Developer Tool - Hal[https://github.com/halkyonio/hal]*
-. *Halyon Operator[https://github.com/halkyonio/operator]*
-. *Halkyon Community[https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon]*
-. *Java annotations/annotationless processors - Dekorate[https://github.com/dekorateio/dekorate]*
+. link:https://github.com/halkyonio/hal[Developer Tool - Hal]
+. link:https://github.com/halkyonio/operator[Halkyon Operator]
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Community]
+. link:https://github.com/dekorateio/dekorate[Java annotations/annotationless processors - Dekorate]
