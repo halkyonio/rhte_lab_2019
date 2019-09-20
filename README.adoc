@@ -15,12 +15,12 @@ In this lab, you will :
 
 == Agenda
 
-- Dekorate + Halkyon Operator introduction: 15min (Naina)
-  - Pdf link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pdf[link]
-  - Pptx link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pptx[link]
-- Instructor message: 5 min (Charles)
-- Play with the Lab: 1h10 (You :thinking:)
-- Debriefing - Q&A : 15min (All)
+* Dekorate + Halkyon Operator introduction: 15min (Naina)
+  ** Pdf link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pdf[link]
+  ** Pptx link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pptx[link]
+* Instructor message: 5 min (Charles)
+* Play with the Lab: 1h10 (You :thinking:)
+* Debriefing - Q&A : 15min (All)
 
 == Table of Content
 
