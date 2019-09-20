@@ -15,7 +15,7 @@ In this lab, you will :
 
 == Agenda
 
-- Dekorate + Halkyon Operator introduction: 15min (Naina)
+- Dekorate + Halkyon Operator link:Lab_Scenario_Introduction_Halkyon.pdf[introduction]: 15min (Naina)
 - Instructor message: 5 min (Charles)
 - Play with the Lab: 1h10 (You :thinking:)
 - Debriefing - Q&A : 15min (All)
