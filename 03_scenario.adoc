@@ -314,7 +314,9 @@ hal component create -c fruit-backend-sb
  ✓  Successfully created 'fruit-backend-sb' component
 ----
 
-*Note*: You can discover the file populated by Dekorate by opening the following folder
+*Note*:
+
+You can discover the file populated by Dekorate by opening the following folder
 +
 ----
 fruit-backend-sb/target/classes/META-INF/dekorate/halkyon.yml
