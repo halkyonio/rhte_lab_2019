@@ -16,6 +16,7 @@
 * link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
 * link:03_scenario.adoc#push-the-code[Push the code source]
 * link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
+* link:03_scenario.adoc#switch-to-build-mode[Switch to build mode]
 
 ---
 
@@ -149,7 +150,7 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>me.fruitsand</groupId>
+    <groupId>me.fruitstand</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Spring Boot - Demo</name>
@@ -169,10 +170,10 @@ Spring Boot version: `2.1.6.RELEASE`
 Supported version: `No`
 Create from template: `Yes`
 Available templates: `client`
-Group Id: `me.fruitsand`
+Group Id: `me.fruitstand`
 Artifact Id: `fruit-client-sb`
 Version: `1.0.0-SNAPSHOT`
-Package name: `me.fruitsand.demo`
+Package name: `me.fruitstand.demo`
 
 Verify that a project has been locally created, contains `src/main/java` directory like a pom.xml file with the information provided.
 ----
@@ -181,18 +182,18 @@ hal component spring-boot fruit-client-sb
 ? Use 2.1.6.RELEASE supported version No
 ? Create from template Yes
 ? Available templates client
-? Group Id me.fruitsand
+? Group Id me.fruitstand
 ? Artifact Id fruit-client-sb
 ? Version 1.0.0-SNAPSHOT
-? Package name me.fruitsand.demo
+? Package name me.fruitstand.demo
 ----
 
 Repeat the operation and use as template the `crud` type and `fruit-backend-sb` as maven project name but without now the interactive mode:
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
-   -g me.fruitsand \
-   -p me.fruitsand.demo \
+   -g me.fruitstand \
+   -p me.fruitstand.demo \
    -s 2.1.6.RELEASE \
    -t crud \
    -v 1.0.0-SNAPSHOT \
