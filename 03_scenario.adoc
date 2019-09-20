@@ -258,10 +258,18 @@ mvn package -f fruit-backend-sb -Plocal
 
 **Remarks**:
 
-- We need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database
-using the `kubernetes` profile which is enabled by default. This information is mirrored in the Spring Boot properties files within the
-`application.properties` file corresponding which corresponds to the `local` profile, while `application-kubernetes.properties` is used when the
-`kubernetes` profile is activated. The `PostgreSQL` connection information is provided in the `application-kubernetes.properties` file to configure the Datasource needed to access the database.
+- We need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database.
+  The `kubernetes` profile is enabled by default. This information is mirrored within the 2 Spring Boot application properties files under the folder `src/main/resources`.
+  The `application.properties` file corresponds to the `local` profile while `application-kubernetes.properties` is used for `kubernetes` deployment.
+  These 2 files contains the Spring Boot properties to configure the Datasource needed to access the database.
++
+----
+src/main/resources/application-kubernetes.properties
+spring.datasource.url=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=org.postgresql.Driver
+----
 +
 - Note also that this file contains a `Dekorate environment variable` definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
 This is how Halkyon knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
@@ -270,13 +278,11 @@ booting instead of the default `application.properties`.
 ----
 src/main/resources/application-kubernetes.properties
 ...
-dekorate.component.exposeService=true
-dekorate.component.name=fruit-backend-sb
 dekorate.component.envs[0].name=SPRING_PROFILES_ACTIVE
 dekorate.component.envs[0].value=kubernetes
 ----
 +
-- Finally, you can also see that the database connection parameters reference environment variables. These values will be injected
+- Finally, you can also see that the database connection parameters `${DB_xxxxx}`reference environment variables. These values will be injected
 into your microservice application when you create a link between it and the appropriate database capability.
 
 === Create the Components
