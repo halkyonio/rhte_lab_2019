@@ -467,6 +467,8 @@ Create a link targeting the `fruit-client-sb` component using again the command 
     Env variable in the 'name=value': `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits`
     Change default name: `fruit-client-sb-link`
 
+**REMARK**: Like for the secret, the `ENV VARIABLE` defined will be used also to configure the pod of the Spring Boot Application when it will start !
+
 The resulting outcome of the execution of the command is :
 ----
 hal link create
@@ -492,7 +494,7 @@ fruit-client-sb-link    2m        Ready     Ready
 
 Now that we have created the different entities able to design the architecture of the microservices, their relations
 and backend service, we will push the code (to compile it on the platform) and to verify if we can access the HTTP endpoints
-exposed as route
+exposed as route.
 
 ----
 hal component push -c fruit-client-sb
@@ -534,8 +536,6 @@ INFO[0000] Component fruit-client-sb switched to build
 hal component switch -m build -c fruit-backend-sb
 INFO[0000] Component fruit-backend-sb switched to build
 ----
-
-TODO: Add text here to tell to the students what is happening, what they could do
 
 Test the service again
 ----
