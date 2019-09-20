@@ -440,8 +440,24 @@ Selected link type: Secret
 **IMORTANT**: The current releases used for this lab about `Hal` and `Halkyon` operator rely on the assumption that you know the type of the information to be injected (e.g : secret, env variable, ...).
 While this approach is fine/perfect for a lab, that should be definitively improved and that will become part of future iterations of the `halkyon` technology using a contract definition.
 
-To configure the Rest Client of the Spring Boot `fruit-client-sb`, we have defined a variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
-This is the property the Spring Boot application relies on to connect to the backend endpoint.
+To configure the Rest Client of the Spring Boot `fruit-client-sb`, we have defined a variable called `${KUBERNETES_ENDPOINT_FRUIT}` within the `application.properties` file
+
+----
+endpoint.fruit=${KUBERNETES_ENDPOINT_FRUIT}
+----
+
+as a value provider for the `endpoint.fruit` java property.
+
+----
+@RestController
+@RequestMapping("/api")
+public class ClientController {
+
+    @Value("${endpoint.fruit:}")
+    private String endPoint;
+----
+
+This is the property the Spring Boot application relies on to connect to the backend HTTP endpoint or Backend Service.
 
 Create a link targeting the `fruit-client-sb` component using again the command `hal link create` to let `fruit-client-sb` know about the backend.
 
