@@ -144,7 +144,7 @@ Create a `rhtelab` development folder on your laptop
 mkdir rhtelab && cd rhtelab
 ----
 
-Create a `pom.xml` file and add the following content:
+Create a parent `pom.xml` file as the `hal` client tool is not able to create it and add the following content:
 
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -180,7 +180,7 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 ----
 
 Use `hal` to create, in an interactive fashion, a new Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
-So, execute the following command providing the following information to each question:
+So, execute the command `hal component spring-boot fruit-client-sb` by providing the following information to each question:
 
     Spring Boot version: `2.1.6.RELEASE`
     Supported version: `No`
@@ -203,7 +203,10 @@ hal component spring-boot fruit-client-sb
 ? Package name me.fruitstand.demo
 ----
 
-Repeat the operation to create a second Spring Boot project using the `crud` template. We'll do it in a non-interactive fashion this time. `hal` is smart enough to check values you provided and only asks you to provide information when needed (e.g. if a provided value is incorrect):
+Check that a project has been well created under the folder `fruit-client-sb`.
+
+Repeat the operation to create a second Spring Boot project using the `crud` template. We'll do it in a non-interactive fashion this time.
+`hal` is smart enough to check values you provided and only asks you to provide information when needed (e.g. if a provided value is incorrect):
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
@@ -223,7 +226,9 @@ echo "*/target" >> .gitignore
 echo ".idea/" >> .gitignore
 ----
 
-Create a new git repository, adding the `pom` file you created earlier along with the two Spring Boot applications and push it to your remote repository:
+**Remark**: Add the folder corresponding to your IDE tool if you don't use IntelliJ.
+
+Initialize now a git repository, adding the `pom.xml, .gitignore` files you created earlier along with the two Spring Boot applications and push it to your remote repository:
 ----
 git init
 git add .gitignore pom.xml fruit-backend-sb/ fruit-client-sb/
@@ -231,7 +236,7 @@ git commit -m "Initial project" -a
 git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
 git push -u origin master
 ----
-Note that the user and password to push to the repo are `username="rhte-user"` `password="!demo12345"`
+**Note** that the user and password to push to the repo are `username="rhte-user"` `password="!demo12345"`
 
 === Build the project
 
