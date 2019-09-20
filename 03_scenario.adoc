@@ -299,8 +299,8 @@ oc project
 Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
 ----
 
-Next create the different microservices as `components` using the `hal component create` command. During this process, the tool
-will create a `Component` custom resource which will be handled by the halkyon operator to create all the Kubernetes resources
+Next create the different microservices as `components` using the `hal component create` command.
+During this process, the tool will create a `Component` custom resource using the Java Dekorate Library which will be handled by the halkyon operator to create all the Kubernetes resources
 needed to deploy your application properly. You only need to worry about your component metadata instead of wondering how it
 needs to be materialized in the cluster using Deployments, Services, etc…
 ----
@@ -313,6 +313,39 @@ hal component create -c fruit-backend-sb
  ✓  Waiting for component fruit-backend-sb to be ready…
  ✓  Successfully created 'fruit-backend-sb' component
 ----
+
+*Note*: You can discover the file populated by Dekorate by opening the following folder
++
+----
+fruit-backend-sb/target/classes/META-INF/dekorate/halkyon.yml
+---
+apiVersion: "v1"
+kind: "List"
+items:
+- apiVersion: "halkyon.io/v1beta1"
+  kind: "Component"
+  metadata:
+    labels:
+      app: "fruit-backend-sb"
+    name: "fruit-backend-sb"
+  spec:
+    deploymentMode: "dev"
+    runtime: "spring-boot"
+    version: "2.1.6.RELEASE"
+    exposeService: true
+    envs:
+    - name: "SPRING_PROFILES_ACTIVE"
+      value: "kubernetes"
+    buildConfig:
+      type: "s2i"
+      url: "https://github.com/rhte-eu/cmoullia1.git"
+      ref: "master"
+      contextPath: ""
+      moduleDirName: "fruit-backend-sb"
+    port: 8080
+----
++
+*Important*: Take the time to discuss with the instructor the content of this file ;-)
 
 Check if the components have been correctly installed within another terminal
 ----
