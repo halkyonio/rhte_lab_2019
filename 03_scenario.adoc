@@ -257,6 +257,7 @@ mvn package -f fruit-backend-sb -Plocal
 ----
 
 **Remarks**:
+
 - We need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database
 using the `kubernetes` profile which is enabled by default. This information is mirrored in the Spring Boot properties files within the
 `application.properties` file corresponding which corresponds to the `local` profile, while `application-kubernetes.properties` is used when the
