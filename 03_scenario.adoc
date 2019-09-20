@@ -261,11 +261,11 @@ mvn package -f fruit-backend-sb -Plocal
 using the `kubernetes` profile which is enabled by default. This information is mirrored in the Spring Boot properties files within the
 `application.properties` file corresponding which corresponds to the `local` profile, while `application-kubernetes.properties` is used when the
 `kubernetes` profile is activated. The `PostgreSQL` connection information is provided in the `application-kubernetes.properties` file to configure the Datasource needed to access the database.
-.
++
 - Note also that this file contains a `Dekorate environment variable` definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
 This is how Halkyon knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
 booting instead of the default `application.properties`.
-.
++
 ----
 src/main/resources/application-kubernetes.properties
 ...
@@ -274,7 +274,7 @@ dekorate.component.name=fruit-backend-sb
 dekorate.component.envs[0].name=SPRING_PROFILES_ACTIVE
 dekorate.component.envs[0].value=kubernetes
 ----
-.
++
 - Finally, you can also see that the database connection parameters reference environment variables. These values will be injected
 into your microservice application when you create a link between it and the appropriate database capability.
 
