@@ -364,10 +364,10 @@ NOTE: if you try to access the associated services, they won't work because the 
 By creating a capability, we will then tell to the Operator to install the corresponding service. For the purpose of this lab, we will create as capability a database which is the
 PostgreSQL database.
 
-So, create a capability using the interactive mode of the `hal` tool and this command `hal capability create`
-
+So, create a capability using the interactive mode of the `hal` tool and this command `hal capability create`:
 
 Select as :
+
 - Category: `database`
 - Type: `postgres`
 - version : `10`
