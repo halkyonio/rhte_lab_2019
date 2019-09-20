@@ -380,6 +380,7 @@ used by the Spring JPA component, use the following key-value pairs:
     DB_PASSWORD: `admin`
     DB_USER: `admin`
 
+The output of the execution of the command should be similar to what it is is displayed here after:
 ----
 hal capability create
 ? Category database
