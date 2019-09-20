@@ -365,6 +365,8 @@ By creating a capability, we will then tell to the Operator to install the corre
 PostgreSQL database.
 
 So, create a capability using the interactive mode of the `hal` tool and this command `hal capability create`
+
+
 Select as :
 - Category: `database`
 - Type: `postgres`
