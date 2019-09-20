@@ -26,3 +26,10 @@ In this lab, you will :
 . *link:01_application-overview.adoc[Application overview]*
 . *link:02_setup.adoc[Lab Setup]*
 . *link:03_scenario.adoc[Code your Microservices]*
+
+== References
+
+. *Developer Tool - Hal[https://github.com/halkyonio/hal]*
+. *Halyon Operator[https://github.com/halkyonio/operator]*
+. *Halkyon Community[https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon]*
+. *Java annotations/annotationless processors - Dekorate[https://github.com/dekorateio/dekorate]*
