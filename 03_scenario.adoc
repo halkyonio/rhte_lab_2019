@@ -314,7 +314,7 @@ hal component create -c fruit-backend-sb
  ✓  Successfully created 'fruit-backend-sb' component
 ----
 
-*Note*:
+**Note**:
 
 You can discover the file populated by Dekorate by opening the following folder
 +
