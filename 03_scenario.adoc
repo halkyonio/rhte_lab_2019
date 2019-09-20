@@ -316,10 +316,10 @@ hal component create -c fruit-backend-sb
 
 **Note**:
 
-You can discover the file populated by Dekorate by opening the following folder
+You can discover the file populated by Dekorate by opening the following folder `{fruit-client-sb,fruit-backend-sb}/target/classes/META-INF/dekorate/`
 
 ----
-fruit-backend-sb/target/classes/META-INF/dekorate/halkyon.yml
+Example of halkyon.yml file
 ---
 apiVersion: "v1"
 kind: "List"
