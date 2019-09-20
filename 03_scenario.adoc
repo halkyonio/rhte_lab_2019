@@ -347,7 +347,7 @@ items:
     port: 8080
 ----
 
-*Important*: Take the time to discuss with the instructor the content of this file ;-)
+IMPORTANT: Take the time to discuss with the instructor the content of this file ;-)
 
 Check if the components have been correctly installed within another terminal
 ----
@@ -361,14 +361,17 @@ NOTE: if you try to access the associated services, they won't work because the 
 
 === Create a PostgreSQL DB
 
-Create a capability to install a PostgreSQL database using the interactive mode of the `hal` tool.
+By creating a capability, we will then tell to the Operator to install the corresponding service. For the purpose of this lab, we will create as capability a database which is the
+PostgreSQL database.
+
+So, create a capability using the interactive mode of the `hal` tool and this command `hal capability create`
 Select as :
 - Category: `database`
 - Type: `postgres`
 - version : `10`
 - Default-name: `postgres-db`
 
-For the database parameters which are needed to configure the instance of the Database but also the parameters of the Java Datasource
+For the parameters which are needed to configure not only the database's instance but also the parameters of the Java Datasource
 used by the Spring JPA component, use the following key-value pairs:
 - DB_NAME: `sample-db`
 - DB_PASSWORD: `admin`
@@ -399,6 +402,8 @@ oc get capability
 NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE   REVISION
 postgres-db   Database             4m        Ready     Ready
 ----
+
+TIP: You can for all the resources created check the content generated using the oc command : `oc get component postgres-db -o yaml`, ...
 
 === Link the microservices
 
