@@ -18,13 +18,13 @@
 * link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
 * link:03_scenario.adoc#switch-to-build-mode[Switch to build mode]
 
----
+'''
 
 === Installing Hal tool
 
-Download and install the `hal` developer tool from the project `https://github.com/halkyonio/hal/releases/tag/v0.1.5`. This tool will help you
-to scaffold your spring applications, to deploy it on the cluster and to perform the `Link/Binding` manipulations like, such as,
-create the PostgreSQL database.
+Download and install the latest version of `hal` from https://github.com/halkyonio/hal/releases/. `hal` is a developer-focused
+tool aimed at helping you create microservices applications using Halkyon even easier, by guiding you in your choices as you
+create components and link them together.
 
 ==== Binary installation for Mac OS
 
@@ -77,14 +77,14 @@ oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 
 **Remark**: the `oc login` command should be executed always after `docker run` in order to initialize the kubernetes configuration.
 
-Finally, you are able to show hal version
+Once this is done, you should be able to run `hal`:
 ----
 hal version
 ----
 
 **Remark**: Check with the instructor for the latest image to be used for the hal tool !!
 
-Using this docker container, you can also execute the `oc` commands as presented hereafter
+Using this docker container, you can also execute the `oc` commands as presented hereafter:
 ----
 docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 bash
 oc login api.cluster-416e.416e.sandbox352.opentlc.com:6443 -u user1 -p r3dh4t1!
@@ -175,19 +175,18 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 </project>
 ----
 
-Create a new client project using the REST HTTP `client` template proposed by the scaffolding tool with the interactive mode.
-So, execute the following command where you will answer to the question:
+Use `hal` to create, in an interactive fashion, a new Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
+So, execute the following command providing the following information to each question:
 
-Spring Boot version: `2.1.6.RELEASE`
-Supported version: `No`
-Create from template: `Yes`
-Available templates: `client`
-Group Id: `me.fruitstand`
-Artifact Id: `fruit-client-sb`
-Version: `1.0.0-SNAPSHOT`
-Package name: `me.fruitstand.demo`
+    Spring Boot version: `2.1.6.RELEASE`
+    Supported version: `No`
+    Create from template: `Yes`
+    Available templates: `client`
+    Group Id: `me.fruitstand`
+    Artifact Id: `fruit-client-sb`
+    Version: `1.0.0-SNAPSHOT`
+    Package name: `me.fruitstand.demo`
 
-Verify that a project has been locally created, contains `src/main/java` directory like a pom.xml file with the information provided.
 ----
 hal component spring-boot fruit-client-sb
 ? Spring Boot version 2.1.6.RELEASE
@@ -200,7 +199,7 @@ hal component spring-boot fruit-client-sb
 ? Package name me.fruitstand.demo
 ----
 
-Repeat the operation and use as template the `crud` type and `fruit-backend-sb` as maven project name but without now the interactive mode:
+Repeat the operation to create a second Spring Boot project using the `crud` template. We'll do it in a non-interactive fashion this time. `hal` is smart enough to check values you provided and only asks you to provide information when needed (e.g. if a provided value is incorrect):
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
@@ -220,7 +219,7 @@ echo "*/target" >> .gitignore
 echo ".idea/" >> .gitignore
 ----
 
-Add the code scaffolded to your git project and push it to your git remote repository
+Create a new git repository, adding the `pom` file you created earlier along with the two Spring Boot applications and push it to your remote repository:
 ----
 git init
 git add .gitignore pom.xml fruit-backend-sb/ fruit-client-sb/
@@ -228,52 +227,54 @@ git commit -m "Initial project" -a
 git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
 git push -u origin master
 ----
-Note that the user and password to push to the repo are `username="rhte-user" password="!demo12345"`
+Note that the user and password to push to the repo are `username="rhte-user"` `password="!demo12345"`
 
 === Build the project
 
 ==== Client
 
-Compile and generate the `uber jar` file of the Spring Boot application using the following command
+Package your Spring Boot client application using the following command:
 ----
 mvn package -f fruit-client-sb
 ----
 
 ==== Backend
 
-Repeat the command executed previously for the CRUD - backend microservice
+Now, package the backend Spring Boot application, paying special attention to the `local` maven profile:
 ----
 mvn package -f fruit-backend-sb -Plocal
 ----
 
 **Remark**: We need to use the `local` profile because the project is set up to work both locally using `H2` database for quick testing and "remotely" using a `PostgreSQL` database
-using the `kubernetes` profile which is enable by default.
-
-The `PostgreSQL` connection information is provided in the `application-kubernetes.properties` file.
+using the `kubernetes` profile which is enabled by default. This mirrored in the Spring Boot properties files with
+`application.properties` corresponding to the `local` profile, while `application-kubernetes.properties` is used when the
+`kubernetes` profile is activated. The `PostgreSQL` connection information is provided in the `application-kubernetes.properties` file.
 
 Note also that this file contains a Dekorate environment variable definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
-This is so that the supervisor knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
-booting instead of the default `application.properties`. File, `application-kubernetes.properties` contains the environment variables
-for the different components of the database connection. These values will be used by a database
-capability and will be linked to the component: the capability will generate a secret containing these values and the link will
-inject it in our component. The secret will be named after your capability, adding the `-config` suffix to the name. So if your
-capability is called `my-capability`, its associated secret will be named `my-capability-config`.
+This is so that Halkyon knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
+booting instead of the default `application.properties`.
+
+Finally, you can also see that the database connection parameters reference environment variables. These values will be injected
+into your microservice application when you create a link between it and the appropriate database capability.
 
 === Create the Components
 
-A component represents a micro-service to be deployed. The Component custom resource provides the descriptor that allows Kubernetes/OpenShift
-to deploy the micro-service and, optionally, expose it outside of the cluster.
-To deploy a microservice two actions need to be done: create the component and push the uber java file.
+A component represents a microservice to be deployed. The Component custom resource provides the descriptor that allows Kubernetes/OpenShift
+to deploy the microservice and, optionally, expose it outside of the cluster.
 
-Before to push the project and to deploy the applications as components, check if you are using your project
+Creating and using a component is a two step process: first inform the operator about the component by "creating" it, then make
+its associated application available to the cluster to be able to run it by "pushing" it to the cluster.
+
+First check if you are using your project:
 ----
 oc project
 Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
 ----
 
-Next create the different microservices as `component` using the command `hal component create`. During this process, the tool
-will communicate with the platform to deploy the `Component CRD` resource. Next the halkyon operator will process the content
-and will create different kubernetes resources that you don't have to take care yourself anymore such as: Deployment, Service, ...
+Next create the different microservices as `components` using the `hal component create` command. During this process, the tool
+will create a `Component` custom resource which will be handled by the halkyon operator to create all the Kubernetes resources
+needed to deploy your application properly. You only need to worry about your component metadata instead of wondering how it
+needs to be materialized in the cluster using Deployments, Services, etc…
 ----
 hal component create -c fruit-client-sb
 'fruit-client-sb' component was not found, initializing it
@@ -293,7 +294,7 @@ fruit-backend-sb   spring-boot   2.1.6.RELEASE   11s       dev       Pending   p
 fruit-client-sb    spring-boot   2.1.6.RELEASE   103s      dev       Ready     Ready
 ----
 
-NOTE: if you will try to access the associated services, they won't work because the components haven't been wired together yet. Hence the need for the following steps! :smile:
+NOTE: if you try to access the associated services, they won't work because the components haven't been wired together yet. Hence the need for the following steps! :smile:
 
 === Create a PostgreSQL DB
 
@@ -305,7 +306,7 @@ Select as :
 - Default-name: `postgres-db`
 
 For the database parameters which are needed to configure the instance of the Database but also the parameters of the Java Datasource
-used by the Spring JPA component, use the following ket, value pairs:
+used by the Spring JPA component, use the following key-value pairs:
 - DB_NAME: `sample-db`
 - DB_PASSWORD: `admin`
 - DB_USER: `admin`
@@ -329,7 +330,7 @@ NAME                                      CATEGORY   KIND      AGE       STATUS 
 postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'rhtelab'
 ----
 
-If the status is not ready, wait a few moment till the `KubeDB` operator create the database within your namespace and repeat the command again
+If the status is not ready, wait a few moment for the `KubeDB` operator to create the database within your namespace and repeat the command again
 ----
 oc get capability
 NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE   REVISION
@@ -338,14 +339,14 @@ postgres-db   Database             4m        Ready     Ready
 
 === Link the microservices
 
-NOTE: The fruit-client-sb's `application.properties` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
+NOTE: `fruit-client-sb` relies on an environment variable called `${KUBERNETES_ENDPOINT_FRUIT}` as a value provider for the `endpoint.fruit` property.
 This is the property the app relies on to connect to the backend endpoint.
 
 We will therefore need to somehow provide a value for this environment variable. This will be accomplished by creating a link.
 We also need to wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a link between both.
 
 So, execute the command `hal link create` to use the interactive mode and next select:
-- Target: component: `fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information about the parameters of the Database created previously
+- Target: `component: fruit-backend-sb` as the target since we want to enrich/link the `fruit-backend-sb` component with the information about the parameters of the Database created previously
 - Use secret: `Y` as the information created during the encoding of the parameters of the capability are stored in a secret
 - Secret (only potential matches shown) : `postgres-db-config`
 - Change default name (fruit-backend-sb-link-1568907618694167000): `fruit-backend-sb-link`
@@ -399,11 +400,13 @@ hal component push -c fruit-backend-sb
  ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
 ----
 
+NOTE: if you try to `push` the component again without changing anything locally, `hal` is smart enough to detect it and not do anything as nothing is required in this case. Give it a try, then change the code for one of the app and attempt to push again to see what happens!
+
 === Connect to the Client or Backend services
 
 Try the backend service to see if it works
 So, get the route address of the backend microservice using this command `oc get routes/fruit-backend-sb --template={{.spec.host}}`
-Copy/paste the address displayed within the terminal prefixed with `http://` in a browser and create some fruits
+Copy/paste the address in a browser. You should see a simple web page allowing you to see fruits and create new ones.
 
 image::images/fruits-backend.png[]
 
@@ -418,11 +421,12 @@ curl "http://${FRONTEND_URL}/api/client"
 
 === Switch to build mode
 
-When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. Again, this process
-is greatly simplified using the `hal` tool as it will allow to change the property `deploymentMode` of the `Component` to use `build`. This
-parameter will be used by the operator and Tekton to perform a s2i Build.
+When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. In
+Halkyon parlance, we need to change the deployment mode of the component to the `build` mode. Changing the deployment mode will
+let Halkyon know that it needs to trigger an image build instead of relying on the supervisor-based approach provided by the
+default `dev` mode. This, in turns, calls into Tekton to accomplish the required steps.
 
-Use the `hal component switch` command to perform this switch
+Once again, `hal` makes this process painless as this can be accomplished using the `hal component switch` command:
 ----
 hal component switch -m build -c fruit-client-sb
 INFO[0000] Component fruit-client-sb switched to build

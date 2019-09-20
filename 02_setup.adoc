@@ -2,9 +2,9 @@
 
 === Getting your dedicated OpenShift Cluster
 
-On your laptop, you **MUST** open a browser tab pointing to the following link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Open TLC Page*] before to continue with the lab instructions:
+On your laptop, you **MUST** open a browser tab pointing to the following link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Open TLC Page*] before continuing with the lab instructions:
 
-* From this page, you will be assigned your unique `GUID`, which you will use to access your `ocp4 cluster` environment and system.
+* From this page, you will be assigned your unique GUID, which you will use to access your ocp4 cluster environment and system.
 
 > **NOTE: You are not required to login anywhere at this point, in this intro lab you will only get the information related to your assigned lab environments.**
 
@@ -12,7 +12,7 @@ On your laptop, you **MUST** open a browser tab pointing to the following link:h
 
 From the drop down list:
 
-. Choose the lab `A2026 - Simplifying the deployment of your Spring Boot application using our Dev Exp Operator on Kubenetes`
+. Choose the lab `A2026 - Simplifying the deployment of your Spring Boot application using our Halkyon Operator on Kubernetes`
 . Enter the activation key shared by the instructors: `component`
 . Enter the email address:
 . Click submit
@@ -21,11 +21,11 @@ image::images/request-env-gg.png[Request Env GuidGrabber]
 
 === Lab information page
 
-The resulting *Lab Information page* will display your lab's `GUID` and other useful information about your lab environment:
+The resulting *Lab Information page* will display your lab's GUID and other useful information about your lab environment:
 
 . URL of the **OpenShift Console**
 . URL of the **API Server** to access OpenShift using the `oc` client tool
-. Hostname of the VM to ssh
+. Hostname of the VM to `ssh` to
 
 image:images/lab.png[Lab Information]
 
@@ -41,10 +41,9 @@ image:images/login.png[Login to Console]
 === Lab Environment Overview
 
 This lab environment is basically an OCP 4.1 dedicated cluster which has been provisioned with the following operators:
-You can click on the following links if you want to discover the technology used under the hood !
 
 - http://kubedb.com[KubeDB]
-- https://github.com/tektoncd/pipeline[Tekton] and
+- https://github.com/tektoncd/pipeline[Tekton]
 - https://github.com/halkyonio/operator/[Halkyon]
 
 Next: link:03_scenario.adoc[3. Play with the lab to compose your microservices]
