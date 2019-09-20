@@ -462,6 +462,7 @@ Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fru
 ? Change default name fruit-client-sb-link
  ✓  Created link fruit-client-sb-link
 ----
+
 Check the link status:
 ----
 oc get links
@@ -469,8 +470,6 @@ NAME                    AGE       STATUS    MESSAGE
 fruit-backend-sb-link   4m        Ready     Ready
 fruit-client-sb-link    2m        Ready     Ready
 ----
-
-TODO: Add command to check if the component has been modified and has started correctly
 
 === Push the code
 
