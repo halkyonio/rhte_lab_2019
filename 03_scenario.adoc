@@ -45,7 +45,7 @@ create the PostgreSQL database.
 
 If a `/usr/local/bin` folder is owned by a `root` and your user doesn't have required permissions, then prefix the command with `sudo`.
 ----
-sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.1/hal_0.1.8_Linux_x86_64.tar.gz \
+sudo curl -sL https://github.com/halkyonio/hal/releases/download/v0.1.8/hal_0.1.8_Linux_x86_64.tar.gz \
   -o /usr/local/bin/hal_0.1.8_Linux_x86_64.tar.gz && \
   sudo tar -xzf /usr/local/bin/hal_0.1.8_Linux_x86_64.tar.gz \
   -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
@@ -393,9 +393,9 @@ and backend service, we will push the code (to compile it on the platform) and t
 exposed as route
 
 ----
-hal component push -c fruit-client-sb -s
+hal component push -c fruit-client-sb
  ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb.tar
-hal component push -c fruit-backend-sb -s
+hal component push -c fruit-backend-sb
  ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
 ----
 
