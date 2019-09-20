@@ -67,6 +67,18 @@ NOTE: The image already packages the `oc` client version 4.x.
 
 ----
 docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.6 bash
+----
+
+Now you are inside a container. `hal` needs an active connexion to an OpenShift cluster so before anything, please, log on to the RHTE OCP4 cluster using the `oc` client.
+Enter the following command from inside the container:
+----
+oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
+----
+
+**Remark**: the `oc login` command should be executed always after `docker run` in order to initialize the kubernetes configuration.
+
+Finally, you are able to show hal version
+----
 hal version
 ----
 
