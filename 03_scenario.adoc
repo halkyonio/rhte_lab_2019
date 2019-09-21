@@ -65,38 +65,10 @@ If Docker is installed on your laptop and you can access it, then you can also u
 
 NOTE: The `hal` image already packages the `oc` client version 4.x.
 
-Execute this command to mount your current folder (where you will play the lab's scenario) within the container next access the terminal using bash
+Execute this command to mount your current folder (where you will play the lab's scenario) within the container and pass different commands.
 
 ----
-docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 bash
-----
-
-Now you are inside a container. `hal` needs an active connexion to an OpenShift cluster so before anything, please, log on to the RHTE OCP4 cluster using the `oc` client.
-Enter the following command from inside the container:
-----
-oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
-----
-
-**Remark**: the `oc login` command should be executed every time you will execute the command `docker run` as the `~/.kube/config `kubernetes configuration is not persisted.
-
-Once this is done, you should be able to run `hal`:
-----
-hal version
-----
-
-**Remark**: Check with the instructor for the latest image to be used for the hal tool !!
-
-Using this docker container, you can execute the `oc` commands as presented hereafter:
-----
-docker run --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 bash
-oc login api.cluster-416e.416e.sandbox352.opentlc.com:6443 -u user1 -p r3dh4t1!
-The server uses a certificate signed by an unknown authority.
-You can bypass the certificate check, but any data you send to the server could be intercepted by others.
-Use insecure connections? (y/n): y
-
-Login successful.
-
-You have access to 56 projects, the list has been suppressed. You can list all projects with 'oc projects'
+docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 <COMMAND>
 ----
 
 === Create a Git project
@@ -114,16 +86,24 @@ done.
 
 === Log on to the OpenShift cluster
 
-Log on to the RHTE OCP4 cluster using the `oc` client
+`hal` needs an active connexion to an OpenShift cluster so before anything, please, log on to the RHTE OCP4 cluster using the `oc` client
+and select or create you project.
 ----
 oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
+----
+
+**Important**: If you use docker, then execute absolutely the following command, otherwise the kubernetes config file - `~/.kube/config` will not be created
+and `hal` will report an error
++
+----
+docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 ----
 
 **Remarks**:
 - The `<SERVER_ADDRESS>` corresponds to the OpenShift API Server address (e.g: `api.cluster-416e.416e.sandbox352.opentlc.com:6443`) as reported within the lab setup part.
 - As every student has a dedicated OCP cluster, always connect using the user named `user1`
 
-Grant the `admin` role to your user `user1` in order to have acccess to the different projects, to list the resources created by Halkyon.
+Grant the `admin` role to your user `user1` in order to have access to the different projects, to list the resources created by Halkyon.
 ----
 oc adm policy add-cluster-role-to-user admin user1 --as=system:admin
 ----
