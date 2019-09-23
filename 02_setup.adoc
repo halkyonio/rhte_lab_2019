@@ -2,7 +2,7 @@
 
 === Getting your dedicated OpenShift Cluster
 
-On your laptop, you **MUST** open a browser tab pointing to the following link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Open TLC Page*] before continuing with the lab instructions:
+On your laptop, you **MUST** open a browser tab pointing to the following link:http://bit.ly/RHTELabs[*Open TLC Page*] before continuing with the lab instructions:
 
 * From this page, you will be assigned your unique GUID, which you will use to access your ocp4 cluster environment and system.
 
