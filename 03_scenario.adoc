@@ -123,7 +123,7 @@ While the environment has been installed for the lab and is running, it is never
 namespace and their goal
 
 . KubeDB
-
++
 This operator is responsible to operate the creation of the PostgreSQL database within your namespace, to configure the DB parameters
 and is running at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
 +
