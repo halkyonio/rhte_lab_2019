@@ -76,13 +76,16 @@ docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio
 
 Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`).
 
-Execute the command `bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)` in a terminal.
+Execute the following command in a terminal
+----
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)`
+----
 
-Example
+Example of project created for `cmoullia`
 ----
 bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
 Repo name (hit enter to use 'cmoullia')?
-<YOUR_GIT_REPO>
+cmoullia
 Creating Github repository 'cmoullia' under 'rhte-eu' ...
 curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
 done.
