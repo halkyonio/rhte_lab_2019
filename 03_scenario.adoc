@@ -9,6 +9,7 @@
 ** link:03_scenario.adoc#docker[Docker]
 * link:03_scenario.adoc#create-a-git-project[Create a Git Project]
 * link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
+* link:03_scenario.adoc#check-the-platform[Check the  platform]
 * link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
 * link:03_scenario.adoc#build-the-project[Build the project]
 * link:03_scenario.adoc#create-the-components[Create the components]
@@ -114,6 +115,81 @@ oc adm policy add-cluster-role-to-user admin user1 --as=system:admin
 Create a new namespace
 ----
 oc new-project rhtelab
+----
+
+=== Check the platform
+
+While the environment has been installed for the lab and is running, it is nevertheless interesting to discover what we have installed, under which
+namespace and their goal
+
+. KubeDB
+
+This operator is responsible to operate the creation of the PostgreSQL database within your namespace, to configure the DB parameters
+and is running at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
+
+**Remark** : Check the content of the log to see if it runs correctly
+----
+I0924 05:56:29.851996       1 run.go:24] Starting kubedb-server...
+I0924 05:56:30.922031       1 lib.go:112] Kubernetes version: &version.Info{Major:"1", Minor:"13+", GitVersion:"v1.13.4+4b86cc5", GitCommit:"4b86cc5", GitTreeState:"clean", BuildDate:"2019-07-24T19:42:25Z", GoVersion:"go1.11.6", Compiler:"gc", Platform:"linux/amd64"}
+I0924 05:56:30.926676       1 controller.go:72] Ensuring CustomResourceDefinition...
+I0924 05:56:35.745740       1 run.go:36] Starting KubeDB controller
+I0924 05:56:35.748846       1 secure_serving.go:116] Serving securely on [::]:8443
+----
+
+. Halkyon Operator
+
+This operator is the brain and will manage the creation of the k8s resources from the `Component`, `Link` or `Capability` CRDs
+or enrich the created resources.
+It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
+----
+Log stream paused.
+|
+69 lines
+2019-09-23T15:39:50.342Z	INFO	cmd	Go Version: go1.12.5
+2019-09-23T15:39:50.342Z	INFO	cmd	Go OS/Arch: linux/amd64
+2019-09-23T15:39:50.342Z	INFO	cmd	Version of operator-sdk: v0.8.1
+2019-09-23T15:39:50.342Z	INFO	cmd	halkyon-operator version: unset
+2019-09-23T15:39:50.342Z	INFO	cmd	halkyon-operator git commit: 58dbd885
+2019-09-23T15:39:50.342Z	INFO	cmd	watching namespace
+2019-09-23T15:39:50.482Z	INFO	cmd	Registering Components
+2019-09-23T15:39:50.482Z	INFO	cmd	Registering 3rd party resources
+2019-09-23T15:39:50.483Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "capability-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.487Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "capability-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.487Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "link-controller", "source": "kind source: /, Kind="}
+2019-09-23T15:39:50.587Z	INFO	kubebuilder.controller	Starting Controller	{"controller": "link-controller"}
+2019-09-23T15:39:50.587Z	INFO	kubebuilder.controller	Starting Controller	{"controller": "capability-controller"}
+2019-09-23T15:39:50.587Z	INFO	kubebuilder.controller	Starting Controller	{"controller": "component-controller"}
+2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "link-controller", "worker count": 1}
+2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "component-controller", "worker count": 1}
+2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "capability-controller", "worker count": 1}
+----
+
+. Tekton
+
+Tekton Pipeline is the building technology deployed on the cluster and responsible to perform a s2i build.
+It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/tekton-pipelines/pods/`
+
+----
+Log streaming...
+|
+9 lines
+{"level":"info","caller":"logging/config.go:100","msg":"Successfully created the logger.","knative.dev/jsonconfig":"{\n  \"level\": \"info\",\n  \"development\": false,\n  \"sampling\": {\n    \"initial\": 100,\n    \"thereafter\": 100\n  },\n  \"outputPaths\": [\"stdout\"],\n  \"errorOutputPaths\": [\"stderr\"],\n  \"encoding\": \"json\",\n  \"encoderConfig\": {\n    \"timeKey\": \"\",\n    \"levelKey\": \"level\",\n    \"nameKey\": \"logger\",\n    \"callerKey\": \"caller\",\n    \"messageKey\": \"msg\",\n    \"stacktraceKey\": \"stacktrace\",\n    \"lineEnding\": \"\",\n    \"levelEncoder\": \"\",\n    \"timeEncoder\": \"\",\n    \"durationEncoder\": \"\",\n    \"callerEncoder\": \"\"\n  }\n}\n"}
+{"level":"info","caller":"logging/config.go:101","msg":"Logging level set to info"}
+{"level":"warn","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: permission denied"}
+{"level":"info","logger":"controller","caller":"controller/main.go:72","msg":"Starting the Pipeline Controller"}
+W0924 07:42:06.233565       1 client_config.go:549] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+{"level":"info","logger":"controller.taskrun-controller","caller":"taskrun/taskrun.go:100","msg":"Setting up event handlers","knative.dev/controller":"taskrun-controller"}
+{"level":"info","logger":"controller.taskrun-controller","caller":"taskrun/taskrun.go:113","msg":"Setting up Entrypoint cache","knative.dev/controller":"taskrun-controller"}
+{"level":"info","logger":"controller.pipeline-controller","caller":"pipelinerun/pipelinerun.go:126","msg":"Setting up event handlers","knative.dev/controller":"pipeline-controller"}
+{"level":"info","logger":"controller.pipeline-controller","caller":"pipelinerun/pipelinerun.go:138","msg":"Setting up ConfigMap receivers","knative.dev/controller":"pipeline-controller"}
 ----
 
 === Scaffold the Spring Boot applications
