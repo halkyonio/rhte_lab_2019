@@ -101,7 +101,7 @@ oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 
 **Important**: If docker is being used to execute hal commands, then the following command **must**, otherwise the kubernetes config file - `~/.kube/config` will not be created
 and `hal` will report an error
-+
+
 ----
 docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.8 oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 ----
