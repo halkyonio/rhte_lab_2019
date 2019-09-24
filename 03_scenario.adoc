@@ -568,7 +568,7 @@ hal component push -c fruit-backend-sb
 WARNING: if, for any reason, the push fails, you can try to play yourself the commands snippet hereafter and executed under the hood by `hal`
 ----
 PROJECT=fruit-client-sb
-POD_ID=$(oc get pod -lapp=$PROJECT -n rhtelab | awk '{print $1}')
+POD_ID=$(oc get pod -lapp=$PROJECT -n rhtelab -o name | awk -F '/' '{print $2}')
 oc cp $PROJECT/pom.xml $POD_ID:/usr/src/ -n rhtelab
 oc cp $PROJECT/src $POD_ID:/usr/src/ -n rhtelab
 oc exec $POD_ID -n rhtelab /var/lib/supervisord/bin/supervisord ctl stop build
