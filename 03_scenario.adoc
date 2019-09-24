@@ -132,7 +132,7 @@ namespace and their goal
 1. KubeDB
 +
 This operator is responsible to operate the creation of the PostgreSQL database within your namespace, to configure the DB parameters
-and is running at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
+and is running at this address within your browser: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
 +
 **Remark** : Check the content of the log to see if it runs correctly
 +
@@ -148,7 +148,7 @@ I0924 05:56:35.748846       1 secure_serving.go:116] Serving securely on [::]:84
 +
 This operator is the brain and will manage the creation of the k8s resources from the `Component`, `Link` or `Capability` CRDs
 or enrich the created resources.
-It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
+It is available at this address within your browser: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
 +
 ----
 Log stream paused.
@@ -184,7 +184,7 @@ Log stream paused.
 3. Tekton
 +
 Tekton Pipeline is the building technology deployed on the cluster and responsible to perform a s2i build.
-It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/tekton-pipelines/pods/`
+It is available at this address under your browser: `https://<OCP4_CLUSTER>/k8s/ns/tekton-pipelines/pods/`
 +
 ----
 Log streaming...
