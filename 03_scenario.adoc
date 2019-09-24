@@ -75,6 +75,9 @@ docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio
 === Create a Git project
 
 Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`)
+Execute the command `bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)` in a terminal.
+
+Example
 ----
 bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
 Repo name (hit enter to use 'cmoullia')?
@@ -122,11 +125,11 @@ oc new-project rhtelab
 While the environment has been installed for the lab and is running, it is nevertheless interesting to discover what we have installed, under which
 namespace and their goal
 
-1. KubeDB
-
+. KubeDB
++
 This operator is responsible to operate the creation of the PostgreSQL database within your namespace, to configure the DB parameters
 and is running at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
-
++
 **Remark** : Check the content of the log to see if it runs correctly
 ----
 I0924 05:56:29.851996       1 run.go:24] Starting kubedb-server...
@@ -136,8 +139,8 @@ I0924 05:56:35.745740       1 run.go:36] Starting KubeDB controller
 I0924 05:56:35.748846       1 secure_serving.go:116] Serving securely on [::]:8443
 ----
 
-2. Halkyon Operator
-
+. Halkyon Operator
++
 This operator is the brain and will manage the creation of the k8s resources from the `Component`, `Link` or `Capability` CRDs
 or enrich the created resources.
 It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
@@ -172,11 +175,11 @@ Log stream paused.
 2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "capability-controller", "worker count": 1}
 ----
 
-3. Tekton
-
+. Tekton
++
 Tekton Pipeline is the building technology deployed on the cluster and responsible to perform a s2i build.
 It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/tekton-pipelines/pods/`
-
++
 ----
 Log streaming...
 |
