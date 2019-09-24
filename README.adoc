@@ -25,18 +25,18 @@ In this lab, you will :
 == Practical info
 
 - Have your students use the RHTE labs wifi
-  ----
-  Name: *RHTElabs*
-  Password: *dontyoudare*
-  ----
+----
+Name: *RHTElabs*
+Password: *dontyoudare*
+----
 
 - Remind your students to only use one device on the RHTE labs network
 - Use RHTE Lab Enablement chat for support
 - Enter your session *pincode* for attendance and remind people to take the survey (sheet here with codes)
-
-  1:45PM - Code : YDLF
-  4:00PM - Code : CBRQ
-
+----
+1:45PM - Code : YDLF
+4:00PM - Code : CBRQ
+----
 == Table of Contents
 
 . *link:00_prereq.adoc[Pre-requisite]*
