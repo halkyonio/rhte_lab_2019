@@ -26,8 +26,8 @@ In this lab, you will :
 
 - Have your students use the RHTE labs wifi
 ----
-Name: *RHTElabs*
-Password: *dontyoudare*
+Name: RHTElabs
+Password: dontyoudare
 ----
 
 - Remind your students to only use one device on the RHTE labs network
