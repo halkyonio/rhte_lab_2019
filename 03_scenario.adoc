@@ -135,6 +135,7 @@ This operator is responsible to operate the creation of the PostgreSQL database 
 and is running at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
 +
 **Remark** : Check the content of the log to see if it runs correctly
++
 ----
 I0924 05:56:29.851996       1 run.go:24] Starting kubedb-server...
 I0924 05:56:30.922031       1 lib.go:112] Kubernetes version: &version.Info{Major:"1", Minor:"13+", GitVersion:"v1.13.4+4b86cc5", GitCommit:"4b86cc5", GitTreeState:"clean", BuildDate:"2019-07-24T19:42:25Z", GoVersion:"go1.11.6", Compiler:"gc", Platform:"linux/amd64"}
@@ -148,6 +149,7 @@ I0924 05:56:35.748846       1 secure_serving.go:116] Serving securely on [::]:84
 This operator is the brain and will manage the creation of the k8s resources from the `Component`, `Link` or `Capability` CRDs
 or enrich the created resources.
 It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
++
 ----
 Log stream paused.
 |
