@@ -565,6 +565,16 @@ hal component push -c fruit-backend-sb
  ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
 ----
 
+WARNING: if, for any reason, the push fails, you can try to play yourself the commands snippet hereafter and executed under the hood by `hal`
+----
+PROJECT=fruit-client-sb
+POD_ID=$(oc get pod -lapp=$PROJECT -n rhtelab | awk '{print $1}')
+oc cp $PROJECT/pom.xml $POD_ID:/usr/src/ -n rhtelab
+oc cp $PROJECT/src $POD_ID:/usr/src/ -n rhtelab
+oc exec $POD_ID -n rhtelab /var/lib/supervisord/bin/supervisord ctl stop build
+oc exec $POD_ID -n rhtelab /var/lib/supervisord/bin/supervisord ctl start build
+----
+
 NOTE: if you try to `push` the component again without changing anything locally, `hal` is smart enough to detect it and not do anything as nothing is required in this case. Give it a try, then change the code for one of the app and attempt to push again to see what happens!
 
 === Connect to the Client or Backend services
