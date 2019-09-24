@@ -129,7 +129,7 @@ oc new-project rhtelab
 While the environment has been installed for the lab and is running, it is nevertheless interesting to discover what we have installed, under which
 namespace and their goal
 
-. KubeDB
+1. KubeDB
 +
 This operator is responsible to operate the creation of the PostgreSQL database within your namespace, to configure the DB parameters
 and is running at this address: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
@@ -143,7 +143,7 @@ I0924 05:56:35.745740       1 run.go:36] Starting KubeDB controller
 I0924 05:56:35.748846       1 secure_serving.go:116] Serving securely on [::]:8443
 ----
 
-. Halkyon Operator
+2. Halkyon Operator
 +
 This operator is the brain and will manage the creation of the k8s resources from the `Component`, `Link` or `Capability` CRDs
 or enrich the created resources.
@@ -179,7 +179,7 @@ Log stream paused.
 2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "capability-controller", "worker count": 1}
 ----
 
-. Tekton
+3. Tekton
 +
 Tekton Pipeline is the building technology deployed on the cluster and responsible to perform a s2i build.
 It is available at this address: `https://<OCP4_CLUSTER>/k8s/ns/tekton-pipelines/pods/`
