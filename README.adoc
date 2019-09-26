@@ -1,7 +1,7 @@
 = Red Hat Tech Exchange 2019
 
 == Session Title
-Simplify the deployment of Spring Boot applications using Halkyon Component Operator on Kubernetes
+Simplify the deployment of Spring Boot applications using Halkyon Operator on Kubernetes
 
 == Goals
 
@@ -30,7 +30,7 @@ Name: RHTElabs
 Password: dontyoudare
 ----
 
-- Access the Lab instructions
+- Access the Lab instructions - *http://bit.ly/2lgSHsw*
 
 image::images/qr_home.png[]
 
