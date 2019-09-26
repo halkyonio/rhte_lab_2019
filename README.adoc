@@ -34,10 +34,10 @@ Password: dontyoudare
 
 image::images/qr_home.png[]
 
-- Enter your session *pincode* for EMEA attendance and remind people to take the survey (sheet here with codes)
+- Enter your session *pincode* for USA attendance and remind people to take the survey (sheet here with codes)
 ----
-1:45PM - Code : YDLF
-4:00PM - Code : CBRQ
+TODO // Change time and PIN code
+1:45PM - Code : TTYY
 ----
 == Table of Contents
 
@@ -48,7 +48,7 @@ image::images/qr_home.png[]
 
 == Community
 
-. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Zulipchat Community]
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Snowdrop & Halkyon Zulipchat Community]
 
 == References
 
