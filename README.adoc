@@ -46,9 +46,12 @@ image::images/qr_home.png[]
 . *link:02_setup.adoc[Lab Setup]*
 . *link:03_scenario.adoc[Code your Microservices]*
 
+== Community
+
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Zulipchat Community]
+
 == References
 
 . link:https://github.com/halkyonio/hal[Developer Tool - Hal]
 . link:https://github.com/halkyonio/operator[Halkyon Operator]
-. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Community]
 . link:https://github.com/dekorateio/dekorate[Java annotations/annotationless processors - Dekorate]
