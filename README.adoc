@@ -30,9 +30,11 @@ Name: RHTElabs
 Password: dontyoudare
 ----
 
-- Remind your students to only use one device on the RHTE labs network
-- Use RHTE Lab Enablement chat for support
-- Enter your session *pincode* for attendance and remind people to take the survey (sheet here with codes)
+- Access the Lab instructions
+
+image::images/qr_home.png[]
+
+- Enter your session *pincode* for EMEA attendance and remind people to take the survey (sheet here with codes)
 ----
 1:45PM - Code : YDLF
 4:00PM - Code : CBRQ
