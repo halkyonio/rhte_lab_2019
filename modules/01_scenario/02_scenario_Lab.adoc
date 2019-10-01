@@ -1,78 +1,14 @@
-== 4. Microservices Lab scenario
+:noaudio:
+:scrollbar:
+:data-uri:
+:toc2:
+:linkattrs:
 
-=== Table Of Contents
+= Link Microservices using Halkyon
 
-* link:03_scenario.adoc#installing-hal-tool[Installing Hal Tool]
-** link:03_scenario.adoc#binary-installation-for-mac-os[Macos]
-** link:03_scenario.adoc#binary-installation-for-linux[Linux]
-** link:03_scenario.adoc#windows[Windows]
-** link:03_scenario.adoc#docker[Docker]
-* link:03_scenario.adoc#create-a-git-project[Create a Git Project]
-* link:03_scenario.adoc#create-a-new-namespace[Create a namespace]
-* link:03_scenario.adoc#check-the-platform[Check the  platform]
-* link:03_scenario.adoc#scaffold-the-spring-boot-applications[Scaffold the Spring Boot components]
-* link:03_scenario.adoc#build-the-project[Build the project]
-* link:03_scenario.adoc#create-the-components[Create the components]
-* link:03_scenario.adoc#create-a-postgresql-db[Create the DB Capability]
-* link:03_scenario.adoc#link-the-microservices[Link/Bind the microservices]
-* link:03_scenario.adoc#push-the-code[Push the code source]
-* link:03_scenario.adoc#connect-to-the-client-or-backend-services[Connect to the Microservices]
-* link:03_scenario.adoc#switch-to-build-mode[Switch to build mode]
+:numbered:
 
-'''
-
-=== Installing Hal tool
-
-Download and install the latest version of `hal` from https://github.com/halkyonio/hal/releases/. `hal` is a developer-focused
-tool aimed at helping you create microservices applications using Halkyon even easier, by guiding you in your choices as you
-create components and link them together.
-
-==== Binary installation for Mac OS
-
-----
-# curl -L https://github.com/halkyonio/hal/releases/download/v0.1.9/hal_0.1.9_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
-----
-
-==== Binary installation for Linux
-
-----
-# curl -L https://github.com/halkyonio/hal/releases/download/v0.1.9/hal_0.1.9_Linux_x86_64.tar.gz \
-    -o /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz && \
-    tar -xzf /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz && \
-    chmod +x /usr/local/bin/hal
-----
-
-**Remark**:
-
-If the `/usr/local/bin` directory is owned by a `root` and your user doesn't have required permissions, then instead of the previous command, execute the following one:
-----
-sudo curl -L https://github.com/halkyonio/hal/releases/download/v0.1.9/hal_0.1.9_Linux_x86_64.tar.gz \
-  -o /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz && \
-  sudo tar -xzf /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz \
-  -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
-----
-
-==== Windows
-
-Download and add it to your `PATH` environment variable:
-
-. Download the `hal_0.1.9_Windows_x86_64.tar.gz` file from the link:https://github.com/halkyonio/hal/releases[GitHub releases page].
-. Extract the `hal.exec` file from the compressed archive.
-. Add the location of the extracted binary to your `PATH` environment under by example `c:\tools`.
-
-==== Docker
-
-As alternative to using the native binaries for the various OSes, `Hal` commands can also be executed using `docker`.
-
-NOTE: The `hal` image already packages the `oc` client version 4.x.
-
-Execute this command to mount your current directory (where the execution of the lab's scenario will take place) within the container and pass various hal commands.
-
-----
-docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.9 <COMMAND>
-----
-
-=== Create a Git project
+== Create a Git project
 
 Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`).
 
@@ -91,121 +27,24 @@ curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_na
 done.
 ----
 
-=== Log into the OpenShift cluster
 
-`hal` needs an active connection to an OpenShift cluster so before performing any other operation users are requested to log into the RHTE OCP4 cluster using the `oc` client
-and select or create their project.
-----
-oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
-----
-
-**Important**: If docker is being used to execute hal commands, then the following command **must**, otherwise the kubernetes config file - `~/.kube/config` will not be created
-and `hal` will report an error
-
-----
-docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.9 oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
-----
-
-**Remarks**:
-- The `<SERVER_ADDRESS>` corresponds to the OpenShift API Server address (e.g: `api.cluster-416e.416e.sandbox352.opentlc.com:6443`) as reported within the lab setup part.
-- As every student has a dedicated OCP cluster, always connect using the user named `user1`
-
-Grant the `admin` role to your `user1` user in order to gain access to the different projects, to list the resources created by Halkyon.
-----
-oc adm policy add-cluster-role-to-user admin user1 --as=system:admin
-----
-
-**Tip**: You can check if the operator is working properly  by executing this oc command: `oc describe -n operators pods -lname=halkyon-operator`
-
-=== Create a new namespace
+== Scaffold the Spring Boot applications
 
 Create a new namespace
 ----
-oc new-project rhtelab
+echo "LAB_NAME=halkyon_fruit" >> $HOME/.bashrc
+source $HOME/.bashrc
+
+
+oc new-project $LAB_NAME
 ----
 
-=== Check the platform
 
-While the environment has been installed for the lab and is running, it is nevertheless interesting to discover what we have installed, under which
-namespace and their goal.
 
-1. KubeDB
-+
-This operator is responsible to operate the creation of the PostgreSQL database within your namespace, to configure the DB parameters
-and is running at this address within your browser: `https://<OCP4_CLUSTER>/k8s/ns/kubedb/pods`
-+
-**Remark** : Check the content of the log to see if it runs correctly
-+
-----
-I0924 05:56:29.851996       1 run.go:24] Starting kubedb-server...
-I0924 05:56:30.922031       1 lib.go:112] Kubernetes version: &version.Info{Major:"1", Minor:"13+", GitVersion:"v1.13.4+4b86cc5", GitCommit:"4b86cc5", GitTreeState:"clean", BuildDate:"2019-07-24T19:42:25Z", GoVersion:"go1.11.6", Compiler:"gc", Platform:"linux/amd64"}
-I0924 05:56:30.926676       1 controller.go:72] Ensuring CustomResourceDefinition...
-I0924 05:56:35.745740       1 run.go:36] Starting KubeDB controller
-I0924 05:56:35.748846       1 secure_serving.go:116] Serving securely on [::]:8443
-----
 
-2. Halkyon Operator
-+
-This operator is the brain and will manage the creation of the k8s resources from the `Component`, `Link` or `Capability` CRDs
-or enrich the created resources.
-It is available at this address within your browser: `https://<OCP4_CLUSTER>/k8s/ns/operators/pods`
-+
+Create a `halkyon_fruit` development folder on your laptop
 ----
-Log stream paused.
-|
-69 lines
-2019-09-23T15:39:50.342Z	INFO	cmd	Go Version: go1.12.5
-2019-09-23T15:39:50.342Z	INFO	cmd	Go OS/Arch: linux/amd64
-2019-09-23T15:39:50.342Z	INFO	cmd	Version of operator-sdk: v0.8.1
-2019-09-23T15:39:50.342Z	INFO	cmd	halkyon-operator version: unset
-2019-09-23T15:39:50.342Z	INFO	cmd	halkyon-operator git commit: 58dbd885
-2019-09-23T15:39:50.342Z	INFO	cmd	watching namespace
-2019-09-23T15:39:50.482Z	INFO	cmd	Registering Components
-2019-09-23T15:39:50.482Z	INFO	cmd	Registering 3rd party resources
-2019-09-23T15:39:50.483Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "component-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.486Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "capability-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.487Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "capability-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.487Z	INFO	kubebuilder.controller	Starting EventSource	{"controller": "link-controller", "source": "kind source: /, Kind="}
-2019-09-23T15:39:50.587Z	INFO	kubebuilder.controller	Starting Controller	{"controller": "link-controller"}
-2019-09-23T15:39:50.587Z	INFO	kubebuilder.controller	Starting Controller	{"controller": "capability-controller"}
-2019-09-23T15:39:50.587Z	INFO	kubebuilder.controller	Starting Controller	{"controller": "component-controller"}
-2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "link-controller", "worker count": 1}
-2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "component-controller", "worker count": 1}
-2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "capability-controller", "worker count": 1}
-----
-
-3. Tekton
-+
-Tekton Pipeline is the building technology deployed on the cluster and responsible to perform a s2i build.
-It is available at this address under your browser: `https://<OCP4_CLUSTER>/k8s/ns/tekton-pipelines/pods/`
-+
-----
-Log streaming...
-|
-9 lines
-{"level":"info","caller":"logging/config.go:100","msg":"Successfully created the logger.","knative.dev/jsonconfig":"{\n  \"level\": \"info\",\n  \"development\": false,\n  \"sampling\": {\n    \"initial\": 100,\n    \"thereafter\": 100\n  },\n  \"outputPaths\": [\"stdout\"],\n  \"errorOutputPaths\": [\"stderr\"],\n  \"encoding\": \"json\",\n  \"encoderConfig\": {\n    \"timeKey\": \"\",\n    \"levelKey\": \"level\",\n    \"nameKey\": \"logger\",\n    \"callerKey\": \"caller\",\n    \"messageKey\": \"msg\",\n    \"stacktraceKey\": \"stacktrace\",\n    \"lineEnding\": \"\",\n    \"levelEncoder\": \"\",\n    \"timeEncoder\": \"\",\n    \"durationEncoder\": \"\",\n    \"callerEncoder\": \"\"\n  }\n}\n"}
-{"level":"info","caller":"logging/config.go:101","msg":"Logging level set to info"}
-{"level":"warn","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: permission denied"}
-{"level":"info","logger":"controller","caller":"controller/main.go:72","msg":"Starting the Pipeline Controller"}
-W0924 07:42:06.233565       1 client_config.go:549] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
-{"level":"info","logger":"controller.taskrun-controller","caller":"taskrun/taskrun.go:100","msg":"Setting up event handlers","knative.dev/controller":"taskrun-controller"}
-{"level":"info","logger":"controller.taskrun-controller","caller":"taskrun/taskrun.go:113","msg":"Setting up Entrypoint cache","knative.dev/controller":"taskrun-controller"}
-{"level":"info","logger":"controller.pipeline-controller","caller":"pipelinerun/pipelinerun.go:126","msg":"Setting up event handlers","knative.dev/controller":"pipeline-controller"}
-{"level":"info","logger":"controller.pipeline-controller","caller":"pipelinerun/pipelinerun.go:138","msg":"Setting up ConfigMap receivers","knative.dev/controller":"pipeline-controller"}
-----
-
-=== Scaffold the Spring Boot applications
-
-Create a `rhtelab` development folder on your laptop
-----
-mkdir rhtelab && cd rhtelab
+mkdir $LAB_NAME && cd $LAB_NAME
 ----
 
 Create a parent `pom.xml` file (since currently `hal` doesn't automatically create it) and add the following content to it:
@@ -241,6 +80,12 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
         <module>fruit-client-sb</module>
     </modules>
 </project>
+----
+
+`hal` needs an active connection to an OpenShift cluster so before performing any other operation users are requested to log into the RHTE OCP4 cluster using the `oc` client
+and select or create their project.
+----
+oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 ----
 
 Use `hal` to create, in an interactive fashion, a new Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
@@ -302,9 +147,9 @@ git push -u origin master
 ----
 **Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
 
-=== Build the project
+== Build the project
 
-==== Client
+=== Client
 
 Package your Spring Boot client application using the following maven commands:
 ----
@@ -313,7 +158,7 @@ mvn package -f fruit-client-sb
 
 *Remark*: While this command isn't mandatory for the proper execution of the lab's scenario, it is nonetheless suggested in order to ensure that the Spring Boot project will correctly created.
 
-==== Backend
+=== Backend
 
 Now, package the backend Spring Boot application, paying special attention to the `local` maven profile:
 ----
@@ -349,13 +194,15 @@ dekorate.component.envs[0].value=kubernetes
 - Finally, you can also see that the database connection parameters `${DB_xxxxx}` reference environment variables. These values will be injected
 into your microservice application when you create a link between it and the appropriate database capability.
 
-=== Create the Components
+== Create Components
 
-A component represents a microservice to be deployed. The Component Custom Resource provides the descriptor that allows Kubernetes/OpenShift
-to deploy the microservice and, optionally, expose it outside of the cluster.
+A component represents a microservice to be deployed. 
+The Component Custom Resource provides the descriptor that allows Kubernetes/OpenShift to deploy the microservice and, optionally, expose it outside of the cluster.
 
 Creating and using a component is a two step process: first inform the operator about the component by "creating" it, then make
 its associated application available to the cluster to be able to run it by "pushing" it to the cluster.
+
+=== Services
 
 First check if you are using your project:
 ----
@@ -423,7 +270,7 @@ fruit-client-sb    spring-boot   2.1.6.RELEASE   103s      dev       Ready     R
 
 NOTE: if you try to access the associated services, they won't work because the components haven't been wired together yet. Hence the need for the following steps! :smile:
 
-=== Create a PostgreSQL DB
+=== PostgreSQL DB
 
 By creating a capability, we will then inform the Operator that the corresponding service needs to be installed. For the purpose of this lab, we will create a database capability. More specifically we will create a PostgreSQL database.
 
@@ -472,7 +319,7 @@ postgres-db   Database             4m        Ready     Ready
 
 TIP: You can for all the resources created check the content generated using the oc command : `oc get component postgres-db -o yaml`, ...
 
-=== Link the microservices
+== Link Components
 
 Creating the `components` and the `capability` is not enough as we must pass different information to the `components` in order to let them
 to know how to access the endpoint of the REST service exposed by the `fruit-backend` for example or to fill the parameters of the datasource to access the database.
@@ -553,7 +400,7 @@ fruit-backend-sb-link   4m        Ready     Ready
 fruit-client-sb-link    2m        Ready     Ready
 ----
 
-=== Push the code
+== Push the code
 
 Now that we have created the different entities necessary for implementing a sample microservices architecture, as well as their relations and backend service, we will push the code (to compile it on the platform) and to verify if we can access the HTTP endpoints
 exposed as route.
@@ -577,7 +424,7 @@ oc exec $POD_ID -n rhtelab /var/lib/supervisord/bin/supervisord ctl start build
 
 NOTE: if you try to `push` the component again without changing anything locally, `hal` is smart enough to detect it and not do anything as nothing is required in this case. Give it a try, then change the code for one of the app and attempt to push again to see what happens!
 
-=== Connect to the Client or Backend services
+== Test
 
 Try the backend service to see if it works
 So, get the route address of the backend microservice using this command `oc get routes/fruit-backend-sb --template={{.spec.host}}`
@@ -594,7 +441,7 @@ curl "http://${FRONTEND_URL}/api/client"
 [{"id":4,"name":"orange"},{"id":5,"name":"apple"},{"id":6,"name":"strawberry"}]
 ----
 
-=== Switch to build mode
+== Switch to build mode
 
 When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. In
 Halkyon parlance, we need to change the deployment mode of the component to the `build` mode. Changing the deployment mode will
@@ -619,3 +466,7 @@ curl "http://${FRONTEND_URL}/api/client"
 The Halkyon Team ;-)
 
 **link:README.adoc[Home]**
+
+ifdef::showscript[]
+
+endif::showscript[]

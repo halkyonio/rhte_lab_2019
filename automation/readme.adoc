@@ -1,0 +1,21 @@
+= ocp-workload-dekorate-component-operator
+
+
+== Purpose
+This ansible role the following operators on an OCP environment:
+- Halkyon Component Operator
+- Tekton Pipelines
+- KubeDB
+
+== Deploy a Workload with the `ocp-workload` playbook
+
+-----
+GUID="TO_BE_DEFINED"
+WORKLOAD="ocp-workload-dekorate-component-operator"
+ansible-playbook -i localhost, -c local ./configs/ocp-workloads/ocp-workload.yml \
+                     -e "ANSIBLE_REPO_PATH=`pwd`" \
+                     -e "ocp_workload=${WORKLOAD}" \
+                     -e "guid=${GUID}" \
+                     -e "ocp_apps_domain=${ocp_apps_domain}" \
+                     -e "ACTION=create"
+-----

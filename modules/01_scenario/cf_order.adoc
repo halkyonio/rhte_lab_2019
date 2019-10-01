@@ -1,0 +1,59 @@
+==== Access VM via GPTE Cloud Forms
+
+NOTE: [blue]#This section is applicable if you are an existing student of either Red Hat's _Open Partner Enablement Network (OPEN)_ or Skills Exchange (RHSE) programs.
+You will need a link:https://account.opentlc.com/account/[Red Hat GPTE _Opentlc_ userId]#
+
+. In a web browser, navigate to the _Cloud Forms_ environment for OPEN and RHSE at:   https://labs.opentlc.com.
+. Authenticate using your _OPENTLC_ credentials, for example: `johndoe-redhat.com`.
+. Navigate to the following catalog:  `Services -> Catalog -> Catalog Items -> OPENTLC Middleware Solutions Labs`.
+. Select the following catalog item: `RHTE19: Dynamic Case Mgmt`.
+. Click `Order` on the next page.
+
+. In the subsequent order form, select the check box confirming you understand the runtime and expiration dates. :
+. At the bottom of the same page, click `Submit`.
+
+=== Confirmation Emails
+
+Upon ordering the lab environment, you will receive the following two emails:
+
+. *Your lab environment is building*
+.. Save this email.
+.. This email Includes details of the three VMs that make up your lab application similar to the following:
++
+image::images/aio_first_email.png[]
+
+.. Make note of the 4 digit GUID (aka: REGION CODE)
++
+* Whenever you see "GUID" or "$GUID" in a command, make sure to replace it with your GUID.
+
+.. Make note of the URL of the `workstation` VM.
++
+You will use this when ssh'ing to your application.
+
+.. Make note of the URL of the `master` VM.
++
+You will use this when accessing the OCP Web Console.
+
+** The OpenShift master URL varies based on the region where you are located, and may vary from the example shown above.
+** For the duration of the course, you navigate to this OpenShift Container Platform master node.
+
+. *VM ready for authentication*
++
+Once you receive this second email, you can then ssh into the `workstation` VM of your Ravello application.
+
+
+=== SSH Access and `oc` utility
+
+SSH access to the remote lab environment provides you with the OpenShift `oc` utility.
+
+. ssh access to your lab environment by specifying your _opentlc userId_ and lab environment $GUID in the following command:
++
+-----
+$ ssh <opentlc-userId>@workstation-$GUID.rhpds.opentlc.com
+-----
+
+. Authenticate into OpenShift as a non cluster admin user (user1) using the `oc` utility
++
+-----
+$ oc login https://master00.example.com -u user1 -p r3dh4t1!
+-----

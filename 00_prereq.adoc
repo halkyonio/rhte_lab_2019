@@ -1,9 +1,0 @@
-== 1. Laptop pre-requisite
-
-- JDK8
-- Git Tool
-- Apache Maven 3.5
-- Java IDE such as IntelliJ, Eclipse, VScode
-- oc client v3 or link:https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.1/[oc client v4]
-
-**link:README.adoc[Home]**
