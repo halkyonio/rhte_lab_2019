@@ -1,7 +1,7 @@
 = Red Hat Tech Exchange 2019
 
 == Session Title
-Simplify the deployment of Spring Boot applications using Halkyon Component Operator on Kubernetes
+Simplify the deployment of Spring Boot applications using Halkyon Operator on Kubernetes
 
 == Goals
 
@@ -30,12 +30,14 @@ Name: RHTElabs
 Password: dontyoudare
 ----
 
-- Remind your students to only use one device on the RHTE labs network
-- Use RHTE Lab Enablement chat for support
-- Enter your session *pincode* for attendance and remind people to take the survey (sheet here with codes)
+- Access the Lab instructions - *http://bit.ly/2lgSHsw*
+
+image::images/qr_home.png[]
+
+- Enter your session *pincode* for USA attendance and remind people to take the survey (sheet here with codes)
 ----
-1:45PM - Code : YDLF
-4:00PM - Code : CBRQ
+TODO // Change time and PIN code
+1:45PM - Code : TTYY
 ----
 == Table of Contents
 
@@ -44,9 +46,12 @@ Password: dontyoudare
 . *link:02_setup.adoc[Lab Setup]*
 . *link:03_scenario.adoc[Code your Microservices]*
 
+== Community
+
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Snowdrop & Halkyon Zulipchat Community]
+
 == References
 
 . link:https://github.com/halkyonio/hal[Developer Tool - Hal]
 . link:https://github.com/halkyonio/operator[Halkyon Operator]
-. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Community]
 . link:https://github.com/dekorateio/dekorate[Java annotations/annotationless processors - Dekorate]
