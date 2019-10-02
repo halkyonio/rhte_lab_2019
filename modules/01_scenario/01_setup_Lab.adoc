@@ -216,7 +216,7 @@ Log stream paused.
 ----
 
 
-3. *Tekton Operator*
+. *Tekton Operator*
 +
 Tekton Pipeline is the building technology deployed on the cluster and responsible to perform s2i builds.
 +
