@@ -246,7 +246,8 @@ W0924 07:42:06.233565       1 client_config.go:549] Neither --kubeconfig nor --m
 
 
 [blue]#Congratulations!#
-Your lab environment is now ready to use.  Please proceed to the link:TODO[next lab].
+Your lab environment is now ready to use.  
+Please proceed to the link:http://www.opentlc.com/rhte2019/rhte2019_Halkyon/LabInstructionsFiles/02_scenario_Lab.html[next lab].
 
 == Appendix
 
