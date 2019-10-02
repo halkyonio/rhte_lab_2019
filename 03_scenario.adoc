@@ -79,7 +79,7 @@ Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Sessi
 
 Execute the following command in a terminal
 ----
-bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-repo-create.sh)
 ----
 
 Example of project created for `cmoullia`
