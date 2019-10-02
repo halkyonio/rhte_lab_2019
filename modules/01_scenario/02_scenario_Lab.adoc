@@ -8,48 +8,32 @@
 
 :numbered:
 
-== Create a Git project
 
-Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`).
+== Spring Boot application
 
-Execute the following command in a terminal
+=== Create Scaffolding
+
+. Create a new OpenShift namespace:
++
 ----
-bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
-----
-
-Example of project created for `cmoullia`
-----
-bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
-Repo name (hit enter to use 'cmoullia')?
-cmoullia
-Creating Github repository 'cmoullia' under 'rhte-eu' ...
-curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
-done.
-----
-
-
-== Scaffold the Spring Boot applications
-
-Create a new namespace
-----
-echo "LAB_NAME=halkyon_fruit" >> $HOME/.bashrc
+echo "export LAB_NAME=halkyon-fruit" >> $HOME/.bashrc
 source $HOME/.bashrc
 
 
 oc new-project $LAB_NAME
 ----
 
-
-
-
-Create a `halkyon_fruit` development folder on your laptop
+. Create a directory where the maven based lab assets will reside:
++
 ----
-mkdir $LAB_NAME && cd $LAB_NAME
+mkdir -p $HOME/$LAB_NAME && cd $HOME/$LAB_NAME
 ----
 
-Create a parent `pom.xml` file (since currently `hal` doesn't automatically create it) and add the following content to it:
 
-----
+. Create a parent `pom.xml` file (since currently `hal` doesn't automatically create it) with the following content in it:
++
+-----
+echo '
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 Copyright 2016-2017 Red Hat, Inc, and individual contributors.
@@ -79,29 +63,41 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
         <module>fruit-backend-sb</module>
         <module>fruit-client-sb</module>
     </modules>
-</project>
+</project>' > $HOME/$LAB_NAME/pom.xml
+-----
+
+
+
+. Use `hal` utility to create, in an interactive fashion, a new mavenized Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
+
+.. `hal` needs an active connection to an OpenShift cluster.
+Before performing any other operation, verify you are logged in to OpenShift:
++
+----
+oc whoami --show-server
+
+...
+
+https://master00.example.com:443
+
 ----
 
-`hal` needs an active connection to an OpenShift cluster so before performing any other operation users are requested to log into the RHTE OCP4 cluster using the `oc` client
-and select or create their project.
-----
-oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
-----
+.. Execute the command: `hal component spring-boot fruit-client-sb`
+.. At the prompts, provide the following information :
+... *Spring Boot version:* `2.1.6.RELEASE`
+... *Supported version:* `No`
+... *Create from template:* `Yes`
+... *Available templates:* `client`
+... *Group Id:* `me.fruitstand`
+... *Artifact Id:* `fruit-client-sb`
+... *Version:* `1.0.0-SNAPSHOT`
+... *Package name:* `me.fruitstand.demo`
 
-Use `hal` to create, in an interactive fashion, a new Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
-So, execute the command `hal component spring-boot fruit-client-sb` by providing the following information to each question:
-
-    Spring Boot version: `2.1.6.RELEASE`
-    Supported version: `No`
-    Create from template: `Yes`
-    Available templates: `client`
-    Group Id: `me.fruitstand`
-    Artifact Id: `fruit-client-sb`
-    Version: `1.0.0-SNAPSHOT`
-    Package name: `me.fruitstand.demo`
-
+.. An example of executing the `hal` utility to provision the _fruit-client-sb_ maven project is as follows:
++
 ----
 hal component spring-boot fruit-client-sb
+
 ? Spring Boot version 2.1.6.RELEASE
 ? Use 2.1.6.RELEASE supported version No
 ? Create from template Yes
@@ -112,10 +108,22 @@ hal component spring-boot fruit-client-sb
 ? Package name me.fruitstand.demo
 ----
 
-Check that a project has been well created under the folder `fruit-client-sb`.
+. Check that a maven project has been created under the folder `fruit-client-sb`.
++
+-----
+ls -l $HOME/$LAB_NAME
 
-Repeat the operation to create a second Spring Boot project using the `crud` template. We'll do it in a non-interactive fashion this time.
-`hal` is smart enough to check values you provided and only asks you to provide information when needed (e.g. if a provided value is incorrect):
+...
+
+drwxrwxr-x. 3 lab-user lab-user   32 Oct  1 19:25 fruit-client-sb
+-rw-rw-r--. 1 lab-user lab-user 1246 Oct  1 17:07 pom.xml
+-----
+
+. Repeat the operation to create a second Spring Boot project using the `crud` template.
+You'll do so this time in a non-interactive fashion.
++
+`hal` is smart enough to check values you provided and only prompt you to provide information when needed (e.g. if a provided value is incorrect):
++
 ----
 hal component spring-boot \
    -i fruit-backend-sb \
@@ -128,23 +136,48 @@ hal component spring-boot \
   fruit-backend-sb
 ----
 
-Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
+. Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
++
 ----
-touch .gitignore
-echo "*/target" >> .gitignore
-echo ".idea/" >> .gitignore
+touch $HOME/$LAB_NAME/.gitignore
+echo "*/target" >> $HOME/$LAB_NAME/.gitignore
+echo ".idea/" >> $HOME/$LAB_NAME/.gitignore
 ----
-
++
 **Remark**: The previous command added ignored for files added by IntelliJ. If a different IDE is being used, the command will be to updated.
 
-The next step is to initialize a git repository, add the `pom.xml, .gitignore` files created earlier along with the two Spring Boot applications. Finally push to the  proper remote repository:
+=== Version Control Your Spring Application
+
+. Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`).
+
+.. Execute the following command in a terminal:
++
 ----
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
+----
+
+.. Example of project created for `cmoullia`:
++
+----
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-create.sh)
+Repo name (hit enter to use 'cmoullia')?
+cmoullia
+Creating Github repository 'cmoullia' under 'rhte-eu' ...
+curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
+done.
+----
+
+. The next step is to initialize a git repository, add the `pom.xml, .gitignore` files created earlier along with the two Spring Boot applications. Finally push to the  proper remote repository:
++
+----
+cd $HOME/$LAB_NAME
 git init
 git add .gitignore pom.xml fruit-backend-sb/ fruit-client-sb/
 git commit -m "Initial project" -a
 git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
 git push -u origin master
 ----
++
 **Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
 
 == Build the project
@@ -395,6 +428,7 @@ Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fru
 Check the link status:
 ----
 oc get links
+
 NAME                    AGE       STATUS    MESSAGE
 fruit-backend-sb-link   4m        Ready     Ready
 fruit-client-sb-link    2m        Ready     Ready

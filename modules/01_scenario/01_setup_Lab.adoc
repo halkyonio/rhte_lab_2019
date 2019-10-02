@@ -58,13 +58,37 @@ Your lab environment commes pre-installed with the following utilities:
 . *javac* (version 1.8.0)
 . *maven* (version 3.5.4)
 . *git*
+. *podman*
+. *buildah*
+. *oc* (version: 3.11.82;   This corresponds to the version of OpenShift running in your lab environment).
 . *hal*
 +
 This is a new command line utility that assists in scaffolding of microservice applications runnining in OpenShift.
 More information about this utility is found throughout the remainder of this lab.
-. *podman*
-. *buildah*
-. *oc* (version: 3.11.82;   This corresponds to the version of OpenShift running in your lab environment).
+
+==== Refresh _hal_ utility for Linux
+
+To ensure that your lab environment uses the latest tag of the _hal_ utility, execute the following in the terminal of you remote lab environment:
+
+. Download and install latest tag of _hal_:
++
+----
+sudo curl -L https://github.com/halkyonio/hal/releases/download/v0.1.10/hal_0.1.10_Linux_x86_64.tar.gz \
+  -o /usr/local/bin/hal_0.1.10_Linux_x86_64.tar.gz && \
+  sudo tar -xzf /usr/local/bin/hal_0.1.10_Linux_x86_64.tar.gz \
+  -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
+----
+
+
+. Verify the version:
++
+-----
+hal version
+
+
+hal 0.1.10 built with ❤️ by the Halkyon team on '2019-10-01T18:25:46Z' (commit: 3c9f118) running on top of 'oc'
+-----
+
 
 == OpenShift Container Platform
 
@@ -284,15 +308,14 @@ The lab environment can be provisioned via the following Ansible:
 
 TO_DO
 
-=== Optional:  Install _hal_ utility
+=== Optional:  Install _hal_ utility on other operating systems
 
 `hal` is a developer-focused tool whose purpose is to make the development of microservice applications using Halkyon even easier.
 It does so by guiding the developer in choices as they create microservice components and link them together.
 
 The _hal_ utility is already installed in your lab environment.
 
-The following is provided if you desire the _hal_ utility installed in a different environment.
-
+The following is provided if you desire the _hal_ utility installed in a different operating system.
 
 ===== Binary installation for Mac OS
 
@@ -300,24 +323,6 @@ The following is provided if you desire the _hal_ utility installed in a differe
 # curl -L https://github.com/halkyonio/hal/releases/download/v0.1.9/hal_0.1.9_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
 ----
 
-===== Binary installation for Linux
-
-----
-# curl -L https://github.com/halkyonio/hal/releases/download/v0.1.9/hal_0.1.9_Linux_x86_64.tar.gz \
-    -o /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz && \
-    tar -xzf /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz -C /usr/local/bin && \
-    chmod +x /usr/local/bin/hal
-----
-
-**Remark**:
-
-If the `/usr/local/bin` directory is owned by a `root` and your user doesn't have required permissions, then instead of the previous command, execute the following one:
-----
-sudo curl -L https://github.com/halkyonio/hal/releases/download/v0.1.9/hal_0.1.9_Linux_x86_64.tar.gz \
-  -o /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz && \
-  sudo tar -xzf /usr/local/bin/hal_0.1.9_Linux_x86_64.tar.gz \
-  -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
-----
 
 ===== Windows
 
