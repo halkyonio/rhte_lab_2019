@@ -267,6 +267,74 @@ Metadata:
 ....
 -----
 
+==== Modify default _LimitRange_
+The _component_ custom resources that you are about to define will create OpenShift _Deployment_ resources.
+
+Currently, the Halkyon operator does not create _Deployments_ that define appropriate limits and requests.
+And, the _Components_ CustomResourceDefinition from Halkyon does not currently link:https://github.com/halkyonio/operator/issues/164[allow a developer to specify the limit and request].
+
+Your OpenShift lab environment sets a LimitRange with default limits and requests that are intentionally severly limited:
+
+-----
+oc get limitrange halkyon-fruit-core-resource-limits -o yaml -n $NAMESPACE
+
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: halkyon-fruit-core-resource-limits
+  namespace: halkyon-fruit
+spec:
+  limits:
+  - default:
+      cpu: 100m
+      memory: 128Mi
+    defaultRequest:
+      cpu: 50m
+      memory: 64Mi
+-----
+
+Subsequently, when you define the Halkyon _Components_ in your lab environment, the resultant Linux containers will not run correctly.
+
+One approach to correct this problem is to switch to an OpenShift cluster admin and modify the Limit Range for your OpenShift namespace.
+Do so as follows:
+
+. Define a new LimitRange yaml file:
++
+-----
+echo '
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: halkyon-fruit-core-resource-limits
+  namespace: halkyon-fruit
+spec:
+  limits:
+  - default:
+      cpu: 1
+      memory: 512Mi
+    defaultRequest:
+      cpu: 500m
+      memory: 256Mi
+    max:
+      memory: 6Gi
+    min:
+      memory: 10Mi
+    type: Container
+  - max:
+      memory: 12Gi
+    min:
+      memory: 6Mi
+    type: Pod
+' > /tmp/halkyon-fruit-core-resource-limits.yml
+-----
+
+. Replace the LimitRange for your namespace:
++
+-----
+oc replace -f /tmp/halkyon-fruit-core-resource-limits.yml --as=system:admin
+-----
+
 ==== Services
 
 . Create a _fruit-client-sb_ _component_:
