@@ -125,12 +125,12 @@ printTitle "Call the client endpoint"
 FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
 http "http://${FRONTEND_URL}/api/client" -s solarized
 
-printTitle "Switch to Build mode"
+printTitle "Switch to Build mode to use Tekton"
 hal component switch -m build -c fruit-client-sb
 hal component switch -m build -c fruit-backend-sb
 sleep 300s
 
-printTitle "Create some fruits"
+printTitle "Re-create some fruits"
 BACKEND_URL=$(oc get routes/fruit-backend-sb --template={{.spec.host}})
 http -s solarized POST "http://${BACKEND_URL}/api/fruits" name=Orange
 http -s solarized POST "http://${BACKEND_URL}/api/fruits" name=Banana
@@ -138,7 +138,7 @@ http -s solarized POST "http://${BACKEND_URL}/api/fruits" name=Pineapple
 http -s solarized POST "http://${BACKEND_URL}/api/fruits" name=Apple
 http -s solarized POST "http://${BACKEND_URL}/api/fruits" name=Pear
 
-printTitle "Call the client endpoint"
+printTitle "Re-call the client endpoint"
 FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
 http "http://${FRONTEND_URL}/api/client" -s solarized
 
