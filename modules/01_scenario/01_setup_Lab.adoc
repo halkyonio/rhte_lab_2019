@@ -137,7 +137,7 @@ This OCP project contains the _halkyon_ operator.
 
 .. *tekton-pipelines*
 +
-
+This OCP project contains operators that provide CI/CD infrastructure for your SpringBoot application.
 
 === OpenShift Web Console
 
