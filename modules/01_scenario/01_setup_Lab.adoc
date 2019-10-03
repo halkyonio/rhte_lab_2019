@@ -104,14 +104,6 @@ Access to your OCP resources can be gained via both the `oc` CLI utility and the
 oc login https://master00.example.com -u user1 -p r3dh4t1!
 -----
 
-. Set an environment variable called: `OCP_REGION` :
-+
------
-echo "export OCP_REGION=`echo $HOSTNAME | cut -d'.' -f1 | cut -d'-' -f2`" >> $HOME/.bashrc
-
-source $HOME/.bashrc
------
-
 . View existing projects:
 +
 -----
@@ -140,6 +132,15 @@ This OCP project contains the _halkyon_ operator.
 This OCP project contains operators that provide CI/CD infrastructure for your SpringBoot application.
 
 === OpenShift Web Console
+
+. Set an environment variable called: `OCP_REGION` :
++
+-----
+echo "export OCP_REGION=`echo $HOSTNAME | cut -d'.' -f1 | cut -d'-' -f2`" >> $HOME/.bashrc
+
+source $HOME/.bashrc
+-----
+
 
 . Point your browser to the URL created by executing the following :
 +
