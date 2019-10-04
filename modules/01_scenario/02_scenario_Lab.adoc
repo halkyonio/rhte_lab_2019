@@ -1,0 +1,737 @@
+:noaudio:
+:scrollbar:
+:data-uri:
+:toc2:
+:linkattrs:
+
+= Link Microservices using Halkyon
+
+:numbered:
+
+
+== Spring Boot application source code
+
+=== Create Scaffolding
+
+. Create a new OpenShift namespace:
++
+----
+echo "export LAB_NAME=halkyon-fruit" >> $HOME/.bashrc
+source $HOME/.bashrc
+
+
+oc new-project $LAB_NAME
+----
+
+. Create a directory where the maven based lab assets will reside:
++
+----
+mkdir -p $HOME/$LAB_NAME && cd $HOME/$LAB_NAME && sudo rm -f /tmp/spring.log
+----
+
+
+. Create a parent `pom.xml` file (since currently `hal` doesn't automatically create it) with the following content in it:
++
+-----
+echo '
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2016-2017 Red Hat, Inc, and individual contributors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.fruitstand</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Spring Boot - Demo</name>
+    <description>Spring Boot - Demo</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>fruit-backend-sb</module>
+        <module>fruit-client-sb</module>
+    </modules>
+</project>' > $HOME/$LAB_NAME/pom.xml
+-----
+
+
+
+. Use `hal` utility to create, in an interactive fashion, a new mavenized Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
+
+.. `hal` needs an active connection to an OpenShift cluster.
+Before performing any other operation, verify you are logged in to OpenShift:
++
+----
+oc whoami --show-server
+
+...
+
+https://master00.example.com:443
+
+----
+
+.. Execute the command: `hal component spring-boot fruit-client-sb`
+.. At the prompts, provide the following information :
+... *Spring Boot version:* `2.1.6.RELEASE`
+... *Supported version:* `No`
+... *Create from template:* `Yes`
+... *Available templates:* `client`
+... *Group Id:* `me.fruitstand`
+... *Artifact Id:* `fruit-client-sb`
+... *Version:* `1.0.0-SNAPSHOT`
+... *Package name:* `me.fruitstand.demo`
+
+.. An example of executing the `hal` utility to provision the _fruit-client-sb_ maven project is as follows:
++
+----
+hal component spring-boot fruit-client-sb
+
+? Spring Boot version 2.1.6.RELEASE
+? Use 2.1.6.RELEASE supported version No
+? Create from template Yes
+? Available templates client
+? Group Id me.fruitstand
+? Artifact Id fruit-client-sb
+? Version 1.0.0-SNAPSHOT
+? Package name me.fruitstand.demo
+----
+
+. Check that a maven project has been created under the folder `fruit-client-sb`.
++
+-----
+ls -l $HOME/$LAB_NAME
+
+...
+
+drwxrwxr-x. 3 lab-user lab-user   32 Oct  1 19:25 fruit-client-sb
+-rw-rw-r--. 1 lab-user lab-user 1246 Oct  1 17:07 pom.xml
+-----
+
+. Repeat the operation to create a second Spring Boot project using the `crud` template.
+You'll do so this time in a non-interactive fashion.
++
+`hal` is smart enough to check values you provided and only prompt you to provide information when needed (e.g. if a provided value is incorrect):
++
+----
+hal component spring-boot \
+   -i fruit-backend-sb \
+   -g me.fruitstand \
+   -p me.fruitstand.demo \
+   -s 2.1.6.RELEASE \
+   -t crud \
+   -v 1.0.0-SNAPSHOT \
+   --supported=false  \
+  fruit-backend-sb
+----
+
+. Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
++
+----
+touch $HOME/$LAB_NAME/.gitignore
+echo "*/target" >> $HOME/$LAB_NAME/.gitignore
+echo ".idea/" >> $HOME/$LAB_NAME/.gitignore
+----
++
+**Remark**: The previous command added ignored for files added by IntelliJ. If a different IDE is being used, the command will be to updated.
+
+=== Version Control Your Spring App
+
+. Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`).
+
+.. Execute the following command in a terminal:
++
+----
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-repo-create.sh)
+----
+
+.. Example of project created for `cmoullia`:
++
+----
+bash <(curl -s https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/git-repo-create.sh)
+Github Org name (rhte-eu or rhte-us)?
+rhte-us
+Repo name (hit enter to use 'cmoullia')?
+cmoullia
+Creating Github repository 'cmoullia' under 'rhte-eu' ...
+curl -u xxxxx:yyyyy https://api.github.com/orgs/rhte-eu/repos -d '{name:$repo_name, description:My cool $repo_name, private: false, has_issues: false, has_projects: true, has_wiki:false }'
+Created git repo: https://github.com/rhte-us/cmoullia.
+----
+
+. The next step is to initialize a git repository, and source code of the two Spring Boot applications. 
+Afterwards, push to the  proper remote repository:
++
+----
+cd $HOME/$LAB_NAME
+git init
+git add .gitignore pom.xml fruit-backend-sb/ fruit-client-sb/
+git -c user.name=`whoami` -c user.email='lab-user@redhat.com' commit -m "Initial project" -a
+git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_REPO_NAME>.git
+git push -u origin master
+----
++
+**Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
+
+== SpringBoot application deployment 
+
+=== Build
+
+. Package your Spring Boot client application using the following maven commands:
++
+----
+mvn package -f fruit-client-sb
+----
++
+*Remark*: While this command isn't mandatory for the proper execution of the lab's scenario, it is nonetheless suggested in order to ensure that the Spring Boot project will correctly created.
+
+
+. Package the backend Spring Boot application, paying special attention to the `local` maven profile:
++
+----
+mvn package -f fruit-backend-sb -Plocal
+----
++
+**Remarks**:
++
+- You need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database.
++
+- The `kubernetes` profile is enabled by default. This information is mirrored within the 2 Spring Boot application properties files under the folder `src/main/resources`.
++
+- The `application.properties` file corresponds to the `local` profile while `application-kubernetes.properties` is used for `kubernetes` deployment.
+These 2 files contains the Spring Boot properties to configure the Datasource needed to access the database.
++
+----
+src/main/resources/application-kubernetes.properties
+spring.datasource.url=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=org.postgresql.Driver
+----
++
+- Note also that this file contains a `Dekorate environment variable` definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
+This is how Halkyon knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
+booting instead of the default `application.properties`.
++
+----
+src/main/resources/application-kubernetes.properties
+...
+dekorate.component.envs[0].name=SPRING_PROFILES_ACTIVE
+dekorate.component.envs[0].value=kubernetes
+----
++
+- Finally, you can also see that the database connection parameters `${DB_xxxxx}` reference environment variables. These values will be injected
+into your microservice application when you create a link between it and the appropriate database capability.
+
+=== Create Components in OpenShift
+
+A component represents a microservice to be deployed.
+
+Already pre-installed in your lab environment by an OpenShift cluster-admin, is the _Component_ custom resource definition.
+Corresponding,  Component custom resources provide the descriptor that allows Kubernetes/OpenShift to deploy the microservice and, optionally, expose it outside of the cluster.
+
+Creating and using a component is a two step process:
+
+. Inform the Halkyon operator about creation of the _Component_
+. Make its associated application available to the cluster to be able to run it by "pushing" it to the cluster.
+
+==== View Custom Resource Definition
+
+Halkyon extends the OpenShift master API by defining a _Component_ custom resource definition.
+This CRD is viewable as follows:
+
+-----
+oc describe crd components.halkyon.io --as=system:admin
+
+....
+
+Name:         components.halkyon.io
+Namespace:    
+Labels:       <none>
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{},"name":"components.halkyon.io","namespace":...
+API Version:  apiextensions.k8s.io/v1beta1
+Kind:         CustomResourceDefinition
+Metadata:
+  Creation Timestamp:  2019-09-26T18:16:46Z
+
+....
+-----
+
+==== Modify default _LimitRange_
+The _component_ custom resources that you are about to define will create OpenShift _Deployment_ resources.
+
+Currently, the Halkyon operator does not create _Deployments_ that define appropriate limits and requests.
+And, the _Components_ CustomResourceDefinition from Halkyon does not currently link:https://github.com/halkyonio/operator/issues/164[allow a developer to specify the limit and request].
+
+Your OpenShift lab environment sets a LimitRange with default limits and requests that are intentionally severly limited:
+
+-----
+oc get limitrange halkyon-fruit-core-resource-limits -o yaml -n $NAMESPACE
+
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: halkyon-fruit-core-resource-limits
+  namespace: halkyon-fruit
+spec:
+  limits:
+  - default:
+      cpu: 100m
+      memory: 128Mi
+    defaultRequest:
+      cpu: 50m
+      memory: 64Mi
+-----
+
+Subsequently, when you define the Halkyon _Components_ in your lab environment, the resultant Linux containers will not run correctly.
+
+One approach to correct this problem is to switch to an OpenShift cluster admin and modify the Limit Range for your OpenShift namespace.
+Do so as follows:
+
+. Define a new LimitRange yaml file:
++
+-----
+echo '
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: halkyon-fruit-core-resource-limits
+  namespace: halkyon-fruit
+spec:
+  limits:
+  - default:
+      cpu: 1
+      memory: 512Mi
+    defaultRequest:
+      cpu: 500m
+      memory: 256Mi
+    max:
+      memory: 6Gi
+    min:
+      memory: 10Mi
+    type: Container
+  - max:
+      memory: 12Gi
+    min:
+      memory: 6Mi
+    type: Pod
+' > /tmp/halkyon-fruit-core-resource-limits.yml
+-----
+
+. Replace the LimitRange for your namespace:
++
+-----
+oc replace -f /tmp/halkyon-fruit-core-resource-limits.yml --as=system:admin
+-----
+
+==== Services
+
+. Create a _fruit-client-sb_ _component_:
++
+-----
+hal component create -c fruit-client-sb
+
+
+'fruit-client-sb' component was not found, initializing it
+ ✓  Waiting for component fruit-client-sb to be ready…
+ ✓  Successfully created 'fruit-client-sb' component
+-----
++
+During this process, the tool will create a `Component` custom resource using the Java Dekorate Library which will be handled by the halkyon operator.
+You only need to worry about your component metadata instead of wondering how it needs to be materialized in the cluster using Deployments, Services, etc…
+
+. View the new _component_ and all corresponding OpenShift resources :
++
+-----
+oc get all -l app=fruit-client-sb --as=system:admin
+
+NAME                                   READY     STATUS    RESTARTS   AGE
+pod/fruit-client-sb-575d74f55d-jg58h   1/1       Running   0          4m
+
+NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/fruit-client-sb   ClusterIP   172.30.228.78   <none>        8080/TCP   4m
+
+NAME                              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/fruit-client-sb   1         1         1            1           4m
+
+NAME                                         DESIRED   CURRENT   READY     AGE
+replicaset.apps/fruit-client-sb-575d74f55d   1         1         1         4m
+
+NAME                                       HOST/PORT                                                     PATH      SERVICES          PORT      TERMINATION   WILDCARD
+route.route.openshift.io/fruit-client-sb   fruit-client-sb-halkyon-fruit.apps-683a.generic.opentlc.com             fruit-client-sb   <all>                   None
+
+NAME                                   RUNTIME       VERSION         AGE       MODE      STATUS    MESSAGE   REVISION
+component.halkyon.io/fruit-client-sb   spring-boot   2.1.6.RELEASE   4m        dev       Ready     Ready
+-----
+
+. Create a _fruit-backend-sb_ _component_:
++
+----
+hal component create -c fruit-backend-sb
+
+
+'fruit-backend-sb' component was not found, initializing it
+ ✓  Waiting for component fruit-backend-sb to be ready…
+ ✓  Successfully created 'fruit-backend-sb' component
+----
+
+. Similar to previous, review the new Component and all corresponding OpenShift resources associated with the _fruit-backend-sb_ microservice.
+
+. You can discover the file populated by Dekorate by opening the following folder `{fruit-client-sb,fruit-backend-sb}/target/classes/META-INF/dekorate/`
++
+----
+Example of halkyon.yml file
+---
+apiVersion: "v1"
+kind: "List"
+items:
+- apiVersion: "halkyon.io/v1beta1"
+  kind: "Component"
+  metadata:
+    labels:
+      app: "fruit-backend-sb"
+    name: "fruit-backend-sb"
+  spec:
+    deploymentMode: "dev"
+    runtime: "spring-boot"
+    version: "2.1.6.RELEASE"
+    exposeService: true
+    envs:
+    - name: "SPRING_PROFILES_ACTIVE"
+      value: "kubernetes"
+    buildConfig:
+      type: "s2i"
+      url: "https://github.com/rhte-eu/cmoullia1.git"
+      ref: "master"
+      contextPath: ""
+      moduleDirName: "fruit-backend-sb"
+    port: 8080
+----
++
+IMPORTANT: Take the time to discuss with the instructor the content of this file ;-)
+
+
+
+NOTE: if you try to access the associated services, they won't work because the components haven't been wired together yet.
+Hence the need for the steps in the following section! :smile:
+
+==== PostgreSQL DB
+
+In this section you create a database _capability_ based on PostgreSQL.
+By defining a _capability_, you inform the Halkyon Operator that the corresponding service needs to be installed.
+
+. View the Halkyon _capability_ custom resource definition:
++
+-----
+oc describe crd capabilities.halkyon.io --as=system:admin
+-----
+
+. Create a _capability_ using the interactive mode of the `hal` tool
+.. Execute:
++
+-----
+hal capability create
+-----  
+
+.. Select as :
+
+    Category: `database`
+    Type: `postgres`
+    version : `10`
+    Default-name: `postgres-db`
+    DB_NAME: `sample-db`
+    DB_PASSWORD: `admin`
+    DB_USER: `admin`
+
+.. The output of the execution of the command should be similar to what it is is displayed here after:
++
+----
+hal capability create
+? Category database
+? Type postgres
+? Version 10
+? Change default name (postgres-db)
+? Enter a value for string property DB_NAME: sample-db
+? Enter a value for string property DB_PASSWORD: admin
+? Enter a value for string property DB_USER: admin
+ ✓  Created capability postgres-db
+----
+
+. Check the capability status:
++
+----
+oc get capabilities
+NAME                                      CATEGORY   KIND      AGE       STATUS    MESSAGE                                                                                                      REVISION
+postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'rhtelab'
+----
+
+.. If the status is not ready, wait a few moments for the `KubeDB` operator to create the database within your namespace and repeat the command again:
++
+----
+oc get capability
+NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE   REVISION
+postgres-db   Database             4m        Ready     Ready
+----
++
+TIP: For all the resources created you can check the content generated using the oc command : `oc get component postgres-db -o yaml`, ...
+
+== Link Components
+
+Creating the `components` and the `capability` is not enough as we must pass different information to the `components` in order to let them
+to know how to access the endpoint of the REST service exposed by the `fruit-backend` for example or to fill the parameters of the datasource to access the database.
+
+In this section, you use the `hal link create` command to inject (or bind/wire) the information within the deployed component.
+
+. View the _links_ custom resource definition provided by Halkyon:
++
+-----
+oc describe crd links.halkyon.io --as=system:admin
+-----
+
+
+. Wire the `fruit-backend-sb` component with the `postgres-db` capability by creating a _link_.
+
+.. Execute `hal link create` to use the interactive mode and next select the following information.
+
+    Target: `component: fruit-backend-sb`
+    Use secret: `Y`
+    Secret (only potential matches shown) : `postgres-db-config`
+    Change default name (fruit-backend-sb-link-1568907618694167000): `fruit-backend-sb-link`
+
+.. The resulting outcome of the execution of the command is :
++
+----
+hal link create
+? Target component: fruit-backend-sb
+? Use Secret Yes
+Selected link type: Secret
+? Secret (only potential matches shown) postgres-db-config
+? Change default name fruit-backend-sb-link
+ ✓  Created link fruit-backend-sb-link
+----
++
+**REMARK**: The parameters `DB_xxxx` defined within the secret will be then used to create the corresponding ENV variables mounted to the Spring Boot application when it will start.
++
+**IMPORTANT**: The current releases of  `Hal` and `Halkyon` operator used for this lab rely on the assumption that you know the type of the information to be injected (e.g : secret, env variable, ...).
+While this approach is perfectly fine for a lab, that should be definitively improved and that will become part of future iterations of the `halkyon` technology using a contract definition.
+
+. Wire the `fruit-client-sb` service  to link to the `fruit-backend-sb` service.
+
+.. The REST client of the Spring Boot `fruit-client-sb` service specifies a value provider annotation for a `endpoint.fruit` java property:
++
+----
+@RestController
+@RequestMapping("/api")
+public class ClientController {
+
+    @Value("${endpoint.fruit:}")
+    private String endPoint;
+----
++
+This is the property the Spring Boot application relies on to connect to the backend HTTP endpoint or Backend Service.
+
+.. The _endpoint.fruit_ property is resolved at deployment time via a variable called `${KUBERNETES_ENDPOINT_FRUIT}` in the file:  `fruit-client-sb/src/main/resources/application.properties`
++
+----
+endpoint.fruit=${KUBERNETES_ENDPOINT_FRUIT}
+----
+
+.. Create a link targeting the `fruit-client-sb` component using again the command `hal link create` to let `fruit-client-sb` know about the backend:
++
+-----
+Target: `component: fruit-client-sb`
+Use Secret: `No`
+Env variable in the 'name=value': `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits`
+Change default name: `fruit-client-sb-link`
+-----
++
+**REMARK**: Like for the secret, the `ENV VARIABLE` defined will be used also to configure the pod of the Spring Boot Application when it will start !
+
+.. The resulting outcome of the execution of the command is :
++
+----
+hal link create
+? Target component: fruit-client-sb
+? Use Secret No
+Selected link type: Env
+? Env variable in the 'name=value' format, press enter when done KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits
+Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fruits
+? Env variable in the 'name=value' format, press enter when done
+? Change default name fruit-client-sb-link
+ ✓  Created link fruit-client-sb-link
+----
+
+.. Check the link status:
++
+----
+oc get links
+
+NAME                    AGE       STATUS    MESSAGE
+fruit-backend-sb-link   4m        Ready     Ready
+fruit-client-sb-link    2m        Ready     Ready
+----
+
+== Push the code
+
+Now that you have created the different entities necessary for implementing a sample microservices architecture, as well as their relations and backend service, you will push the code (to compile it on the platform) and to verify if we can access the HTTP endpoints
+exposed as route.
+
+. Assign `user1` as a cluster-admin:
++
+-----
+oc adm policy add-cluster-role-to-user cluster-admin user1 --as=system:admin
+-----
+
+. Push the `fruit-client-sb` code:
++
+----
+hal component push -c fruit-client-sb
+
+
+
+ ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb.tar
+ ✓  Extracting source on the remote cluster
+ ✓  Performing build
+ ✓  Restarting app
+ ✓  Successfully pushed 'fruit-client-sb' component to remote cluster
+----
+
+. WARNING: if, for any reason, the push fails, you can try to play yourself the commands snippet hereafter and executed under the hood by `hal`
++
+----
+PROJECT=fruit-client-sb
+NAMESPACE=$LAB_NAME
+POD_ID=$(oc get pod -lapp=$PROJECT -n $NAMESPACE -o name | awk -F '/' '{print $2}')
+oc cp $PROJECT/pom.xml $POD_ID:/usr/src/ -n $NAMESPACE
+oc cp $PROJECT/src $POD_ID:/usr/src/ -n $NAMESPACE
+oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start build
+oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start run
+----
+
+
+. Push the `fruit-backend-sb`:
++
+-----
+hal component push -c fruit-backend-sb
+
+ ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
+ ✓  Extracting source on the remote cluster
+ ✓  Performing build
+ ✓  Restarting app
+ ✓  Successfully pushed 'fruit-backend-sb' component to remote cluster
+-----
+
+
+
+NOTE: if you try to `push` the component again without changing anything locally, `hal` is smart enough to detect it and not do anything as nothing is required in this case. Give it a try, then change the code for one of the app and attempt to push again to see what happens!
+
+== Test
+
+. Try the backend service to see if it works.
+
+.. Get the route address of the backend microservice using this command:
++
+-----
+echo -en "\n\n`oc get routes/fruit-backend-sb --template={{.spec.host}}`\n\n"
+-----
+
+.. Copy/paste the address in a browser. You should see a simple web page allowing you to see fruits and create new ones.
++
+image::images/fruits-backend.png[]
+
+. Try the client microservice to see if it works too.
+.. Get its route address using the following command:
++
+-----
+oc get routes/fruit-client-sb --template={{.spec.host}}
+-----
+
+.. Use curl to invoke the service.
+You should get the fruits created in the previous step.
++
+----
+FRONTEND_URL=<host-of-client-route>
+curl "http://${FRONTEND_URL}/api/client"
+[{"id":4,"name":"orange"},{"id":5,"name":"apple"},{"id":6,"name":"strawberry"}]
+----
+
+
+== Fix a problem and re push
+
+The principle that we support using hal is to code locally, fix a problem and re-push to see if the problem is gone OR to extend the existing code
+As you have noticed, the log of the Spring Boot application has reported an annoying warning message that we would like to remove !
+----
+2019-10-01 15:25:54.813  INFO 310 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2019-10-01 15:25:54.988  INFO 310 --- [           main] o.h.e.j.e.i.LobCreatorBuilderImpl        : HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException: null
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_222]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_222]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_222]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_222]
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation(LobCreatorBuilderImpl.java:113) [hibernate-core-5.3.7.Final.jar!/:5.3.7.Final]
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder(LobCreatorBuilderImpl.java:54) [hibernate-core-5.3.7.Final.jar!/:5.3.7.Final]
+...
+Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
+	at org.postgresql.Driver.notImplemented(Driver.java:640) ~[postgresql-9.4.1212.jar!/:9.4.1212]
+	at org.postgresql.jdbc.PgConnection.createClob(PgConnection.java:1297) ~[postgresql-9.4.1212.jar!/:9.4.1212]
+	... 52 common frames omitted
+----
+
+You will fix it by editing the `application-kubernetes.properties` file where you will append this parameter
+----
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+----
+
+Save the file and push it again using the `hal component push` command
+----
+hal component push -c fruit-backend-sb
+Local changes detected for 'fruit-backend-sb' component: about to push source code to remote cluster
+ ✓  Uploading /Users/dabou/Temp/test/fruit-backend-sb.tar
+ ✓  Extracting source on the remote cluster
+ ✓  Performing build
+ ✓  Restarting app
+ ✓  Successfully pushed 'fruit-backend-sb' component to remote cluster
+----
+
+NOTE: Observe the log of the Spring Boot application and access again using the OpenShift Route.
+
+=== Switch to build mode
+
+When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. In
+Halkyon parlance, we need to change the deployment mode of the component to the `build` mode. Changing the deployment mode will
+let Halkyon know that it needs to trigger an image build instead of relying on the supervisor-based approach provided by the
+default `dev` mode. This, in turns, uses Tekton to accomplish the required steps.
+
+Once again, `hal` makes this process painless as this can be accomplished using the `hal component switch` command:
+----
+hal component switch -m build -c fruit-client-sb
+INFO[0000] Component fruit-client-sb switched to build
+hal component switch -m build -c fruit-backend-sb
+INFO[0000] Component fruit-backend-sb switched to build
+----
+
+Test the service again
+----
+open "http://$(oc get routes/fruit-backend-sb --template={{.spec.host}})"
+FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
+curl "http://${FRONTEND_URL}/api/client"
+----
+
+The Halkyon Team ;-)
+
+**link:README.adoc[Home]**
+
+ifdef::showscript[]
+
+endif::showscript[]
