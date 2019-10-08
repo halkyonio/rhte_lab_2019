@@ -15,7 +15,7 @@ In this lab, you will :
 
 == Agenda
 
-* Dekorate + Halkyon Operator link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ[presentation,window=_blank]: 15min (Naina)
+* Dekorate + Halkyon Operator link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ[presentation^]: 15min (Naina)
   ** Pdf link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pdf[link,window=_blank]
   ** Pptx link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pptx[link,window=_blank]
 * Instructor message: 5 min (Charles)
