@@ -1,3 +1,5 @@
+:linkattrs:
+
 = Red Hat Tech Exchange 2019
 
 == Session Title
