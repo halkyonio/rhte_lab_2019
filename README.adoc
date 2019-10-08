@@ -15,16 +15,16 @@ In this lab, you will :
 
 == Agenda
 
-* Dekorate + Halkyon Operator link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ[presentation]: 15min (Naina)
-  ** Pdf link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pdf[link]
-  ** Pptx link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pptx[link]
+* Dekorate + Halkyon Operator link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ[presentation,window=_blank]: 15min (Naina)
+  ** Pdf link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pdf[link,window=_blank]
+  ** Pptx link:https://docs.google.com/presentation/d/1GJL8m7-aoZMEwY11wb1lCG0WAX8cAeEghnjoYYVZMjQ/export/pptx[link,window=_blank]
 * Instructor message: 5 min (Charles)
 * Play with the Lab: 1h10 (You :thinking:)
 * Debriefing - Q&A : 15min (All)
 
 == Practical info
 
-- Access the Lab instructions - *https://bit.ly/3387PIS*
+- Access the Lab instructions - https://bit.ly/3387PIS[https://bit.ly/3387PIS,window=_blank]
 
 image::images/r2026_lab.png[]
 
@@ -36,22 +36,22 @@ Thursday : 9:30AM - Code : EMEA
 == Table of Contents
 New instructions
 
-. *link:modules/01_scenario/01_setup_Lab.adoc[Lab Setup]*
-. *link:modules/01_scenario/02_scenario_Lab.adoc[Code your Microservices]*
+. *link:modules/01_scenario/01_setup_Lab.adoc[Lab Setup,window=_blank]*
+. *link:modules/01_scenario/02_scenario_Lab.adoc[Code your Microservices,window=_blank]*
 
 Old instructions
 
-. *link:00_prereq.adoc[Pre-requisite]*
-. *link:01_application-overview.adoc[Application overview]*
-. *link:02_setup.adoc[Lab Setup]*
-. *link:03_scenario.adoc[Code your Microservices]*
+. *link:00_prereq.adoc[Pre-requisite,window=_blank]*
+. *link:01_application-overview.adoc[Application overview,window=_blank]*
+. *link:02_setup.adoc[Lab Setup,window=_blank]*
+. *link:03_scenario.adoc[Code your Microservices,window=_blank]*
 
 == Community
 
-. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Snowdrop & Halkyon Zulipchat Community]
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Snowdrop & Halkyon Zulipchat Community,window=_blank]
 
 == References
 
-. link:https://github.com/halkyonio/hal[Developer Tool - Hal]
-. link:https://github.com/halkyonio/operator[Halkyon Operator]
-. link:https://github.com/dekorateio/dekorate[Java annotations/annotationless processors - Dekorate]
+. link:https://github.com/halkyonio/hal[Developer Tool - Hal,window=_blank]
+. link:https://github.com/halkyonio/operator[Halkyon Operator,window=_blank]
+. link:https://github.com/dekorateio/dekorate[Java annotations/annotationless processors - Dekorate,window=_blank]
