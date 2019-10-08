@@ -49,10 +49,10 @@ Your lab environment is remote and can be accessed via ssh as well as through yo
 === Order Lab Environment
 This section guides you through the procedure to order a virtual machine (VM) for this course.
 
-include::{lab_order_type}.adoc[{lab_order_type}]
+include::{lab_order_type}.adoc[]
 
 === Command Line Utilities
-Your lab environment commes pre-installed with the following utilities:
+Your lab environment comes pre-installed with the following utilities:
 
 . *java* (version 1.8.0)
 . *javac* (version 1.8.0)
@@ -63,7 +63,8 @@ Your lab environment commes pre-installed with the following utilities:
 . *oc* (version: 3.11.82;   This corresponds to the version of OpenShift running in your lab environment).
 . *hal*
 +
-This is a new command line utility that assists in scaffolding of microservice applications runnining in OpenShift.
+This is a new command line utility that assists in scaffolding of microservice applications running in OpenShift, link them or to create a service such as a Database.
+
 More information about this utility is found throughout the remainder of this lab.
 
 ==== Refresh _hal_ utility for Linux
