@@ -24,23 +24,21 @@ In this lab, you will :
 
 == Practical info
 
-- Have your students use the RHTE labs wifi
-----
-Name: RHTElabs
-Password: dontyoudare
-----
+- Access the Lab instructions - *https://bit.ly/3387PIS*
 
-- Access the Lab instructions - *http://bit.ly/2lgSHsw*
-
-image::images/qr_home.png[]
+image::images/r2026_lab.png[]
 
 - Enter your session *pincode* for USA attendance and remind people to take the survey (sheet here with codes)
 ----
-TODO // Change time and PIN code
-1:45PM - Code : TTYY
+Wednesday: 3:00PM - Code : ????
+Thursday : 9:30AM - Code : EMEA
 ----
 == Table of Contents
+New instructions
+. *link:modules/01_scenario/01_setup.adoc[Lab Setup]*
+. *link:modules/01_scenario/02_scenario.adoc[Code your Microservices]*
 
+Old instructions
 . *link:00_prereq.adoc[Pre-requisite]*
 . *link:01_application-overview.adoc[Application overview]*
 . *link:02_setup.adoc[Lab Setup]*
