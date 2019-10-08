@@ -35,10 +35,12 @@ Thursday : 9:30AM - Code : EMEA
 ----
 == Table of Contents
 New instructions
+
 . *link:modules/01_scenario/01_setup.adoc[Lab Setup]*
 . *link:modules/01_scenario/02_scenario.adoc[Code your Microservices]*
 
 Old instructions
+
 . *link:00_prereq.adoc[Pre-requisite]*
 . *link:01_application-overview.adoc[Application overview]*
 . *link:02_setup.adoc[Lab Setup]*
