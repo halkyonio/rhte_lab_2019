@@ -49,7 +49,7 @@ Your lab environment is remote and can be accessed via ssh as well as through yo
 === Order Lab Environment
 This section guides you through the procedure to order a virtual machine (VM) for this course.
 
-include::{lab_order_type}.adoc[]
+include::{lab_order_type}.adoc[{lab_order_type}]
 
 === Command Line Utilities
 Your lab environment commes pre-installed with the following utilities:
