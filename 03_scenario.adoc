@@ -245,43 +245,50 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 ----
 
 Use `hal` to create, in an interactive fashion, a new Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
-So, execute the command `hal component spring-boot fruit-client-sb` by providing the following information to each question:
+So, execute the command `hal component create -t client fruit-client-sb` by providing the following information to each question:
 
-    Spring Boot version: `2.1.6.RELEASE`
-    Supported version: `No`
-    Create from template: `Yes`
-    Available templates: `client`
+    Runtime: `spring-boot`
+    Version: `2.1.6.RELEASE`
+    Expose microservice: `Yes`
+    Port: `8080`
+    Use code generator: `Yes`
     Group Id: `me.fruitstand`
     Artifact Id: `fruit-client-sb`
     Version: `1.0.0-SNAPSHOT`
     Package name: `me.fruitstand.demo`
 
 ----
-hal component spring-boot fruit-client-sb
-? Spring Boot version 2.1.6.RELEASE
-? Use 2.1.6.RELEASE supported version No
-? Create from template Yes
-? Available templates client
+hal component create -t client fruit-client-sb
+? Runtime spring-boot
+? Version 2.1.6.RELEASE
+? Expose microservice Yes
+? Port 8080
+? Use code generator Yes
 ? Group Id me.fruitstand
 ? Artifact Id fruit-client-sb
 ? Version 1.0.0-SNAPSHOT
 ? Package name me.fruitstand.demo
+❯ Selected Name: fruit-client-sb
+ ✓  Successfully created 'fruit-client-sb' component
 ----
 
-Check that a project has been well created under the folder `fruit-client-sb`.
+Check that a project has been properly created under the folder `fruit-client-sb`.
 
 Repeat the operation to create a second Spring Boot project using the `crud` template. We'll do it in a non-interactive fashion this time.
 `hal` is smart enough to check values you provided and only asks you to provide information when needed (e.g. if a provided value is incorrect):
 ----
-hal component spring-boot \
-   -i fruit-backend-sb \
-   -g me.fruitstand \
-   -p me.fruitstand.demo \
-   -s 2.1.6.RELEASE \
-   -t crud \
-   -v 1.0.0-SNAPSHOT \
-   --supported=false  \
-  fruit-backend-sb
+hal component create \
+    -r spring-boot \
+    -i 2.1.6.RELEASE \
+    -g me.fruitstand \
+    -a fruit-backend-sb \
+    -v 1.0.0-SNAPSHOT \
+    -s true \
+    -e true \
+    -o 8080 \
+    -p me.fruitstand.demo \
+    -t crud \
+   fruit-backend-sb
 ----
 
 Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
