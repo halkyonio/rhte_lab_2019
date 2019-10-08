@@ -113,7 +113,7 @@ $ oc get projects --as=system:admin
 
 ...
 
-kubedb
+kubedb                             Active
 
 ...
 
@@ -123,7 +123,7 @@ tekton-pipelines                   Active
 
 .. *kubedb*
 +
-This OCP project contains an operator that manages the lifecycle of databases in OpenShift.
+This OCP project contains an operator that manages the lifecycle of the databases in OpenShift.
 
 .. *operators*
 +
@@ -131,7 +131,7 @@ This OCP project contains the _halkyon_ operator.
 
 .. *tekton-pipelines*
 +
-This OCP project contains operators that provide CI/CD infrastructure for your SpringBoot application.
+This OCP project contains operators that provide CI/CD infrastructure to build your SpringBoot applications using by example a S2i build task.
 
 === OpenShift Web Console
 
@@ -142,7 +142,7 @@ echo "export OCP_REGION=`echo $HOSTNAME | cut -d'.' -f1 | cut -d'-' -f2`" >> $HO
 
 source $HOME/.bashrc
 -----
-
+REMARK: This command should be executed within the ssh vm !
 
 . Point your browser to the URL created by executing the following :
 +
