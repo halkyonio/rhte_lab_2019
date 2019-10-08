@@ -64,32 +64,33 @@ Your lab environment comes pre-installed with the following utilities:
 . *hal*
 +
 This is a new command line utility that assists in scaffolding of microservice applications running in OpenShift, link them or to create a service such as a Database.
-
++
 More information about this utility is found throughout the remainder of this lab.
 
 ==== Refresh _hal_ utility for Linux
 
-To ensure that your lab environment uses the latest tag of the _hal_ utility, execute the following in the terminal of you remote lab environment:
+To ensure that your lab environment uses the latest tag of the _hal_ utility, execute the following command in the terminal of you remote lab environment
+to fetch the latest released version:
+----
+hal_version=$(curl --silent "https://api.github.com/repos/halkyonio/hal/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+----
 
 . Download and install latest tag of _hal_:
 +
 ----
-sudo curl -L https://github.com/halkyonio/hal/releases/download/v0.1.10/hal_0.1.10_Linux_x86_64.tar.gz \
-  -o /usr/local/bin/hal_0.1.10_Linux_x86_64.tar.gz && \
-  sudo tar -xzf /usr/local/bin/hal_0.1.10_Linux_x86_64.tar.gz \
+sudo curl -L https://github.com/halkyonio/hal/releases/download/${hal_version}/hal_${hal_version:1}_Linux_x86_64.tar.gz \
+  -o /usr/local/bin/hal_${hal_version:1}_Linux_x86_64.tar.gz && \
+  sudo tar -xzf /usr/local/bin/hal_${hal_version:1}_Linux_x86_64.tar.gz \
   -C /usr/local/bin && sudo chmod +x /usr/local/bin/hal
 ----
-
 
 . Verify the version:
 +
 -----
 hal version
 
-
 hal 0.1.10 built with ❤️ by the Halkyon team on '2019-10-01T18:25:46Z' (commit: 3c9f118) running on top of 'oc'
 -----
-
 
 == OpenShift Container Platform
 
