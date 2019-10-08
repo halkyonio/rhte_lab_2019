@@ -56,4 +56,4 @@ Old instructions
 
 . link:https://github.com/halkyonio/hal[Developer Tool - Hal]
 . link:https://github.com/halkyonio/operator[Halkyon Operator]
-. link:https://github.com/dekorateio/dekorate[Java annotations/annotationless processors - Dekorate]
+. link:https://github.com/dekorateio/dekorate[Dekorate tool - Java Annotations/Config file]
