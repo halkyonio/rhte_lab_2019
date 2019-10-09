@@ -202,7 +202,7 @@ W0924 07:42:06.233565       1 client_config.go:549] Neither --kubeconfig nor --m
 {"level":"info","logger":"controller.pipeline-controller","caller":"pipelinerun/pipelinerun.go:138","msg":"Setting up ConfigMap receivers","knative.dev/controller":"pipeline-controller"}
 ----
 
-=== Scaffold the Spring Boot applications
+=== Inital setup
 
 Create a `rhtelab` development folder on your laptop
 ----
@@ -244,6 +244,22 @@ Copyright 2016-2017 Red Hat, Inc, and individual contributors.
 </project>
 ----
 
+=== Create the Components
+
+A component represents a microservice to be deployed.
+The Component Custom Resource provides the descriptor that allows Kubernetes/OpenShift to deploy the microservice and, optionally, expose it outside of the cluster.
+
+Creating and using a component is a two step process: first inform the operator about the component by "creating" it, then make its associated application available to the cluster to be able to run it by "pushing" it to the cluster.
+
+First check if you are using your project:
+
+----
+oc project
+Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
+----
+
+Next create the different microservices as `components` using the `hal component create` command.
+
 Use `hal` to create, in an interactive fashion, a new Spring Boot project using the REST HTTP `client` template proposed by the scaffolding tool.
 So, execute the command `hal component create -t client fruit-client-sb` by providing the following information to each question:
 
@@ -256,6 +272,7 @@ So, execute the command `hal component create -t client fruit-client-sb` by prov
     Artifact Id: `fruit-client-sb`
     Version: `1.0.0-SNAPSHOT`
     Package name: `me.fruitstand.demo`
+    Just press enter when asked for env variables
 
 ----
 hal component create -t client fruit-client-sb
@@ -268,6 +285,7 @@ hal component create -t client fruit-client-sb
 ? Artifact Id fruit-client-sb
 ? Version 1.0.0-SNAPSHOT
 ? Package name me.fruitstand.demo
+? Env variable in the 'name=value' format, simply press enter when finished
 ❯ Selected Name: fruit-client-sb
  ✓  Successfully created 'fruit-client-sb' component
 ----
@@ -284,12 +302,25 @@ hal component create \
     -a fruit-backend-sb \
     -v 1.0.0-SNAPSHOT \
     -s true \
-    -e true \
+    -x true \
+    -e SPRING_PROFILES_ACTIVE=kubernetes \
     -o 8080 \
     -p me.fruitstand.demo \
     -t crud \
    fruit-backend-sb
 ----
+
+Check if the components have been correctly installed within another terminal
+
+----
+oc get cp
+NAME               RUNTIME       VERSION         AGE   MODE   STATUS    MESSAGE                                                                                      REVISION
+fruit-backend-sb   spring-boot   2.1.6.RELEASE   6s    dev    Pending   Waiting for the following resources: Pod => fruit-backend-sb-747ccb645d-tfrtc is not ready
+fruit-client-sb    spring-boot   2.1.6.RELEASE   1m    dev    Ready     Ready: 'PodName' changed to 'fruit-client-sb-575d74f55d-wcwmw'
+----
+
+NOTE: if you try to access the associated services, they won't work because the components haven't been wired together yet.
+Hence the need for the following steps! :smile:
 
 Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
 ----
@@ -309,127 +340,6 @@ git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_
 git push -u origin master
 ----
 **Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
-
-=== Build the project
-
-==== Client
-
-Package your Spring Boot client application using the following maven commands:
-----
-mvn package -f fruit-client-sb
-----
-
-*Remark*: While this command isn't mandatory for the proper execution of the lab's scenario, it is nonetheless suggested in order to ensure that the Spring Boot project will correctly created.
-
-==== Backend
-
-Now, package the backend Spring Boot application, paying special attention to the `local` maven profile:
-----
-mvn package -f fruit-backend-sb -Plocal
-----
-
-**Remarks**:
-
-- We need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database.
-  The `kubernetes` profile is enabled by default. This information is mirrored within the 2 Spring Boot application properties files under the folder `src/main/resources`.
-  The `application.properties` file corresponds to the `local` profile while `application-kubernetes.properties` is used for `kubernetes` deployment.
-  These 2 files contains the Spring Boot properties to configure the Datasource needed to access the database.
-+
-----
-src/main/resources/application-kubernetes.properties
-spring.datasource.url=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
-spring.datasource.username=${DB_USER}
-spring.datasource.password=${DB_PASSWORD}
-spring.datasource.driver-class-name=org.postgresql.Driver
-----
-+
-- Note also that this file contains a `Dekorate environment variable` definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
-This is how Halkyon knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when
-booting instead of the default `application.properties`.
-+
-----
-src/main/resources/application-kubernetes.properties
-...
-dekorate.component.envs[0].name=SPRING_PROFILES_ACTIVE
-dekorate.component.envs[0].value=kubernetes
-----
-+
-- Finally, you can also see that the database connection parameters `${DB_xxxxx}` reference environment variables. These values will be injected
-into your microservice application when you create a link between it and the appropriate database capability.
-
-=== Create the Components
-
-A component represents a microservice to be deployed. The Component Custom Resource provides the descriptor that allows Kubernetes/OpenShift
-to deploy the microservice and, optionally, expose it outside of the cluster.
-
-Creating and using a component is a two step process: first inform the operator about the component by "creating" it, then make
-its associated application available to the cluster to be able to run it by "pushing" it to the cluster.
-
-First check if you are using your project:
-----
-oc project
-Using project "rhtelab" on server "https://api.cluster-416e.416e.sandbox352.opentlc.com:6443".
-----
-
-Next create the different microservices as `components` using the `hal component create` command.
-During this process, the tool will create a `Component` custom resource using the Java Dekorate Library which will be handled by the halkyon operator to create all the Kubernetes resources
-needed to deploy your application properly. You only need to worry about your component metadata instead of wondering how it
-needs to be materialized in the cluster using Deployments, Services, etc…
-----
-hal component create -c fruit-client-sb
-'fruit-client-sb' component was not found, initializing it
- ✓  Waiting for component fruit-client-sb to be ready…
- ✓  Successfully created 'fruit-client-sb' component
-hal component create -c fruit-backend-sb
-'fruit-backend-sb' component was not found, initializing it
- ✓  Waiting for component fruit-backend-sb to be ready…
- ✓  Successfully created 'fruit-backend-sb' component
-----
-
-**Note**:
-
-You can discover the file populated by Dekorate by opening the following folder `{fruit-client-sb,fruit-backend-sb}/target/classes/META-INF/dekorate/`
-
-----
-Example of halkyon.yml file
----
-apiVersion: "v1"
-kind: "List"
-items:
-- apiVersion: "halkyon.io/v1beta1"
-  kind: "Component"
-  metadata:
-    labels:
-      app: "fruit-backend-sb"
-    name: "fruit-backend-sb"
-  spec:
-    deploymentMode: "dev"
-    runtime: "spring-boot"
-    version: "2.1.6.RELEASE"
-    exposeService: true
-    envs:
-    - name: "SPRING_PROFILES_ACTIVE"
-      value: "kubernetes"
-    buildConfig:
-      type: "s2i"
-      url: "https://github.com/rhte-eu/cmoullia1.git"
-      ref: "master"
-      contextPath: ""
-      moduleDirName: "fruit-backend-sb"
-    port: 8080
-----
-
-IMPORTANT: Take the time to discuss with the instructor the content of this file ;-)
-
-Check if the components have been correctly installed within another terminal
-----
-oc get cp
-NAME               RUNTIME       VERSION         AGE       MODE      STATUS    MESSAGE                                                                    REVISION
-fruit-backend-sb   spring-boot   2.1.6.RELEASE   11s       dev       Pending   pod is not ready for Component 'fruit-backend-sb' in namespace 'rhtelab'
-fruit-client-sb    spring-boot   2.1.6.RELEASE   103s      dev       Ready     Ready
-----
-
-NOTE: if you try to access the associated services, they won't work because the components haven't been wired together yet. Hence the need for the following steps! :smile:
 
 === Create a PostgreSQL DB
 
@@ -568,9 +478,20 @@ exposed as route.
 
 ----
 hal component push -c fruit-client-sb
- ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb.tar
+Local changes detected for 'fruit-client-sb' component: about to push source code to remote cluster
+ ✓  Uploading /Users/claprun/Dev/snowdrop/rhtelab/fruit-client-sb.tar
+ ✓  Extracting source on the remote cluster
+ ✓  Performing build
+ ✓  Restarting app
+ ✓  Successfully pushed 'fruit-client-sb' component to remote cluster
+
 hal component push -c fruit-backend-sb
- ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
+Local changes detected for 'fruit-backend-sb' component: about to push source code to remote cluster
+ ✓  Uploading /Users/claprun/Dev/snowdrop/rhtelab/fruit-backend-sb.tar
+ ✓  Extracting source on the remote cluster
+ ✓  Performing build
+ ✓  Restarting app
+ ✓  Successfully pushed 'fruit-backend-sb' component to remote cluster
 ----
 
 WARNING: if, for any reason, the push fails, you can try to play yourself the commands snippet hereafter and executed under the hood by `hal`
@@ -585,6 +506,88 @@ oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start run
 ----
 
 NOTE: if you try to `push` the component again without changing anything locally, `hal` is smart enough to detect it and not do anything as nothing is required in this case. Give it a try, then change the code for one of the app and attempt to push again to see what happens!
+
+=== Optional: build the project and learn about Dekorate
+
+==== Client
+
+Package your Spring Boot client application using the following maven commands:
+
+----
+mvn package -f fruit-client-sb
+----
+
+==== Backend
+
+Now, package the backend Spring Boot application, paying special attention to the `local` maven profile:
+
+----
+mvn package -f fruit-backend-sb -Plocal
+----
+
+**Remarks**:
+
+- We need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database.
+The `kubernetes` profile is enabled by default.
+This information is mirrored within the 2 Spring Boot application properties files under the folder `src/main/resources`.
+The `application.properties` file corresponds to the `local` profile while `application-kubernetes.properties` is used for `kubernetes` deployment.
+These 2 files contains the Spring Boot properties to configure the Datasource needed to access the database.
++
+----
+src/main/resources/application-kubernetes.properties
+spring.datasource.url=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=org.postgresql.Driver
+----
++
+- Note also that this file contains a `Dekorate environment variable` definition called `SPRING_PROFILES_ACTIVE` with a `kubernetes` value.
+This is how Halkyon knows to activate the Spring `kubernetes` profile, i.e. make Spring Boot uses `application-kubernetes.properties` when booting instead of the default `application.properties`.
++
+----
+src/main/resources/application-kubernetes.properties
+...
+dekorate.component.envs[0].name=SPRING_PROFILES_ACTIVE
+dekorate.component.envs[0].value=kubernetes
+----
++
+- Finally, you can also see that the database connection parameters `${DB_xxxxx}` reference environment variables.
+These values will be injected into your microservice application when you create a link between it and the appropriate database capability.
+
+**Note**:
+
+You can discover the file populated by Dekorate by opening the following folder `{fruit-client-sb,fruit-backend-sb}/target/classes/META-INF/dekorate/`
+
+----
+Example of halkyon.yml file
+---
+apiVersion: "v1"
+kind: "List"
+items:
+- apiVersion: "halkyon.io/v1beta1"
+  kind: "Component"
+  metadata:
+    labels:
+      app: "fruit-backend-sb"
+    name: "fruit-backend-sb"
+  spec:
+    deploymentMode: "dev"
+    runtime: "spring-boot"
+    version: "2.1.6.RELEASE"
+    exposeService: true
+    envs:
+    - name: "SPRING_PROFILES_ACTIVE"
+      value: "kubernetes"
+    buildConfig:
+      type: "s2i"
+      url: "https://github.com/rhte-eu/cmoullia1.git"
+      ref: "master"
+      contextPath: ""
+      moduleDirName: "fruit-backend-sb"
+    port: 8080
+----
+
+IMPORTANT: Take the time to discuss with the instructor the content of this file :wink:
 
 === Connect to the Client or Backend services
 
