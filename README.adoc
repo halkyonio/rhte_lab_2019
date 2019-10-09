@@ -32,7 +32,7 @@ image::images/r2026_lab.png[]
 
 - Enter your session *pincode* for USA attendance and remind people to take the survey (sheet here with codes)
 ----
-Wednesday: 3:00PM - Code : ????
+Wednesday: 3:00PM - Code : DBPHL
 Thursday : 9:30AM - Code : EMEA
 ----
 == Table of Contents
