@@ -39,10 +39,10 @@ source $CURRENT_PATH/scripts/git-repo-create.sh $GIT_RHTE_ORG $GIT_REPO
 
 printTitle "Create local .gitignore file"
 touch .gitignore
-echo "*/target" >> .gitignore
+echo "*/target" >>.gitignore
 
 printTitle "Create Pom parent file"
-cat <<EOF > pom.xml
+cat <<EOF >pom.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -62,25 +62,32 @@ EOF
 
 printTitle "Scaffold maven projects for fruit and client spring boot runtime"
 
-hal component spring-boot \
-   -i fruit-backend-sb \
-   -g me.fruitsand \
-   -p me.fruitsand.demo \
-   -s 2.1.6.RELEASE \
-   -t crud \
-   -v 1.0.0-SNAPSHOT \
-   --supported=false  \
-   fruit-backend-sb
+hal component create \
+  -r spring-boot \
+  -i 2.1.6.RELEASE \
+  -g me.fruitstand \
+  -a fruit-backend-sb \
+  -v 1.0.0-SNAPSHOT \
+  -s true \
+  -x true \
+  -e SPRING_PROFILES_ACTIVE=kubernetes \
+  -o 8080 \
+  -p me.fruitstand.demo \
+  -t crud \
+  fruit-backend-sb
 
- hal component spring-boot \
-   -i fruit-client-sb \
-   -g me.fruitsand \
-   -p me.fruitsand.demo \
-   -s 2.1.6.RELEASE \
-   -t client \
-   -v 1.0.0-SNAPSHOT \
-   --supported=false  \
-   fruit-client-sb
+hal component create \
+  -r spring-boot \
+  -i 2.1.6.RELEASE \
+  -g me.fruitstand \
+  -a fruit-client-sb \
+  -v 1.0.0-SNAPSHOT \
+  -s true \
+  -x true \
+  -o 8080 \
+  -p me.fruitstand.demo \
+  -t client \
+  fruit-client-sb
 
 printTitle "Init git project and push code"
 git init
@@ -153,4 +160,3 @@ curl -X DELETE -u "$username:$token" https://api.github.com/repos/$GIT_RHTE_ORG/
 
 popd
 rm -rf $tempDir
-
