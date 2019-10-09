@@ -58,6 +58,7 @@ Your lab environment comes pre-installed with the following utilities:
 . *javac* (version 1.8.0)
 . *maven* (version 3.5.4)
 . *git*
+. *jq*
 . *podman*
 . *buildah*
 . *oc* (version: 3.11.82;   This corresponds to the version of OpenShift running in your lab environment).
@@ -153,6 +154,20 @@ $ echo -en "\nhttps://master00-$OCP_REGION.generic.opentlc.com\n\n"
 . Authenticate using the following user credentials
 .. Username:    user1
 .. Password:    r3dh4t1!
+
+=== Refresh OpenShift components
+
+From time to time, some components in your OpenShift based lab environment tend not to start-up cleanly.
+So as to ensure all components work as expected, execute the following in your remote lab environment:
+
+-----
+mkdir -p $HOME/lab && \
+  wget \
+  https://raw.githubusercontent.com/github.com/halkyonio/rhte_lab_2019/master/scripts/lab_state_refresh.sh \
+  -O $HOME/lab/lab_state_refresh.sh \
+  && chmod 755 $HOME/lab/lab_state_refresh.sh \
+  && $HOME/lab/lab_state_refresh.sh
+-----
 
 == Operators
 
