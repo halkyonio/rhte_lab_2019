@@ -1,0 +1,48 @@
+= Halkyon Workshop Automation
+
+
+== Overview
+
+This ansible playbook consists of a single role that provisions a pre-existing OpenShift cluster with the following operators:
+- Halkyon Component Operator
+- Tekton Pipelines
+- KubeDB
+
+The following are pre-requisites prior to executing this ansible:
+
+. Pre-existing OCP 3.11.* environment with at least 4 CPUs and 10 GB RAM to at least 1 worker node
+. Corresponding 3.11 `oc` utility
+. `oc` utility should already be authenticated into your OCP 3.11 master node as a _cluster-admin_.
+
+
+== Procedure
+
+. At a terminal, clone this github project and change directory into this folder (where this readme resides).
+
+. Create Playbook:
++
+-----
+echo "
+- hosts: all
+  become: false
+  gather_facts: False
+  vars_files:
+  roles:
+    - `pwd`
+" > /tmp/rhte2019_halkyon_workshop.yml
+-----
+
+. To provision a lab environment, execute this ansible playbook as follows:
++
+-----
+ansible-playbook -i localhost, -c local /tmp/rhte2019_halkyon_workshop.yml \
+    -e ACTION=create
+-----
+
+
+. To delete a lab environment, execute this ansible as follows:
++
+----
+ansible-playbook -i localhost, -c local /tmp/rhte2019_halkyon_workshop.yml \
+    -e ACTION=remove
+----
