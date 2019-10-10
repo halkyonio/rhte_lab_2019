@@ -661,7 +661,7 @@ oc get routes/fruit-client-sb --template={{.spec.host}}
 You should get the fruits created in the previous step.
 +
 ----
-FRONTEND_URL=<host-of-client-route>
+FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
 curl "http://${FRONTEND_URL}/api/client"
 [{"id":4,"name":"orange"},{"id":5,"name":"apple"},{"id":6,"name":"strawberry"}]
 ----
