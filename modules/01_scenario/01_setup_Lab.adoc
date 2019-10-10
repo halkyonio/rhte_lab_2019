@@ -163,7 +163,7 @@ So as to ensure all components work as expected, execute the following in your r
 -----
 mkdir -p $HOME/lab && \
   wget \
-  https://raw.githubusercontent.com/github.com/halkyonio/rhte_lab_2019/master/scripts/lab_state_refresh.sh \
+  https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/lab_state_refresh.sh \
   -O $HOME/lab/lab_state_refresh.sh \
   && chmod 755 $HOME/lab/lab_state_refresh.sh \
   && $HOME/lab/lab_state_refresh.sh
