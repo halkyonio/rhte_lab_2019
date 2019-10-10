@@ -181,6 +181,7 @@ git remote add origin https://rhte-user:\!demo12345@github.com/<RHTE_ORG>/<YOUR_
 git push -u origin master
 ----
 +
+**Warning** : Please replace the var `<RHTE_ORG>` with the value `rhte-us` and `<YOUR_REPO_NAME>` with the git repo name.
 **Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
 
 == SpringBoot application deployment 
@@ -194,7 +195,6 @@ mvn package -f fruit-client-sb
 ----
 +
 *Remark*: While this command isn't mandatory for the proper execution of the lab's scenario, it is nonetheless suggested in order to ensure that the Spring Boot project will correctly created.
-
 
 . Package the backend Spring Boot application, paying special attention to the `local` maven profile:
 +
@@ -251,7 +251,7 @@ Halkyon extends the OpenShift master API by defining a _Component_ custom resour
 This CRD is viewable as follows:
 
 -----
-oc describe crd components.halkyon.io --as=system:admin
+oc describe crd components.halkyon.io --as=system:admin | more
 
 ....
 
@@ -434,7 +434,7 @@ By defining a _capability_, you inform the Halkyon Operator that the correspondi
 . View the Halkyon _capability_ custom resource definition:
 +
 -----
-oc describe crd capabilities.halkyon.io --as=system:admin
+oc describe crd capabilities.halkyon.io --as=system:admin | more
 -----
 
 . Create a _capability_ using the interactive mode of the `hal` tool
@@ -496,7 +496,7 @@ In this section, you use the `hal link create` command to inject (or bind/wire) 
 . View the _links_ custom resource definition provided by Halkyon:
 +
 -----
-oc describe crd links.halkyon.io --as=system:admin
+oc describe crd links.halkyon.io --as=system:admin | more
 -----
 
 
