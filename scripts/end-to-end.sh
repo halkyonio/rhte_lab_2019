@@ -128,7 +128,7 @@ http "http://${FRONTEND_URL}/api/client" -s solarized
 printTitle "Switch to Build mode to use Tekton"
 hal component switch -m build -c fruit-client-sb
 hal component switch -m build -c fruit-backend-sb
-sleep 300s
+sleep 400s
 
 printTitle "Re-create some fruits"
 BACKEND_URL=$(oc get routes/fruit-backend-sb --template={{.spec.host}})
