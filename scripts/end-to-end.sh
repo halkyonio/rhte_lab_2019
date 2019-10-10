@@ -2,7 +2,7 @@
 
 # Prerequisite:
 # Install httpie       - https://httpie.org/doc#installation
-# Have hal : >= 0.1.10 - https://github.com/halkyonio/hal/releases/tag/v0.1.10
+# Have hal : >= 0.1.10 - https://github.com/halkyonio/hal/releases/tag/v0.1.11
 # How to use it
 # - Be logged to ocp/k8s
 # - Launch the following script

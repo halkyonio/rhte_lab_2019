@@ -70,7 +70,7 @@ NOTE: The `hal` image already packages the `oc` client version 4.x.
 Execute this command to mount your current directory (where the execution of the lab's scenario will take place) within the container and pass various hal commands.
 
 ----
-docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.10 <COMMAND>
+docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.11 <COMMAND>
 ----
 
 === Create a Git project
@@ -104,7 +104,7 @@ oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 and `hal` will report an error
 
 ----
-docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.10 oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
+docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.11 oc login <SERVER_ADDRESS> -u user1 -p r3dh4t1!
 ----
 
 **Remarks**:
