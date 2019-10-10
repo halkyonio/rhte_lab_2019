@@ -587,18 +587,10 @@ fruit-client-sb-link    2m        Ready     Ready
 Now that you have created the different entities necessary for implementing a sample microservices architecture, as well as their relations and backend service, you will push the code (to compile it on the platform) and to verify if we can access the HTTP endpoints
 exposed as route.
 
-. Assign `user1` as a cluster-admin:
-+
------
-oc adm policy add-cluster-role-to-user cluster-admin user1 --as=system:admin
------
-
 . Push the `fruit-client-sb` code:
 +
 ----
 hal component push -c fruit-client-sb
-
-
 
  ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb.tar
  ✓  Extracting source on the remote cluster
@@ -618,7 +610,6 @@ oc cp $PROJECT/src $POD_ID:/usr/src/ -n $NAMESPACE
 oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start build
 oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start run
 ----
-
 
 . Push the `fruit-backend-sb`:
 +
