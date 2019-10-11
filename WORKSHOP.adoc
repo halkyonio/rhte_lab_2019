@@ -20,6 +20,7 @@ In this workshop, you will :
   ** Adopting the `Dekorate` Tool responsible to generate the kubernetes manifests (aka yaml/json resources)
   ** Delegating to an Operator the responsibility to manage complex tasks to compose the microservices
 * Play with a `Developer` tool called `Hal` to communicate with the cluster and perform the following tasks:
+  ** Scaffold Spring Boot application
   ** Compose & link microservices
   ** Create and install a `capability` such as a database and link it to to microservice consuming it
 * Code locally and next `push/build` on OpenShift
