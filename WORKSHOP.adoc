@@ -9,15 +9,31 @@ Long Description: 
 
 == Hal Client and Halkyon Operator Workshop
 
-This workshop aims to explain to you how you can simplify the development of your applications (aka microservices)
-using the `https://github.com/halkyonio/hal/[Hal Cloud Client Tool]` and `https://github.com/halkyonio/operator/[Halkyon Operator]` on Kubernetes/OpenShift.
+This workshop aims to discover how you can simplify the development of your applications (aka microservices) on Kubernetes/OpenShift
+using the `https://github.com/halkyonio/hal/[Hal Cloud Client Tool]` and `https://github.com/halkyonio/operator/[Halkyon Operator]`.
 
 == Goals
 
-In this lab, you will :
+In this workshop, you will :
 
-- Learn how the deployment of microservices could be simplified on k8s/OpenShift by adopting our `Dekorate` Tool and by delegating to an Operator the responsibility to deal with kubernetes/manifests creation
-- Play with a `Developer` tool called `Hal` to communicate with the cluster
-- Compose & link microservices
-- Deploy a `capability` such as a database and link it to to microservice consuming it
+- Learn how the deployment of microservices could be simplified on k8s/OpenShift by:
+  - Adopting the `Dekorate` Tool responsible to generate the kubernetes manifests (aka yaml/json resources)
+  - Delegating to an Operator the responsibility to manage complex tasks to compose the microservices
+- Play with a `Developer` tool called `Hal` to communicate with the cluster and perform the following tasks:
+  -- Compose & link microservices
+  -- Create and install a `capability` such as a database and link it to to microservice consuming it
 - Code locally and next `push/build` on k8s/OpenShift
+
+== Guide
+
+Lab instructions can be found - https://bit.ly/3387PIS[https://bit.ly/3387PIS]
+
+== Need help
+
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Zulipchat Community]
+
+== References
+
+. link:https://github.com/halkyonio/hal[Developer Tool - Hal]
+. link:https://github.com/halkyonio/operator[Halkyon Operator]
+. link:https://github.com/dekorateio/dekorate[Dekorate tool - Java Annotations/Config file]
