@@ -279,7 +279,7 @@ And, the _Components_ CustomResourceDefinition from Halkyon does not currently l
 Your OpenShift lab environment sets a LimitRange with default limits and requests that are intentionally severly limited:
 
 -----
-oc get limitrange halkyon-fruit-core-resource-limits -o yaml -n $NAMESPACE
+oc get limitrange halkyon-fruit-core-resource-limits -o yaml -n $LAB_NAME
 
 
 apiVersion: v1
