@@ -319,7 +319,7 @@ spec:
     max:
       memory: 6Gi
     min:
-      memory: 10Mi
+      memory: 0Mi
     type: Container
   - max:
       memory: 12Gi
