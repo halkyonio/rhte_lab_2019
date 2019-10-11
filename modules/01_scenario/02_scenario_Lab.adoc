@@ -719,9 +719,21 @@ NOTE: Observe the log of the Spring Boot application and access again using the 
 == Switch to build mode
 
 When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. In
-Halkyon parlance, we need to change the deployment mode of the component to the `build` mode. Changing the deployment mode will
-let Halkyon know that it needs to trigger an image build instead of relying on the supervisor-based approach provided by the
-default `dev` mode. This, in turns, uses Tekton to accomplish the required steps.
+Halkyon parlance, we need to change the deployment mode of the Component to use `build` mode attribute.
+
+Changing the deployment mode will let the Halkyon Operator to knows that it
+- Must read the `BuildConfig` spec of the `Component` CRD to configure the build
+- Needs then to trigger an image build instead of relying on the supervisor-based approach provided by the
+default `dev` mode
+
+This, in turns, uses `Tekton` to accomplish the following steps:
+- Git clone your project pushed on git hub
+- Generate the Dockerfile of the project to be built
+- Perform a S2I build using the Red Hat OpenJDK8 S2I image
+- Push the image generated on the internal docker registry
+
+Next, Halkyon is changing the service's label in order to switch from the `dev` pod to the runtime pod created from the
+built image !
 
 Once again, `hal` makes this process painless as this can be accomplished using the `hal component switch` command:
 ----
@@ -730,6 +742,8 @@ INFO[0000] Component fruit-client-sb switched to build
 hal component switch -m build -c fruit-backend-sb
 INFO[0000] Component fruit-backend-sb switched to build
 ----
+
+**NOTE** : Due to the cpu, memory limit constraint of the pods created, this build process will take a few minutes !
 
 Test the service again
 ----
