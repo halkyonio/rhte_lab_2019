@@ -338,7 +338,7 @@ spec:
 oc replace -f /tmp/halkyon-fruit-core-resource-limits.yml --as=system:admin
 -----
 
-==== Services
+==== Create the components/microservices
 
 . Create a _fruit-client-sb_ _component_:
 +
@@ -359,23 +359,27 @@ You only need to worry about your component metadata instead of wondering how it
 -----
 oc get all -l app=fruit-client-sb --as=system:admin
 
+[lab-user@workstation-9ae7 halkyon-fruit]$ oc get capabilities
+NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE                                     REVISION
+postgres-db   Database             8s        Ready     Ready: 'PodName' changed to 'postgres-db'
+[lab-user@workstation-9ae7 halkyon-fruit]$ oc get all -l app=fruit-client-sb --as=system:admin
 NAME                                   READY     STATUS    RESTARTS   AGE
-pod/fruit-client-sb-575d74f55d-jg58h   1/1       Running   0          4m
+pod/fruit-client-sb-575d74f55d-clx6f   1/1       Running   0          3m
 
-NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/fruit-client-sb   ClusterIP   172.30.228.78   <none>        8080/TCP   4m
+NAME                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/fruit-client-sb   ClusterIP   172.30.17.41   <none>        8080/TCP   3m
 
 NAME                              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/fruit-client-sb   1         1         1            1           4m
+deployment.apps/fruit-client-sb   1         1         1            1           3m
 
 NAME                                         DESIRED   CURRENT   READY     AGE
-replicaset.apps/fruit-client-sb-575d74f55d   1         1         1         4m
+replicaset.apps/fruit-client-sb-575d74f55d   1         1         1         3m
 
 NAME                                       HOST/PORT                                                     PATH      SERVICES          PORT      TERMINATION   WILDCARD
-route.route.openshift.io/fruit-client-sb   fruit-client-sb-halkyon-fruit.apps-683a.generic.opentlc.com             fruit-client-sb   <all>                   None
+route.route.openshift.io/fruit-client-sb   fruit-client-sb-halkyon-fruit.apps-9ae7.generic.opentlc.com             fruit-client-sb   <all>                   None
 
-NAME                                   RUNTIME       VERSION         AGE       MODE      STATUS    MESSAGE   REVISION
-component.halkyon.io/fruit-client-sb   spring-boot   2.1.6.RELEASE   4m        dev       Ready     Ready
+NAME                                   RUNTIME       VERSION         AGE       MODE      STATUS    MESSAGE                                                          REVISION
+component.halkyon.io/fruit-client-sb   spring-boot   2.1.6.RELEASE   3m        dev       Ready     Ready: 'PodName' changed to 'fruit-client-sb-575d74f55d-clx6f'
 -----
 
 . Create a _fruit-backend-sb_ _component_:
@@ -483,8 +487,8 @@ postgres-capability-1568134805423273000   Database             25s       Pending
 +
 ----
 oc get capability
-NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE   REVISION
-postgres-db   Database             4m        Ready     Ready
+NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE                                     REVISION
+postgres-db   Database             8s        Ready     Ready: 'PodName' changed to 'postgres-db'
 ----
 +
 TIP: For all the resources created you can check the content generated using the oc command : `oc get component postgres-db -o yaml`, ...
@@ -580,10 +584,20 @@ Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fru
 ----
 oc get links
 
+oc get links
 NAME                    AGE       STATUS    MESSAGE
-fruit-backend-sb-link   4m        Ready     Ready
-fruit-client-sb-link    2m        Ready     Ready
+fruit-backend-sb-link   41s       Ready     Ready
+fruit-client-sb-link    5s        Pending   Waiting for the following resources: Component => Initiating link fruit-client-sb-link
+...
+[lab-user@workstation-9ae7 halkyon-fruit]$ oc get links
+NAME                    AGE       STATUS    MESSAGE
+fruit-backend-sb-link   57s       Ready     Ready
+fruit-client-sb-link    21s       Pending   Waiting for the following resources: Component => Waiting for the following resources: Pod => fruit-client-sb-575d74f55d-clx6f is not ready
+...
+
 ----
+
+**NOTE**: Call several time the command `oc get links` to see how the status is changing according to the resource modified.
 
 == Push the code
 
@@ -595,7 +609,8 @@ exposed as route.
 ----
 hal component push -c fruit-client-sb
 
- ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-client-sb.tar
+Local changes detected for 'fruit-client-sb' component: about to push source code to remote cluster
+ ✓  Uploading /home/lab-user/halkyon-fruit/fruit-client-sb.tar
  ✓  Extracting source on the remote cluster
  ✓  Performing build
  ✓  Restarting app
@@ -619,7 +634,8 @@ oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start run
 -----
 hal component push -c fruit-backend-sb
 
- ✓  Uploading /Users/dabou/Temp/rhtelab/fruit-backend-sb.tar
+Local changes detected for 'fruit-backend-sb' component: about to push source code to remote cluster
+ ✓  Uploading /home/lab-user/halkyon-fruit/fruit-backend-sb.tar
  ✓  Extracting source on the remote cluster
  ✓  Performing build
  ✓  Restarting app
@@ -691,7 +707,7 @@ Save the file and push it again using the `hal component push` command
 ----
 hal component push -c fruit-backend-sb
 Local changes detected for 'fruit-backend-sb' component: about to push source code to remote cluster
- ✓  Uploading /Users/dabou/Temp/test/fruit-backend-sb.tar
+ ✓  Uploading /home/lab-user/halkyon-fruit/fruit-backend-sb.tar
  ✓  Extracting source on the remote cluster
  ✓  Performing build
  ✓  Restarting app
@@ -700,7 +716,7 @@ Local changes detected for 'fruit-backend-sb' component: about to push source co
 
 NOTE: Observe the log of the Spring Boot application and access again using the OpenShift Route.
 
-=== Switch to build mode
+== Switch to build mode
 
 When we have finished to test/push the project on the cloud machine, then we can start the process to build a docker image. In
 Halkyon parlance, we need to change the deployment mode of the component to the `build` mode. Changing the deployment mode will
