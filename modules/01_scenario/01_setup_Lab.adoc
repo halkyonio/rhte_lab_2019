@@ -313,7 +313,7 @@ services                5       50
 
 === Optional: Provision Lab environment in your own openshift
 
-For those that may be interested in provisioning this Halkyon lab environment in their own OpenShift cluster, the instructions for doing so can be found link:[here].
+For those that may be interested in provisioning this Halkyon lab environment in their own OpenShift cluster, the instructions for doing so can be found link:https://github.com/halkyonio/rhte_lab_2019/blob/master/automation/readme.adoc[here].
 
 
 === Optional:  Install _hal_ utility on other operating systems
