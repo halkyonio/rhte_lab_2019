@@ -148,6 +148,8 @@ echo ".idea/" >> $HOME/$LAB_NAME/.gitignore
 
 === Version Control Your Spring App
 
+. Next, we will create a git project and push the code created locally as it will be used later when we will switch from the mode `Dev` to `Build` in order to perform a S2I build
+  using Tekton which uses as input this github project
 . Create a `git repo` within the https://github.com/rhte-eu `org` for the EU Session Lab or https://github.com/rhte-us for the US Session Lab using your first and last name concatenated and cut after 8 chars as git hub repo name  (E.g : for the user Charles Moulliard, then the acronym to be used is `cmoullia`).
 
 .. Execute the following command in a terminal:
@@ -182,6 +184,7 @@ git push -u origin master
 ----
 +
 **Warning** : Please replace the var `<RHTE_ORG>` with the value `rhte-us` and `<YOUR_REPO_NAME>` with the git repo name.
+
 **Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
 
 == SpringBoot application deployment 
