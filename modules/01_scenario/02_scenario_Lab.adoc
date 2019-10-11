@@ -359,10 +359,6 @@ You only need to worry about your component metadata instead of wondering how it
 -----
 oc get all -l app=fruit-client-sb --as=system:admin
 
-[lab-user@workstation-9ae7 halkyon-fruit]$ oc get capabilities
-NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE                                     REVISION
-postgres-db   Database             8s        Ready     Ready: 'PodName' changed to 'postgres-db'
-[lab-user@workstation-9ae7 halkyon-fruit]$ oc get all -l app=fruit-client-sb --as=system:admin
 NAME                                   READY     STATUS    RESTARTS   AGE
 pod/fruit-client-sb-575d74f55d-clx6f   1/1       Running   0          3m
 
@@ -478,9 +474,9 @@ hal capability create
 . Check the capability status:
 +
 ----
-oc get capabilities
+oc get capability
 NAME                                      CATEGORY   KIND      AGE       STATUS    MESSAGE                                                                                                      REVISION
-postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'rhtelab'
+postgres-capability-1568134805423273000   Database             25s       Pending   postgreSQL db is not ready for Capability 'postgres-capability-1568134805423273000' in namespace 'halkyon-fruit'
 ----
 
 .. If the status is not ready, wait a few moments for the `KubeDB` operator to create the database within your namespace and repeat the command again:
@@ -582,8 +578,6 @@ Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fru
 .. Check the link status:
 +
 ----
-oc get links
-
 oc get links
 NAME                    AGE       STATUS    MESSAGE
 fruit-backend-sb-link   41s       Ready     Ready
