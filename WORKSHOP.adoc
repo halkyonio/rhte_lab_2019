@@ -1,0 +1,45 @@
+:linkattrs:
+
+
+Name: Halkyon Workshop
+
+Description: Halkyon Workshop
+
+Long Description: 
+
+== Hal Client and Halkyon Operator Workshop
+
+This workshop aims to discover how you can simplify the development of your applications (aka microservices) on Kubernetes/OpenShift
+using the `https://github.com/halkyonio/hal/[Hal Cloud Client Tool]` and `https://github.com/halkyonio/operator/[Halkyon Operator]`.
+
+== Goals
+
+In this workshop, you will :
+
+* Learn how the deployment of microservices could be simplified on k8s/OpenShift by:
+  ** Adopting the `Dekorate` Tool responsible to generate the kubernetes manifests (aka yaml/json resources)
+  ** Delegating to an Operator the responsibility to manage complex tasks to compose the microservices
+* Play with a `Developer` tool called `Hal` to communicate with the cluster and perform the following tasks:
+  ** Scaffold Spring Boot application
+  ** Compose & link microservices
+  ** Create and install a `capability` such as a database and link it to to microservice consuming it
+* Code locally and next `push/build` on OpenShift
+* Switch from `Dev` to `Build` mode to trigger a Tekton S2I build
+
+== Guide
+
+Lab instructions can be found - https://bit.ly/3387PIS[https://bit.ly/3387PIS]
+
+== Need help
+
+RHPDS Support: rhpds-help@redhat.com
+
+Halkyon Community: link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Community]
+
+== References
+
+link:https://github.com/halkyonio/hal[Developer Tool - Hal]
+
+link:https://github.com/halkyonio/operator[Halkyon Operator]
+
+link:https://github.com/dekorateio/dekorate[Dekorate tool - Java Annotations/Config file]

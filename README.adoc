@@ -3,7 +3,7 @@
 = Red Hat Tech Exchange 2019
 
 == Session Title
-Simplify the deployment of Spring Boot applications using Halkyon Operator on Kubernetes
+Simplify the development of Spring Boot applications/microservices using Hal Cloud Client Tool and Halkyon Operator on Kubernetes
 
 == Goals
 
@@ -36,21 +36,13 @@ Wednesday: 3:00PM - Code : DBPHL
 Thursday : 9:30AM - Code : EMEA
 ----
 == Table of Contents
-New instructions
 
 . *link:modules/01_scenario/01_setup_Lab.adoc[Lab Setup]*
 . *link:modules/01_scenario/02_scenario_Lab.adoc[Code your Microservices]*
 
-Old instructions
-
-. *link:00_prereq.adoc[Pre-requisite]*
-. *link:01_application-overview.adoc[Application overview]*
-. *link:02_setup.adoc[Lab Setup]*
-. *link:03_scenario.adoc[Code your Microservices]*
-
 == Community
 
-. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Snowdrop & Halkyon Zulipchat Community]
+. link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Snowdrop & Halkyon Community]
 
 == References
 

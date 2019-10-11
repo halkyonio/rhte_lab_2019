@@ -186,10 +186,9 @@ You can view the log file of the operator as follows:
 +
 ----
 
-oc logs `oc get pod -n kubedb --as=system:admin | grep "^kubedb" | awk '{print $1}'` -n kubedb --as=system:admin | more
+oc logs `oc get pod -lapp=kubedb -n kubedb --as=system:admin -o name` -n kubedb --as=system:admin
 
 ...
-
 
 I0924 05:56:29.851996       1 run.go:24] Starting kubedb-server...
 I0924 05:56:30.922031       1 lib.go:112] Kubernetes version: &version.Info{Major:"1", Minor:"13+", GitVersion:"v1.13.4+4b86cc5", GitCommit:"4b86cc5", GitTreeState:"clean", BuildDate:"2019-07-24T19:42:25Z", GoVersion:"go1.11.6", Compiler:"gc", Platform:"linux/amd64"}
@@ -209,10 +208,9 @@ You can view the log file of this operator as follows:
 +
 ----
 
-oc logs `oc get pod -n operators --as=system:admin | grep "^halkyon" | awk '{print $1}'` -n operators --as=system:admin | more
+oc logs `oc get pod -lname=halkyon-operator -n operators --as=system:admin -o name` -n operators --as=system:admin | more
 
 ...
-
 
 Log stream paused.
 |
@@ -227,7 +225,6 @@ Log stream paused.
 2019-09-23T15:39:50.482Z	INFO	cmd	Registering 3rd party resources
 
 ...
-
 
 2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "component-controller", "worker count": 1}
 2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "capability-controller", "worker count": 1}
@@ -244,10 +241,7 @@ You can view the log file of this operator as follows:
 +
 ----
 
-oc logs `oc get pod -n tekton-pipelines --as=system:admin | grep "^tekton-pipelines-controller" | awk '{print $1}'` \
-    -n tekton-pipelines \
-    --as=system:admin | more
-|
+oc logs `oc get pod -lapp=tekton-pipelines-controller -n tekton-pipelines --as=system:admin -o name` -n tekton-pipelines --as=system:admin | more
 
 ...
 
