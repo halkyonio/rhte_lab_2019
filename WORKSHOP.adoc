@@ -31,10 +31,13 @@ Lab instructions can be found - https://bit.ly/3387PIS[https://bit.ly/3387PIS]
 == Need help
 
 RHPDS Support: rhpds-help@redhat.com
+
 Halkyon Community: link:https://snowdrop.zulipchat.com/#narrow/stream/207165-halkyon[Halkyon Community]
 
 == References
 
 link:https://github.com/halkyonio/hal[Developer Tool - Hal]
+
 link:https://github.com/halkyonio/operator[Halkyon Operator]
+
 link:https://github.com/dekorateio/dekorate[Dekorate tool - Java Annotations/Config file]
