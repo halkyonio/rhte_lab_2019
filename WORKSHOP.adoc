@@ -1,0 +1,20 @@
+:linkattrs:
+
+
+Name: Halkyon Workshop
+
+Description: Halkyon Workshop
+
+Long Description: 
+
+Simplify the development of Spring Boot applications/microservices using Hal Cloud Client Tool and Halkyon Operator on Kubernetes
+
+== Goals
+
+In this lab, you will :
+
+- Learn how the deployment of microservices could be simplified on k8s/OpenShift by adopting our `Dekorate` Tool and by delegating to an Operator the responsibility to deal with kubernetes/manifests creation
+- Play with a `Developer` tool called `Hal` to communicate with the cluster
+- Compose & link microservices
+- Deploy a `capability` such as a database and link it to to microservice consuming it
+- Code locally and next `push/build` on k8s/OpenShift
