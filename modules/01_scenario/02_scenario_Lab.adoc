@@ -741,6 +741,7 @@ INFO[0000] Component fruit-backend-sb switched to build
 **NOTE** : Due to the cpu, memory limit constraint of the pods created, this build process will take a few minutes !
 
 Test the service again and create new fruits using your browser at the address `oc get routes/fruit-backend-sb --template={{.spec.host}}`.
+
 Next use curl to check if the frontend application is getting the records from the backend ;-)
 ----
 FRONTEND_URL=$(oc get routes/fruit-client-sb --template={{.spec.host}})
