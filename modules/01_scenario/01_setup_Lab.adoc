@@ -319,13 +319,8 @@ services                5       50
 
 === Optional: Provision Lab environment in your own openshift
 
-It is offered to those that are interested in provisioning an environment to support this lab using their own resources.
+For those that may be interested in provisioning this Halkyon lab environment in their own OpenShift cluster, the instructions for doing so can be found link:[here].
 
-The lab environment assumes an existing OCP 3.11 installation with cluster admin access and about 24GB of RAM.
-
-The lab environment can be provisioned via the following Ansible:
-
-TO_DO
 
 === Optional:  Install _hal_ utility on other operating systems
 
