@@ -579,8 +579,6 @@ Set env variable: KUBERNETES_ENDPOINT_FRUIT=http://fruit-backend-sb:8080/api/fru
 +
 ----
 oc get links
-
-oc get links
 NAME                    AGE       STATUS    MESSAGE
 fruit-backend-sb-link   41s       Ready     Ready
 fruit-client-sb-link    5s        Pending   Waiting for the following resources: Component => Initiating link fruit-client-sb-link
