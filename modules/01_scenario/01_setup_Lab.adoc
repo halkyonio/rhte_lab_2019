@@ -208,7 +208,7 @@ You can view the log file of this operator as follows:
 +
 ----
 
-oc logs `oc get pod -lname=halkyon-operator -n operators --as=system:admin -o name` -n kubedb --as=system:admin | more
+oc logs `oc get pod -lname=halkyon-operator -n operators --as=system:admin -o name` -n operators --as=system:admin | more
 
 ...
 
