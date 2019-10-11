@@ -16,13 +16,14 @@ using the `https://github.com/halkyonio/hal/[Hal Cloud Client Tool]` and `https:
 
 In this workshop, you will :
 
-- Learn how the deployment of microservices could be simplified on k8s/OpenShift by:
-  - Adopting the `Dekorate` Tool responsible to generate the kubernetes manifests (aka yaml/json resources)
-  - Delegating to an Operator the responsibility to manage complex tasks to compose the microservices
-- Play with a `Developer` tool called `Hal` to communicate with the cluster and perform the following tasks:
-  -- Compose & link microservices
-  -- Create and install a `capability` such as a database and link it to to microservice consuming it
-- Code locally and next `push/build` on k8s/OpenShift
+* Learn how the deployment of microservices could be simplified on k8s/OpenShift by:
+  ** Adopting the `Dekorate` Tool responsible to generate the kubernetes manifests (aka yaml/json resources)
+  ** Delegating to an Operator the responsibility to manage complex tasks to compose the microservices
+* Play with a `Developer` tool called `Hal` to communicate with the cluster and perform the following tasks:
+  ** Compose & link microservices
+  ** Create and install a `capability` such as a database and link it to to microservice consuming it
+* Code locally and next `push/build` on OpenShift
+* Switch from `Dev` to `Build` mode to trigger a Tekton S2I build
 
 == Guide
 
