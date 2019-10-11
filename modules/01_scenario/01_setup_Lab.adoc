@@ -226,7 +226,6 @@ Log stream paused.
 
 ...
 
-
 2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "component-controller", "worker count": 1}
 2019-09-23T15:39:50.687Z	INFO	kubebuilder.controller	Starting workers	{"controller": "capability-controller", "worker count": 1}
 ----
@@ -243,9 +242,6 @@ You can view the log file of this operator as follows:
 ----
 
 oc logs `oc get pod -lapp=tekton-pipelines-controller -n tekton-pipelines --as=system:admin -o name` -n tekton-pipelines --as=system:admin | more
-
-...
-|
 
 ...
 
