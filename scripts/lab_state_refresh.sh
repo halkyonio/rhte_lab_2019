@@ -4,7 +4,7 @@ operators_project=operators
 
 updateOperators() {
     oc patch deploy/halkyon-operator \
-       --patch '{"spec":{"template":{"spec":{"containers":[{"name":"halkyon-operator", "image":"quay.io/halkyonio/operator:v0.1.8"}]}}}}' \
+       --patch '{"spec":{"template":{"spec":{"containers":[{"name":"halkyon-operator", "image":"quay.io/halkyonio/operator:v0.1.9"}]}}}}' \
        -n $operators_project \
        --as=system:admin
 }
