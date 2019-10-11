@@ -611,16 +611,17 @@ Local changes detected for 'fruit-client-sb' component: about to push source cod
  ✓  Successfully pushed 'fruit-client-sb' component to remote cluster
 ----
 
-. WARNING: if, for any reason, the push fails, you can try to play yourself the commands snippet hereafter and executed under the hood by `hal`
+. WARNING: As, the command wait till the maven is finished before to re-start the Pod running our application, then it will hangs
 +
 ----
-PROJECT=fruit-client-sb
-NAMESPACE=$LAB_NAME
-POD_ID=$(oc get pod -lapp=$PROJECT -n $NAMESPACE -o name | awk -F '/' '{print $2}')
-oc cp $PROJECT/pom.xml $POD_ID:/usr/src/ -n $NAMESPACE
-oc cp $PROJECT/src $POD_ID:/usr/src/ -n $NAMESPACE
-oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start build
-oc exec $POD_ID -n $NAMESPACE /var/lib/supervisord/bin/supervisord ctl start run
+hal component push -c fruit-backend-sb
+Local changes detected for 'fruit-backend-sb' component: about to push source code to remote cluster
+ ✓  Uploading /home/lab-user/halkyon-fruit/fruit-backend-sb.tar
+ ✓  Extracting source on the remote cluster
+ ✓  Performing build
+... wait till build is fnished before to continue !!
+ ✓  Restarting app
+ ✓  Successfully pushed 'fruit-backend-sb' component to remote cluster
 ----
 
 . Push the `fruit-backend-sb`:
