@@ -181,8 +181,8 @@ git push -u origin master
 ----
 +
 **Warning** : Please replace the var `<RHTE_ORG>` with the value `rhte-us` and `<YOUR_REPO_NAME>` with the git repo name.
-
-**Note** that the user and password to push to the repo are `username="rhte-user"` and `password="!demo12345"`
++
+**Note** : The `user` and `password` to be used to push the code to the repo are `username="rhte-user"` and `password="!demo12345"`
 
 == SpringBoot application deployment 
 
