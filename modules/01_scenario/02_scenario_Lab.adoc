@@ -194,7 +194,7 @@ git push -u origin master
 mvn package -f fruit-client-sb
 ----
 +
-*Remark*: While this command isn't mandatory for the proper execution of the lab's scenario, it is nonetheless suggested in order to ensure that the Spring Boot project will correctly created.
+NOTE: While this command isn't mandatory for the proper execution of the lab's scenario, it is nonetheless suggested in order to ensure that the Spring Boot project will correctly created.
 
 . Package the backend Spring Boot application, paying special attention to the `local` maven profile:
 +
@@ -202,7 +202,7 @@ mvn package -f fruit-client-sb
 mvn package -f fruit-backend-sb -Plocal
 ----
 +
-**Remarks**:
+NOTE:
 +
 - You need to use the `local` profile because the project is set up to work both locally using a `H2` database for quick testing and "remotely" using a `PostgreSQL` database.
 +
@@ -269,7 +269,7 @@ Metadata:
 
 ==== Modify default _LimitRange_
 
-IMPORTANT : This step is only needed for this lab and will not be required for deployment using your own dedicated cluster !
+IMPORTANT: This step is only needed for this lab and will not be required for deployment using your own dedicated cluster !
 
 The _component_ custom resources that you are about to define will create OpenShift _Deployment_ resources.
 
@@ -486,7 +486,7 @@ oc get capability
 NAME          CATEGORY   KIND      AGE       STATUS    MESSAGE                                     REVISION
 postgres-db   Database             8s        Ready     Ready: 'PodName' changed to 'postgres-db'
 ----
-+
+
 TIP: For all the resources created you can check the content generated using the oc command : `oc get component postgres-db -o yaml`, ...
 
 == Link Components
@@ -524,9 +524,9 @@ Selected link type: Secret
  ✓  Created link fruit-backend-sb-link
 ----
 +
-**REMARK**: The parameters `DB_xxxx` defined within the secret will be then used to create the corresponding ENV variables mounted to the Spring Boot application when it will start.
+NOTE: The parameters `DB_xxxx` defined within the secret will be then used to create the corresponding ENV variables mounted to the Spring Boot application when it will start.
 +
-**IMPORTANT**: The current releases of  `Hal` and `Halkyon` operator used for this lab rely on the assumption that you know the type of the information to be injected (e.g : secret, env variable, ...).
+IMPORTANT: The current releases of  `Hal` and `Halkyon` operator used for this lab rely on the assumption that you know the type of the information to be injected (e.g : secret, env variable, ...).
 While this approach is perfectly fine for a lab, that should be definitively improved and that will become part of future iterations of the `halkyon` technology using a contract definition.
 
 . Wire the `fruit-client-sb` service  to link to the `fruit-backend-sb` service.
@@ -559,7 +559,7 @@ Env variable in the 'name=value': `KUBERNETES_ENDPOINT_FRUIT=http://fruit-backen
 Change default name: `fruit-client-sb-link`
 -----
 +
-**REMARK**: Like for the secret, the `ENV VARIABLE` defined will be used also to configure the pod of the Spring Boot Application when it will start !
+NOTE: Like for the secret, the `ENV VARIABLE` defined will be used also to configure the pod of the Spring Boot Application when it will start !
 
 .. The resulting outcome of the execution of the command is :
 +
@@ -738,7 +738,7 @@ hal component switch -m build -c fruit-backend-sb
 INFO[0000] Component fruit-backend-sb switched to build
 ----
 
-**NOTE** : Due to the cpu, memory limit constraint of the pods created, this build process will take a few minutes !
+NOTE: Due to the cpu, memory limit constraint of the pods created, this build process will take a few minutes !
 
 Test the service again and create new fruits using your browser at the address `oc get routes/fruit-backend-sb --template={{.spec.host}}`.
 
