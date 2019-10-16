@@ -161,12 +161,20 @@ From time to time, some components in your OpenShift based lab environment tend 
 So as to ensure all components work as expected, execute the following in your remote lab environment:
 
 -----
+# Switch to root operating system user
+sudo -i
+
+
 mkdir -p $HOME/lab && \
   wget \
   https://raw.githubusercontent.com/halkyonio/rhte_lab_2019/master/scripts/lab_state_refresh.sh \
   -O $HOME/lab/lab_state_refresh.sh \
   && chmod 755 $HOME/lab/lab_state_refresh.sh \
   && $HOME/lab/lab_state_refresh.sh
+
+
+# Exit back to non-root operating system user
+exit
 -----
 
 == Operators
