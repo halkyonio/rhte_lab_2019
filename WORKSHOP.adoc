@@ -10,7 +10,7 @@ Long Description: 
 == Hal Client and Halkyon Operator Workshop
 
 This workshop aims to discover how you can simplify the development of your applications (aka microservices) on Kubernetes/OpenShift
-using the `https://github.com/halkyonio/hal/[Hal Cloud Client Tool]` and `https://github.com/halkyonio/operator/[Halkyon Operator]`.
+using the https://github.com/halkyonio/hal/[Hal Cloud Client Tool] and https://github.com/halkyonio/operator/[Halkyon Operator].
 
 == Goals
 
