@@ -136,15 +136,12 @@ hal component spring-boot \
   fruit-backend-sb
 ----
 
-. Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
+. Create a `.gitignore` file to ignore the files added by the build tool (maven in this case)
 +
 ----
 touch $HOME/$LAB_NAME/.gitignore
 echo "*/target" >> $HOME/$LAB_NAME/.gitignore
-echo ".idea/" >> $HOME/$LAB_NAME/.gitignore
 ----
-+
-**Remark**: The previous command added ignored for files added by IntelliJ. If a different IDE is being used, the command will be to updated.
 
 === Version Control Your Spring App
 
