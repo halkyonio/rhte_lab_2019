@@ -284,14 +284,12 @@ hal component spring-boot \
   fruit-backend-sb
 ----
 
-Create a `.gitignore` file to ignore the files added by your IDE and the build tool (maven in this case)
+Create a `.gitignore` file to ignore the files added by the build tool (maven in this case)
++
 ----
-touch .gitignore
-echo "*/target" >> .gitignore
-echo ".idea/" >> .gitignore
+touch $HOME/$LAB_NAME/.gitignore
+echo "*/target" >> $HOME/$LAB_NAME/.gitignore
 ----
-
-**Remark**: The previous command added ignored for files added by IntelliJ. If a different IDE is being used, the command will be to updated.
 
 The next step is to initialize a git repository, add the `pom.xml, .gitignore` files created earlier along with the two Spring Boot applications. Finally push to the  proper remote repository:
 ----
