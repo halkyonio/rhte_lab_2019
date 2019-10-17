@@ -4,7 +4,7 @@
 :toc2:
 :linkattrs:
 
-= Link Microservices using Halkyon
+= Compose Microservices using Halkyon
 
 :numbered:
 
