@@ -1,0 +1,107 @@
+:noaudio:
+:scrollbar:
+:data-uri:
+:toc2:
+:linkattrs:
+
+= Appendix
+
+== Optional: OCP cluster admin related tasks
+
+. OCP cluster admin access is provided by switching to the root operating system of your lab environment as follows.
++
+-----
+$ sudo -i
+-----
+
+. Provider the OCP user called _user1_ with the ability to impersonate cluster admin:
++
+-----
+# oc adm policy add-cluster-role-to-user sudoer user1
+-----
+
+. Validate the ability to _impersonate_ cluster admin:
++
+-----
+$ oc get nodes --as=system:admin
+
+NAME                      STATUS    ROLES            AGE       VERSION
+infranode00.example.com   Ready     infra            4d        v1.11.0+d4cacc0
+master00.example.com      Ready     compute,master   4d        v1.11.0+d4cacc0
+-----
+
+. View details of the ClusterQuota that the _cluster-admin_ has assigned to your OpenShift user:
++
+-----
+$ oc describe clusterquota quota-rhpam-$OCP_USERNAME --as=system:admin
+
+....
+
+Resource                Used    Hard
+--------                ----    ----
+configmaps              1       15
+limits.cpu              4100m   9
+limits.memory           8904Mi  16Gi
+persistentvolumeclaims  4       10
+pods                    5       20
+requests.cpu            750m    4
+requests.memory         3160Mi  8Gi
+requests.storage        9Gi     40Gi
+secrets                 23      50
+services                5       50
+-----
+
+
+
+== Optional: Provision Lab environment in your own openshift
+
+For those that may be interested in provisioning this Halkyon lab environment in their own OpenShift cluster, the instructions for doing so can be found link:https://github.com/halkyonio/rhte_lab_2019/blob/master/automation/readme.adoc[here].
+
+
+== Optional:  Install _hal_ utility on other operating systems
+
+`hal` is a developer-focused tool whose purpose is to make the development of microservice applications using Halkyon even easier.
+It does so by guiding the developer in choices as they create microservice components and link them together.
+
+The _hal_ utility is already installed in your lab environment.
+
+The following is provided if you desire the _hal_ utility installed in a different operating system.
+
+=== Binary installation for Mac OS
+
+----
+# curl -L https://github.com/halkyonio/hal/releases/download/v0.1.12/hal_0.1.12_Darwin_x86_64.tar.gz | tar -xz -C /usr/local/bin/ && chmod +x /usr/local/bin/hal
+----
+
+
+=== Windows
+
+Download and add it to your `PATH` environment variable:
+
+. Download the `hal_0.1.12_Windows_x86_64.tar.gz` file from the link:https://github.com/halkyonio/hal/releases[GitHub releases page].
+. Extract the `hal.exec` file from the compressed archive.
+. Add the location of the extracted binary to your `PATH` environment under by example `c:\tools`.
+
+=== Docker
+
+As alternative to using the native binaries for the various OSes, `Hal` commands can also be executed using `docker`.
+
+NOTE: The `hal` image already packages the `oc` client version 4.x.
+
+Execute this command to mount your current directory (where the execution of the lab's scenario will take place) within the container and pass various hal commands.
+
+----
+docker run --rm --name hal -v "/path/to/lab/dir:/home/lab" -it quay.io/halkyonio/hal:v0.1.12 <COMMAND>
+----
+
+
+ifdef::showscript[]
+
+
+Grant the `admin` role to your `user1` user in order to gain access to the different projects, to list the resources created by Halkyon.
++
+----
+oc adm policy add-cluster-role-to-user admin user1 --as=system:admin
+----
+
+endif::showscript[]
