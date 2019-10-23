@@ -5,8 +5,8 @@ You will need a link:https://account.opentlc.com/account/[Red Hat GPTE _Opentlc_
 
 . In a web browser, navigate to the _Cloud Forms_ environment for OPEN and RHSE at:   https://labs.opentlc.com.
 . Authenticate using your _OPENTLC_ credentials, for example: `johndoe-redhat.com`.
-. Navigate to the following catalog:  `Services -> Catalog -> Catalog Items -> OPENTLC Middleware Solutions Labs`.
-. Select the following catalog item: `RHTE19: Dynamic Case Mgmt`.
+. Navigate to the following catalog:  `Services -> Catalog -> Catalog Items -> Workshops`.
+. Select the following catalog item: `Halkyon Workshop`.
 . Click `Order` on the next page.
 
 . In the subsequent order form, select the check box confirming you understand the runtime and expiration dates. :

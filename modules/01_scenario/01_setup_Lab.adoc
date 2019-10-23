@@ -7,7 +7,7 @@
 // The following variable can be one of the following:
 //   1) cf_order
 //   2) guid_grabber
-:lab_order_type: guid_grabber
+:lab_order_type: cf_order
 
 // Guid Grabber dev
 //:guid_grabber_url: link:https://www.opentlc.com/gg/gg.cgi?profile=generic_tester[*Guid Grabber*,window="_blank"]
